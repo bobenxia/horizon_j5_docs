@@ -1,0 +1,224 @@
+hat.models
+==========
+
+Models widely used in upper module in HAT.
+
+Models
+------
+
+backbones
+^^^^^^^^^
+
+.. py:currentmodule:: hat.models.backbones
+
+.. autosummary::
+    :nosignatures:
+
+    EfficientNet
+
+    efficientnet
+
+    efficientnet_lite
+
+    MobileNetV1
+
+    ResNet18
+
+    ResNet50
+
+    VarGDarkNet53
+
+    ResNet50V2
+
+    VargNetV2
+
+    TinyVargNetV2
+
+    get_vargnetv2_stride2channels
+
+    VargConvNet
+
+losses
+^^^^^^
+
+.. py:currentmodule:: hat.models.losses
+
+.. autosummary::
+    :nosignatures:
+
+    CEWithLabelSmooth
+
+    CrossEntropyLoss
+
+    CrossEntropyLossV2
+
+    SoftTargetCrossEntropy
+
+    CEWithWeightMap
+
+    FocalLoss
+
+    FocalLossV2
+
+    SoftmaxFocalLoss
+
+    GaussianFocalLoss
+
+    GIoULoss
+
+    SegLoss
+
+    SmoothL1Loss
+
+    YOLOV3Loss
+
+    MixSegLossMultipreds
+
+    MixSegLoss
+
+necks
+^^^^^
+
+.. py:currentmodule:: hat.models.necks
+
+.. autosummary::
+    :nosignatures:
+
+    BiFPN
+
+    DwUnet
+
+    FPN
+
+    RetinaNetFPN
+
+    Unet
+
+    YOLOV3Neck
+
+    PAFPN
+
+    FastSCNNNeck
+
+structures
+^^^^^^^^^^
+
+.. py:currentmodule:: hat.models.structures
+
+.. autosummary::
+    :nosignatures:
+
+    Classifier
+
+    Segmentor
+
+detectors
+*********
+
+.. py:currentmodule:: hat.models.structures.detectors
+
+.. autosummary::
+    :nosignatures:
+
+    RetinaNet
+
+    YOLOV3
+
+    FCOS
+
+fcos
+****
+
+.. py:currentmodule:: hat.models.task_modules.fcos
+
+.. autosummary::
+    :nosignatures:
+
+    FCOSDecoder
+
+    FCOSHead
+
+    FCOSTarget
+
+    DynamicFcosTarget
+
+    multiclass_nms
+
+    get_points
+
+    distance2bbox
+
+    BBoxUpscaler
+
+seg
+***
+
+.. py:currentmodule:: hat.models.task_modules.seg
+
+.. autosummary::
+    :nosignatures:
+
+    SegDecoder
+
+    SegHead
+
+    SegTarget
+
+    FRCNNSegHead
+
+deeplab
+*******
+
+.. py:currentmodule:: hat.models.task_modules.deeplab
+
+.. autosummary::
+    :nosignatures:
+
+    Deeplabv3plusHead
+
+fcn
+***
+
+.. py:currentmodule:: hat.models.task_modules.fcn
+
+.. autosummary::
+    :nosignatures:
+
+    FCNHead
+
+    DepthwiseSeparableFCNHead
+
+    FCNTarget
+
+    FCNDecoder
+
+API Reference
+--------------
+
+.. automodule:: hat.models.backbones
+    :members:
+
+.. automodule:: hat.models.losses
+    :members:
+
+.. automodule:: hat.models.necks
+    :members:
+
+.. automodule:: hat.models.structures
+    :members:
+
+.. automodule:: hat.models.structures.detectors
+    :members:
+
+.. automodule:: hat.models.task_modules.fcos
+    :members:
+
+.. automodule:: hat.models.task_modules.seg
+    :members:
+
+.. automodule:: hat.models.task_modules.deeplab
+    :members:
+
+.. automodule:: hat.models.task_modules.fcn
+    :members:
+

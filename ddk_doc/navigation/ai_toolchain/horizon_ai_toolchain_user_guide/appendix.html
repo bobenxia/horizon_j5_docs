@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6. 附录 &mdash; Horizon J5 AI Toolchain User Guide  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+        <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="5. DSP开发文档" href="dsp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Horizon J5 AI Toolchain User Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本手册目录结构:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="product_introduction.html">1. 产品介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env_prepare.html">2. 环境部署</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution.html">3. PTQ浮点定点模型转换方案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application_development.html">4. runtime应用开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">5. DSP开发文档</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">6. 附录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#benchmark">6.1. 模型性能Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#norm-type">6.2. norm_type 配置说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">6.2.1. 参数说明解析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">6.2.2. 计算公式及示例说明</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">6.2.2.1. 模型训练时的数据标准化处理计算公式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">6.2.2.2. 模型推理时的计算公式</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#transformer">6.3. transformer说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#addtransformer">6.3.1. AddTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#meantransformer">6.3.2. MeanTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scaletransformer">6.3.3. ScaleTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#normalizetransformer">6.3.4. NormalizeTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transposetransformer">6.3.5. TransposeTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hwc2chwtransformer">6.3.6. HWC2CHWTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#chw2hwctransformer">6.3.7. CHW2HWCTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#centercroptransformer">6.3.8. CenterCropTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pilcentercroptransformer">6.3.9. PILCenterCropTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#longsidecroptransformer">6.3.10. LongSideCropTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#padresizetransformer">6.3.11. PadResizeTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resizetransformer">6.3.12. ResizeTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pilresizetransformer">6.3.13. PILResizeTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shortlongresizetransformer">6.3.14. ShortLongResizeTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#padtransformer">6.3.15. PadTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shortsideresizetransformer">6.3.16. ShortSideResizeTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paddedcentercroptransformer">6.3.17. PaddedCenterCropTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgr2rgbtransformer">6.3.18. BGR2RGBTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rgb2bgrtransformer">6.3.19. RGB2BGRTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rgb2graytransformer">6.3.20. RGB2GRAYTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgr2graytransformer">6.3.21. BGR2GRAYTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rgb2gray-128transformer">6.3.22. RGB2GRAY_128Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rgb2yuv444transformer">6.3.23. RGB2YUV444Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgr2yuv444transformer">6.3.24. BGR2YUV444Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgr2yuv444-128transformer">6.3.25. BGR2YUV444_128Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rgb2yuv444-128transformer">6.3.26. RGB2YUV444_128Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgr2yuvbt601videotransformer">6.3.27. BGR2YUVBT601VIDEOTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rgb2yuvbt601videotransformer">6.3.28. RGB2YUVBT601VIDEOTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#yuvtransformer">6.3.29. YUVTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reducechanneltransformer">6.3.30. ReduceChannelTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bgr2nv12transformer">6.3.31. BGR2NV12Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rgb2nv12transformer">6.3.32. RGB2NV12Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nv12toyuv444transformer">6.3.33. NV12ToYUV444Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#warpaffinetransformer">6.3.34. WarpAffineTransformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#f32tos8transformer">6.3.35. F32ToS8Transformer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#f32tou8transformer">6.3.36. F32ToU8Transformer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">6.4. 常见故障处理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hb-mapper-checker">6.4.1. hb_mapper checker 常见故障</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hb-mapper-makertbin">6.4.2. hb_mapper makertbin常见故障</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hb-model-modifier">6.4.3. hb_model_modifier常见故障</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hb-model-verifier">6.4.4. hb_model_verifier常见故障</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hb-onnxruntime">6.4.5. hb_onnxruntime常见故障</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#libdnn">6.4.6. libDNN常见故障</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Horizon J5 AI Toolchain User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">6. </span>附录</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">6. </span>附录<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="benchmark">
+<h2><span class="section-number">6.1. </span>模型性能Benchmark<a class="headerlink" href="#benchmark" title="永久链接至标题"></a></h2>
+<p><strong>说明</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>测试条件：</p>
+<ul>
+<li><p>测试开发板：J5-DVB board。</p></li>
+<li><p>测试核心数：latency单核，fps双核。</p></li>
+<li><p>性能数据获取频率设置为：每5分钟获取一次性能参数，取平均值。</p></li>
+</ul>
+</li>
+<li><p>表头缩写：</p>
+<ul>
+<li><p>C = 计算量，单位为GOPs（十亿次运算/秒）。此数据通过 <code class="docutils literal notranslate"><span class="pre">hb_perf</span></code> 工具获得。</p></li>
+<li><p>FPS = 每秒帧率。此数据在开发板单线程运行ai_benchmark_j5示例包/script路径下各模型子文件夹的 <strong>latency.sh</strong> 脚本获取，不含后处理。</p></li>
+<li><p>ITC = 推理耗时。此数据在开发板单线程运行ai_benchmark_j5示例包/script路径下各模型子文件夹的 <strong>latency.sh</strong> 脚本获取，不含后处理。</p></li>
+<li><p>TCPP = 后处理耗时。此数据在开发板单线程运行ai_benchmark_j5示例包/script路径下各模型子文件夹的 <strong>latency.sh</strong> 脚本获取。</p></li>
+<li><p>RV = 单帧读取数据量。此数据通过 <code class="docutils literal notranslate"><span class="pre">hb_perf</span></code> 工具获得。</p></li>
+<li><p>WV = 单帧写入数据量。此数据通过 <code class="docutils literal notranslate"><span class="pre">hb_perf</span></code> 工具获得。</p></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 6%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 11%" />
+<col style="width: 34%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>MODEL NAME</strong></p></td>
+<td><p><strong>INPUT SIZE</strong></p></td>
+<td><p><strong>C(GOPs)</strong></p></td>
+<td><p><strong>FPS</strong></p></td>
+<td><p><strong>ITC(ms)</strong></p></td>
+<td><p><strong>TCPP(ms)</strong></p></td>
+<td><p><strong>RV(mb)</strong></p></td>
+<td><p><strong>WV(mb)</strong></p></td>
+<td><p><strong>Dataset</strong></p></td>
+<td><p><strong>ACCURACY</strong></p></td>
+<td><p><strong>LINKS</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>MobileNetv1</strong></p></td>
+<td><p>1x224x224x3</p></td>
+<td><p>1.14</p></td>
+<td><p>3444.67</p></td>
+<td><p>0.996</p></td>
+<td><p>0.077</p></td>
+<td><p>4.07</p></td>
+<td><p>0.13</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7061(FLOAT)/0.7024(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/shicai/MobileNet-Caffe">https://github.com/shicai/MobileNet-Caffe</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>MobileNetv2</strong></p></td>
+<td><p>1x224x224x3</p></td>
+<td><p>0.86</p></td>
+<td><p>3477.34</p></td>
+<td><p>0.923</p></td>
+<td><p>0.070</p></td>
+<td><p>3.68</p></td>
+<td><p>0.02</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7167(FLOAT)/0.7117(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/shicai/MobileNet-Caffe">https://github.com/shicai/MobileNet-Caffe</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>GoogleNet</strong></p></td>
+<td><p>1x224x224x3</p></td>
+<td><p>3.00</p></td>
+<td><p>2179.51</p></td>
+<td><p>1.192</p></td>
+<td><p>0.071</p></td>
+<td><p>6.55</p></td>
+<td><p>0.10</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7001(FLOAT)/0.6990(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/GoogleNet">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/GoogleNet</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resnet18</strong></p></td>
+<td><p>1x224x224x3</p></td>
+<td><p>3.65</p></td>
+<td><p>1483.80</p></td>
+<td><p>1.656</p></td>
+<td><p>0.070</p></td>
+<td><p>10.56</p></td>
+<td><p>0.12</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.6836(FLOAT)/0.6826(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HolmesShuan/ResNet-18-Caffemodel-on-ImageNet">https://github.com/HolmesShuan/ResNet-18-Caffemodel-on-ImageNet</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>EfficientNet-Lite0</strong></p></td>
+<td><p>1x224x224x3</p></td>
+<td><p>0.77</p></td>
+<td><p>2720.59</p></td>
+<td><p>1.093</p></td>
+<td><p>0.070</p></td>
+<td><p>5.08</p></td>
+<td><p>0.02</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7491(FLOAT)/0.7475(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite">https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>EfficientNet-Lite1</strong></p></td>
+<td><p>1x240x240x3</p></td>
+<td><p>1.20</p></td>
+<td><p>2257.96</p></td>
+<td><p>1.774</p></td>
+<td><p>0.071</p></td>
+<td><p>5.85</p></td>
+<td><p>0.02</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7647(FLOAT)/0.7624(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite">https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>EfficientNet-Lite2</strong></p></td>
+<td><p>1x260x260x3</p></td>
+<td><p>1.72</p></td>
+<td><p>2060.29</p></td>
+<td><p>1.330</p></td>
+<td><p>0.071</p></td>
+<td><p>6.64</p></td>
+<td><p>0.02</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7738(FLOAT)/0.7715(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite">https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>EfficientNet-Lite3</strong></p></td>
+<td><p>1x280x280x3</p></td>
+<td><p>2.77</p></td>
+<td><p>1566.11</p></td>
+<td><p>1.621</p></td>
+<td><p>0.071</p></td>
+<td><p>9.00</p></td>
+<td><p>0.02</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7922(FLOAT)/0.7905(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite">https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>EfficientNet-Lite4</strong></p></td>
+<td><p>1x300x300x3</p></td>
+<td><p>5.11</p></td>
+<td><p>1037.61</p></td>
+<td><p>2.265</p></td>
+<td><p>0.071</p></td>
+<td><p>13.91</p></td>
+<td><p>0.02</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.8070(FLOAT)/0.8052(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite">https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Vargconvnet</strong></p></td>
+<td><p>1x224x224x3</p></td>
+<td><p>9.06</p></td>
+<td><p>1495.77</p></td>
+<td><p>1.622</p></td>
+<td><p>0.071</p></td>
+<td><p>9.14</p></td>
+<td><p>0.11</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7790(FLOAT)/0.7787(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/VargNet">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/VargNet</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Efficientnasnet_m</strong></p></td>
+<td><p>1x300x300x3</p></td>
+<td><p>4.53</p></td>
+<td><p>1108.70</p></td>
+<td><p>2.076</p></td>
+<td><p>0.071</p></td>
+<td><p>13.26</p></td>
+<td><p>0.04</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.8009(FLOAT)/0.7925(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/EfficientnasNet">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/EfficientnasNet</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Efficientnasnet_s</strong></p></td>
+<td><p>1x280x280x3</p></td>
+<td><p>1.44</p></td>
+<td><p>2650.49</p></td>
+<td><p>1.055</p></td>
+<td><p>0.071</p></td>
+<td><p>5.22</p></td>
+<td><p>0.004096</p></td>
+<td><p>ImageNet</p></td>
+<td><p>Top1:
+0.7573(FLOAT)/0.7508(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/EfficientnasNet">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/EfficientnasNet</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>YOLOv2_Darknet19</strong></p></td>
+<td><p>1x608x608x3</p></td>
+<td><p>62.94</p></td>
+<td><p>277.444</p></td>
+<td><p>7.131</p></td>
+<td><p>1.670</p></td>
+<td><p>46.71</p></td>
+<td><p>2.01</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.276(FLOAT)/0.271(INT8)</p></td>
+<td><p><a class="reference external" href="https://pjreddie.com/darknet/yolo">https://pjreddie.com/darknet/yolo</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>YOLOv3_Darknet53</strong></p></td>
+<td><p>1x416x416x3</p></td>
+<td><p>65.90</p></td>
+<td><p>202.192</p></td>
+<td><p>9.811</p></td>
+<td><p>9.957</p></td>
+<td><p>59.87</p></td>
+<td><p>6.90</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.333(FLOAT)/0.330(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/ChenYingpeng/caffe-yolov3">https://github.com/ChenYingpeng/caffe-yolov3</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>YOLOv5x</strong></p></td>
+<td><p>1x672x672x3</p></td>
+<td><p>243.92</p></td>
+<td><p>72.0124</p></td>
+<td><p>27.069</p></td>
+<td><p>5.912</p></td>
+<td><p>123.07</p></td>
+<td><p>43.93</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.480(FLOAT)/0.464(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/ultralytics/yolov5/releases/tag/v2.0">https://github.com/ultralytics/yolov5/releases/tag/v2.0</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Ssd_mobilenetv1</strong></p></td>
+<td><p>1x300x300x3</p></td>
+<td><p>2.30</p></td>
+<td><p>2181.49</p></td>
+<td><p>1.076</p></td>
+<td><p>1.109</p></td>
+<td><p>5.85</p></td>
+<td><p>0.20</p></td>
+<td><p>VOC</p></td>
+<td><p>mAP:
+0.7342(FLOAT)/0.7209(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/chuanqi305/MobileNet-SSD">https://github.com/chuanqi305/MobileNet-SSD</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Centernet_resnet101</strong></p></td>
+<td><p>1x512x512x3</p></td>
+<td><p>90.53</p></td>
+<td><p>250.524</p></td>
+<td><p>6.681</p></td>
+<td><p>21.386</p></td>
+<td><p>53.05</p></td>
+<td><p>13.76</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.342(FLOAT)/0.331(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Centernet">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Centernet</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Fcos_efficientnetb0</strong></p></td>
+<td><p>1x512x512x3</p></td>
+<td><p>5.02</p></td>
+<td><p>1637.86</p></td>
+<td><p>1.503</p></td>
+<td><p>0.278</p></td>
+<td><p>4.64</p></td>
+<td><p>2.11</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.356(FLOAT)/0.354(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Fcos_Efficientnetb0">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Fcos_Efficientnetb0</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Yolov3_vargdarknet</strong></p></td>
+<td><p>1x416x416x3</p></td>
+<td><p>42.82</p></td>
+<td><p>289.614</p></td>
+<td><p>6.856</p></td>
+<td><p>9.894</p></td>
+<td><p>45.41</p></td>
+<td><p>8.28</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.335(FLOAT)/0.316(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Yolov3_VargDarknet">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Yolov3_VargDarknet</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Deeplabv3plus_efficientnetb0</strong></p></td>
+<td><p>1x1024x2048x3</p></td>
+<td><p>30.78</p></td>
+<td><p>196.36</p></td>
+<td><p>10.216</p></td>
+<td><p>0.810</p></td>
+<td><p>14.32</p></td>
+<td><p>9.90</p></td>
+<td><p>Cityscapes</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.7507(FLOAT)/0.7567(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Fastscnn_efficientnetb0</strong></p></td>
+<td><p>1x1024x2048x3</p></td>
+<td><p>12.50</p></td>
+<td><p>331.221</p></td>
+<td><p>6.325</p></td>
+<td><p>0.825</p></td>
+<td><p>9.25</p></td>
+<td><p>6.46</p></td>
+<td><p>Cityscapes</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.6997(FLOAT)/0.6928(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/FastSCNN">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/FastSCNN</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Deeplabv3plus_efficientnetm1</strong></p></td>
+<td><p>1x1024x2048x3</p></td>
+<td><p>77.05</p></td>
+<td><p>130.234</p></td>
+<td><p>15.461</p></td>
+<td><p>0.867</p></td>
+<td><p>31.10</p></td>
+<td><p>22.63</p></td>
+<td><p>Cityscapes</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.7794(FLOAT)/0.7741(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Deeplabv3plus_efficientnetm2</strong></p></td>
+<td><p>1x1024x2048x3</p></td>
+<td><p>124.16</p></td>
+<td><p>85.12</p></td>
+<td><p>22.539</p></td>
+<td><p>0.814</p></td>
+<td><p>79.01</p></td>
+<td><p>59.33</p></td>
+<td><p>Cityscapes</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.7882(FLOAT)/0.7856(INT8)</p></td>
+<td><p><a class="reference external" href="https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus">https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>fcos_efficientnetb0</strong></p></td>
+<td><p>1x512x512x3</p></td>
+<td><p>5.03</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>5.17</p></td>
+<td><p>2.44</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.357(FLOAT)/0.357(INT8)</p></td>
+<td><p><a class="reference external" href="http://cocodataset.org/">http://cocodataset.org/</a></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>fcos_efficientnetb2</strong></p></td>
+<td><p>1x768x768x3</p></td>
+<td><p>22.11</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>18.87</p></td>
+<td><p>12.81</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.451(FLOAT)/0.450(INT8)</p></td>
+<td><p><a class="reference external" href="http://cocodataset.org/">http://cocodataset.org/</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>fcos_efficientnetb3</strong></p></td>
+<td><p>1x896x896x3</p></td>
+<td><p>41.51</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>TBD</p></td>
+<td><p>33.46</p></td>
+<td><p>23.48</p></td>
+<td><p>COCO</p></td>
+<td><p>[IoU=0.50:0.95]=
+0.476(FLOAT)/0.477(INT8)</p></td>
+<td><p><a class="reference external" href="http://cocodataset.org/">http://cocodataset.org/</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="norm-type">
+<h2><span class="section-number">6.2. </span>norm_type 配置说明<a class="headerlink" href="#norm-type" title="永久链接至标题"></a></h2>
+<section id="id2">
+<h3><span class="section-number">6.2.1. </span>参数说明解析<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
+<p><strong>norm_type 参数讲解</strong></p>
+<ul class="simple">
+<li><p>参数作用：此参数为在模型中添加的输入数据预处理方法。</p></li>
+<li><p>参数取值范围及说明：</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">no_preprocess</span></code> 表示不添加任何数据预处理。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_mean</span></code> 表示提供减均值预处理。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_scale</span></code> 表示提供乘scale系数预处理。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data_mean_and_scale</span></code> 表示提供先减均值再乘scale系数前处理。</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>当输入节点多于一个时，设置的节点顺序需要与 <code class="docutils literal notranslate"><span class="pre">input_name</span></code> 中的顺序严格保持一致。</p>
+</div>
+<p><strong>mean_value 参数讲解</strong></p>
+<ul class="simple">
+<li><p>参数作用：此参数表示指定预处理方法的图像减去的均值。</p></li>
+<li><p>使用说明：当 <code class="docutils literal notranslate"><span class="pre">norm_type</span></code> 取值为 <code class="docutils literal notranslate"><span class="pre">data_mean_and_scale</span></code> 或 <code class="docutils literal notranslate"><span class="pre">data_mean</span></code> 时需要配置该参数。</p></li>
+<li><p>参数说明：</p>
+<ul>
+<li><p>当只有一个输入节点时，仅需要配置一个数值，表示所有通道都减去这个均值。</p></li>
+<li><p>当有多个节点时，提供与通道数量一致的数值（这些数值以空格分隔开），表示每个通道都会减去不同的均值。</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ol class="arabic simple">
+<li><p>配置的输入节点数量必须与 <code class="docutils literal notranslate"><span class="pre">norm_type</span></code> 配置的节点数量一致。</p></li>
+<li><p>如果存在某个节点不需要 <code class="docutils literal notranslate"><span class="pre">mean</span></code> 处理，则为该节点配置 <code class="docutils literal notranslate"><span class="pre">'None'</span></code>。</p></li>
+</ol>
+</div>
+<p><strong>scale_value 参数讲解</strong></p>
+<ul class="simple">
+<li><p>参数作用：此参数表示指定预处理方法的数值scale系数。</p></li>
+<li><p>使用说明：当 <code class="docutils literal notranslate"><span class="pre">norm_type</span></code> 取值为 <code class="docutils literal notranslate"><span class="pre">data_mean_and_scale</span></code> 或 <code class="docutils literal notranslate"><span class="pre">data_scale</span></code> 时需要配置该参数。</p></li>
+<li><p>参数说明：</p>
+<ul>
+<li><p>当只有一个输入节点时，仅需要配置一个数值，表示所有通道都乘以这个系数。</p></li>
+<li><p>当有多个节点时，提供与通道数量一致的数值（这些数值以空格分隔开），表示每个通道都会乘以不同的系数。</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ol class="arabic simple">
+<li><p>配置的输入节点数量必须与 <code class="docutils literal notranslate"><span class="pre">norm_type</span></code> 配置的节点数量一致。</p></li>
+<li><p>如果存在某个节点不需要 <code class="docutils literal notranslate"><span class="pre">scale</span></code> 处理，则为该节点配置 <code class="docutils literal notranslate"><span class="pre">'None'</span></code>。</p></li>
+</ol>
+</div>
+</section>
+<section id="id3">
+<h3><span class="section-number">6.2.2. </span>计算公式及示例说明<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<section id="id4">
+<h4><span class="section-number">6.2.2.1. </span>模型训练时的数据标准化处理计算公式<a class="headerlink" href="#id4" title="永久链接至标题"></a></h4>
+<p>yaml文件中的mean和scale参数与训练时的mean、std需要进行换算。</p>
+<p>预处理节点中数据标准化操作的计算方式（即HzPreprocess节点中的计算公式）为：<span class="math notranslate nohighlight">\(norm\_data = ( data − mean ) * scale\)</span> 。</p>
+<p>以yolov3为例，其训练时的预处理代码为：</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">base_transform</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+    <span class="n">x</span> <span class="o">/=</span> <span class="mi">255</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="n">mean</span>
+    <span class="n">x</span> <span class="o">/=</span> <span class="n">std</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="k">class</span> <span class="nc">BaseTransform</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="p">(</span><span class="mf">0.406</span><span class="p">,</span> <span class="mf">0.456</span><span class="p">,</span> <span class="mf">0.485</span><span class="p">),</span> <span class="n">std</span><span class="o">=</span><span class="p">(</span><span class="mf">0.225</span><span class="p">,</span> <span class="mf">0.224</span><span class="p">,</span> <span class="mf">0.229</span><span class="p">)):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">std</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>则计算公式为：<span class="math notranslate nohighlight">\(norm\_data= (\frac{data}{255}  −𝑚𝑒𝑎𝑛) * \frac{1}{𝑠𝑡𝑑}\)</span>，</p>
+<p>改写为HzPreprocess节点的计算方式：<span class="math notranslate nohighlight">\(norm\_data= (\frac{data}{255}  −𝑚𝑒𝑎𝑛) * \frac{1}{𝑠𝑡𝑑} =(data−255𝑚𝑒𝑎𝑛) * \frac{1}{255𝑠𝑡𝑑}\)</span> ，</p>
+<p>则：<span class="math notranslate nohighlight">\(mean\_yaml = 255 mean、𝑠𝑐𝑎𝑙𝑒\_𝑦𝑎𝑚𝑙=  \frac{1}{255 𝑠𝑡𝑑}\)</span> 。</p>
+</section>
+<section id="id5">
+<h4><span class="section-number">6.2.2.2. </span>模型推理时的计算公式<a class="headerlink" href="#id5" title="永久链接至标题"></a></h4>
+<p>通过对yaml配置文件中的配置参数，决定是否加入HzPreprocess节点。
+当配置mean/scale时，做模型转换时，会在输入端新增一个HzPreprocess节点，HzPreprocess节点可以理解为对输入数据做了一个conv操作。</p>
+<p>HzPreprocess内的计算公式为： <span class="math notranslate nohighlight">\((input（取值范围[-128,127]）+ 128) - mean） * scale\)</span>，其中 <code class="docutils literal notranslate"><span class="pre">weight=scale</span></code>， <code class="docutils literal notranslate"><span class="pre">bias=(128-mean)</span> <span class="pre">*</span> <span class="pre">scale</span></code> 。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ol class="arabic simple">
+<li><p>在yaml中添加mean/scale后，就不需要在前处理内添加MeanTransformer和ScaleTransformer了。</p></li>
+<li><p>在yaml中添加mean/scale，会将参数放入到HzPreprocess节点内，HzPreprocess节点为BPU 节点。</p></li>
+</ol>
+</div>
+</section>
+</section>
+</section>
+<section id="transformer">
+<h2><span class="section-number">6.3. </span>transformer说明<a class="headerlink" href="#transformer" title="永久链接至标题"></a></h2>
+<p>本章节将对各个transformer的概念及参数进行说明，并为您提供参考使用示例，方便您进行tranformer操作。</p>
+<p>在文档内容开始阅读前，以下内容请您注意：</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>图片数据为三维数据，但地平线提供的transformer都是以四维数据的方式来进行获取和处理的，transformer只会对输入数据中的第0张图片做该操作。</p>
+</div>
+<section id="addtransformer">
+<h3><span class="section-number">6.3.1. </span>AddTransformer<a class="headerlink" href="#addtransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>对输入图片中的所有像素值做增加value的操作。该transformer会在输出时, 将数据格式转为float32。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>value: 对每个像素做增加的数值, 注意value的取值可以为负数, 如 -128。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 对图像数据做减去128的操作</span>
+<span class="sb">``</span>AddTransformer<span class="o">(</span>-128<span class="o">)</span><span class="sb">``</span>
+
+<span class="c1"># 对图像数据做增加127的操作</span>
+<span class="sb">``</span>AddTransformer<span class="o">(</span><span class="m">127</span><span class="o">)</span><span class="sb">``</span>
+</pre></div>
+</div>
+</section>
+<section id="meantransformer">
+<h3><span class="section-number">6.3.2. </span>MeanTransformer<a class="headerlink" href="#meantransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>对输入图片中的所有像素值做减去 mean_value 的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>means: 对每个像素做增加的数值, 注意value的取值可以为负数, 如 -128。</p></li>
+<li><p>data_format: 输入的layout类型，取值范围为[“CHW”,”HWC”], 默认 “CHW”。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 每个像素减去128.0 输入的类型为CHW</span>
+MeanTransformer<span class="o">(</span>np.array<span class="o">([</span><span class="m">128</span>.0, <span class="m">128</span>.0, <span class="m">128</span>.0<span class="o">]))</span>
+
+<span class="c1"># 每个像素减去不同的数值，103.94, 116.78, 123.68，输入的类型为 HWC</span>
+MeanTransformer<span class="o">(</span>np.array<span class="o">([</span><span class="m">103</span>.94, <span class="m">116</span>.78, <span class="m">123</span>.68<span class="o">])</span>, <span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;HWC&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="scaletransformer">
+<h3><span class="section-number">6.3.3. </span>ScaleTransformer<a class="headerlink" href="#scaletransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>对输入图片中的所有像素值做乘以data_scale系数的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>scale_value: 需要乘以的系数，如0.0078125 或者1/128。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将取值范围-128~127，所有的像素的调整到-1~1之间</span>
+ScaleTransformer<span class="o">(</span><span class="m">0</span>.0078125<span class="o">)</span>
+<span class="c1"># 或者</span>
+ScaleTransformer<span class="o">(</span><span class="m">1</span>/128<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="normalizetransformer">
+<h3><span class="section-number">6.3.4. </span>NormalizeTransformer<a class="headerlink" href="#normalizetransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于对输入图片进行归一化的操作。该transformer会在输出时, 将数据格式转为float32。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>std：输入的第一张图片，需要除以的数值。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将取值范围[-128, 127] 所有的像素的调整到-1~1之间</span>
+NormalizeTransformer<span class="o">(</span><span class="m">128</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="transposetransformer">
+<h3><span class="section-number">6.3.5. </span>TransposeTransformer<a class="headerlink" href="#transposetransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于做layout转换的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>order: 对输入图片做layout转换后的顺序（顺序与原有的layout顺序有关）。如：HWC的顺序为0,1,2，需要转为CHW时，order为(2,0,1)。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># HWC转到CHW</span>
+TransposeTransformer<span class="o">((</span><span class="m">2</span>, <span class="m">0</span>, <span class="m">1</span><span class="o">))</span>
+<span class="c1"># CHW转到HWC</span>
+TransposeTransformer<span class="o">((</span><span class="m">1</span>, <span class="m">2</span>, <span class="m">0</span><span class="o">))</span>
+</pre></div>
+</div>
+</section>
+<section id="hwc2chwtransformer">
+<h3><span class="section-number">6.3.6. </span>HWC2CHWTransformer<a class="headerlink" href="#hwc2chwtransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于将NHWC转换为NCHW的操作。</p>
+<p><strong>参数</strong>：不涉及。</p>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># NHWC转到NCHW</span>
+HWC2CHWTransformer<span class="o">()</span>
+</pre></div>
+</div>
+</section>
+<section id="chw2hwctransformer">
+<h3><span class="section-number">6.3.7. </span>CHW2HWCTransformer<a class="headerlink" href="#chw2hwctransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于将NCHW转换为NHWC的操作。</p>
+<p><strong>参数</strong>：不涉及。</p>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># NCHW转到 NHWC</span>
+CHW2HWCTransformer<span class="o">()</span>
+</pre></div>
+</div>
+</section>
+<section id="centercroptransformer">
+<h3><span class="section-number">6.3.8. </span>CenterCropTransformer<a class="headerlink" href="#centercroptransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>以直接截断取值的方式从图片中心裁剪出一个正方形的图片的操作。该transformer会在输出时, 将数据格式转为float32。当data_type的值为uint8时，输出为uint8。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>crop_size: 中心裁剪的正方形的边长size。</p></li>
+<li><p>data_type: 输出结果的类型，取值范围为[“float”, “uint8”]。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 以224*224的方式，做中心裁剪，默认输出类型为float32</span>
+CenterCropTransformer<span class="o">(</span><span class="nv">crop_size</span><span class="o">=</span><span class="m">224</span><span class="o">)</span>
+
+<span class="c1"># 以224*224的方式，做中心裁剪，输出类型为uint8</span>
+CenterCropTransformer<span class="o">(</span><span class="nv">crop_size</span><span class="o">=</span><span class="m">224</span>, <span class="nv">data_type</span><span class="o">=</span><span class="s2">&quot;uint8&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pilcentercroptransformer">
+<h3><span class="section-number">6.3.9. </span>PILCenterCropTransformer<a class="headerlink" href="#pilcentercroptransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>使用PIL的方式从图片中心裁剪出一个正方形的图片的操作。该transformer会在输出时, 将数据格式转为float32。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>size: 中心裁剪的正方形的边长size。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 以224*224的方式，使用PIL的方式做中心裁剪</span>
+PILCenterCropTransformer<span class="o">(</span><span class="nv">size</span><span class="o">=</span><span class="m">224</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="longsidecroptransformer">
+<h3><span class="section-number">6.3.10. </span>LongSideCropTransformer<a class="headerlink" href="#longsidecroptransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于做长边裁剪的操作。该 transformer 会在输出时, 将数据格式转为float32。</p>
+<p>当宽度比高度的数值大时，会裁剪出一个中心以高度大小为准的正方形，如宽100，高70，裁剪之后大小为70*70。</p>
+<p>当高度比宽度的数值大时，会裁剪出一个中心以宽度大小不变，高度为差值的一半+宽度 的长方形，如宽70，高100，裁剪之后大小为 <cite>70*（100-70）/2+70</cite> ，即70* 85大小的长方形。</p>
+<p><strong>参数</strong>：不涉及。</p>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>LongSideCropTransformer<span class="o">()</span>
+</pre></div>
+</div>
+</section>
+<section id="padresizetransformer">
+<h3><span class="section-number">6.3.11. </span>PadResizeTransformer<a class="headerlink" href="#padresizetransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>使用填充的方式做图像放大的操作。该 transformer 会在输出时, 将数据格式转为float32。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>target_size：目标大小，值为元组，如(240,240)。</p></li>
+<li><p>pad_value：填充到数组中的值，默认值为127。</p></li>
+<li><p>pad_position：填充的位置，取值范围为[“boundary”， “bottom_right”]，默认值为 “boundary”。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 裁剪一个大小为512*512，填充到右下角，填充值为0</span>
+PadResizeTransformer<span class="o">((</span><span class="m">512</span>, <span class="m">512</span><span class="o">)</span>, <span class="nv">pad_position</span><span class="o">=</span><span class="s1">&#39;bottom_right&#39;</span>, <span class="nv">pad_value</span><span class="o">=</span><span class="m">0</span><span class="o">)</span>
+
+<span class="c1"># 裁剪一个大小为608*608，填充到边框，填充值为 127</span>
+PadResizeTransformer<span class="o">(</span><span class="nv">target_size</span><span class="o">=(</span><span class="m">608</span>, <span class="m">608</span><span class="o">))</span>
+</pre></div>
+</div>
+</section>
+<section id="resizetransformer">
+<h3><span class="section-number">6.3.12. </span>ResizeTransformer<a class="headerlink" href="#resizetransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于调整图像大小的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><p>target_size：目标大小，值为元组，如(240,240)。</p></li>
+<li><p>mode：图片处理模式，取值范围为(“skimage”，”opencv”)，默认值为 “skimage”。</p></li>
+<li><p>method：插值的方法，此参数仅在mode为skimage时生效。取值范围为0-5，默认值为1，其中：</p>
+<ul class="simple">
+<li><p>0代表Nearest-neighbor；</p></li>
+<li><p>1代表Bi-linear(default)；</p></li>
+<li><p>2代表Bi-quadratic;</p></li>
+<li><p>3代表Bi-cubic;</p></li>
+<li><p>4代表Bi-quartic;</p></li>
+<li><p>5代表Bi-quintic。</p></li>
+</ul>
+</li>
+<li><p>data_type：输出的类型，取值范围为(uint8，float)，默认为float类型。当被设置为uint8时，输出类型为uint8 ，其他情况为float32。</p></li>
+<li><p>interpolation：插值的方法，此参数仅在mode为opencv时生效。默认为空，取值范围为(opencv的插值方式)，
+目前interpolation仅支持为空或opencv中的INTER_CUBIC两种插值方法，当interpolation为空时，默认使用INTER_LINEAR方式。</p>
+<p>以下为opencv中支持的插值方式及说明（目前未支持的插值方式将在后续迭代中逐步支持）：</p>
+<ul class="simple">
+<li><p>INTER_NEAREST，最近邻插值；</p></li>
+<li><p>INTER_LINEAR，双线性插值，当interpolation为空时，默认使用这种方法。</p></li>
+<li><p>INTER_CUBIC，双三次插值4x4像素邻域内的双立方插值。</p></li>
+<li><p>INTER_AREA，使用像素面积关系重采样。它可能是图像抽取的首选方法，因为它可以提供无莫尔条纹的结果。但是当图像被缩放时，它类似于INTER_NEAREST方法。</p></li>
+<li><p>INTER_LANCZOS4，8x8邻域的Lanczos插值。</p></li>
+<li><p>INTER_LINEAR_EXACT，位精确双线性插值。</p></li>
+<li><p>INTER_NEAREST_EXACT，位精确最近邻插值。这将产生与PIL、scikit-image或Matlab中的最近邻方法相同的结果。</p></li>
+<li><p>INTER_MAX，插值代码的掩码。</p></li>
+<li><p>WARP_FILL_OUTLIERS，标志，填充所有目标图像像素。如果其中一些对应于源图像中的异常值，则将它们设置为零。</p></li>
+<li><p>WARP_INVERSE_MAP，标志，逆变换。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将输入图片大小调整为224*224，采用 opencv 的方式处理图片，插值的方式为双线性，输出为float32</span>
+ResizeTransformer<span class="o">(</span><span class="nv">target_size</span><span class="o">=(</span><span class="m">224</span>, <span class="m">224</span><span class="o">)</span>, <span class="nv">mode</span><span class="o">=</span><span class="s1">&#39;opencv&#39;</span>, <span class="nv">method</span><span class="o">=</span><span class="m">1</span><span class="o">)</span>
+
+<span class="c1"># 将输入图片大小调整为256*256，采用skimage的方式处理图片，插值的方式为双线性，输出为float32</span>
+ResizeTransformer<span class="o">(</span><span class="nv">target_size</span><span class="o">=(</span><span class="m">256</span>, <span class="m">256</span><span class="o">))</span>
+
+<span class="c1"># 将输入图片大小调整为256*256，采用skimage的方式处理图片，插值的方式为双线性，输出为uint8</span>
+ResizeTransformer<span class="o">(</span><span class="nv">target_size</span><span class="o">=(</span><span class="m">256</span>, <span class="m">256</span><span class="o">)</span>, <span class="nv">data_type</span><span class="o">=</span><span class="s2">&quot;uint8&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="pilresizetransformer">
+<h3><span class="section-number">6.3.13. </span>PILResizeTransformer<a class="headerlink" href="#pilresizetransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>使用PIL库做调整图像大小的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>size：目标大小，值为元组，如(240,240)。</p></li>
+<li><p>interpolation：指定插值的方式，取值范围：(Image.NEAREST，Image.BILINEAR，Image.BICUBIC，Image.LANCZOS)， 默认值为Image.BILINEAR。</p>
+<ul>
+<li><p>Image.NEAREST：最近邻采样；</p></li>
+<li><p>Image.BILINEAR：线性插值；</p></li>
+<li><p>Image.BICUBIC：三次样条插值；</p></li>
+<li><p>Image.LANCZOS：高质量下采样滤波器。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将输入图片大小调整为256*256 插值的方式为线性插值</span>
+PILResizeTransformer<span class="o">(</span><span class="nv">size</span><span class="o">=</span><span class="m">256</span><span class="o">)</span>
+
+<span class="c1"># 将输入图片大小调整为256*256 插值的方式为高质量下采样滤波器</span>
+PILResizeTransformer<span class="o">(</span><span class="nv">size</span><span class="o">=</span><span class="m">256</span>, <span class="nv">interpolation</span><span class="o">=</span>Image.LANCZOS<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="shortlongresizetransformer">
+<h3><span class="section-number">6.3.14. </span>ShortLongResizeTransformer<a class="headerlink" href="#shortlongresizetransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>按照原比例对输入图片进行缩放的操作，新图片的大小与设置的参数有关。操作方式如下：</p>
+<ol class="arabic simple">
+<li><p>先以short_size的大小除以原图片的宽和高里最小值，以这个值为缩放比例系数。</p></li>
+<li><p>当缩放比例系数乘以原图片的宽和高中的最大值，得到的结果大于long_size的数值时，缩放比例系数将变更为long_size除以原图片的宽和高中的最大值。</p></li>
+<li><p>使用opencv中的resize方法，根据上方得到的缩放比例系数重新裁剪图片。</p></li>
+</ol>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>short_size：预期裁剪后的短边的长度。</p></li>
+<li><p>long_size：预期裁剪后的长边的长度。</p></li>
+<li><p>include_im：默认值为True，设置为True时, 会在返回时除了返回处理后的图片, 还会返回原图片。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 短边长度为20，长边长度为100，返回处理后的图片及原图片</span>
+ShortLongResizeTransformer<span class="o">(</span><span class="nv">short_size</span><span class="o">=</span><span class="m">20</span>, <span class="nv">long_size</span><span class="o">=</span><span class="m">100</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="padtransformer">
+<h3><span class="section-number">6.3.15. </span>PadTransformer<a class="headerlink" href="#padtransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>通过用目标大小的size值除以输入图片宽或者高里的最大值为系数，然后使用这个系数乘以原有的宽高，resize图片。
+然后根据新图片的大小，除以size_divisor后向上取整后，再乘以size_divisor，为新的宽高，生成新的图片的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>size_divisor：大小除数 ，默认值为128。</p></li>
+<li><p>target_size：目标大小，默认值为512。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># pad大小为1024*1024</span>
+PadTransformer<span class="o">(</span><span class="nv">size_divisor</span><span class="o">=</span><span class="m">1024</span>, <span class="nv">target_size</span><span class="o">=</span><span class="m">1024</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="shortsideresizetransformer">
+<h3><span class="section-number">6.3.16. </span>ShortSideResizeTransformer<a class="headerlink" href="#shortsideresizetransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>根据期望的短边的长度，使用现在的长短边的比例，中心裁剪出新的图片大小的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul>
+<li><p>short_size：预期的短边的长度。</p></li>
+<li><p>data_type：输出结果的类型，取值范围为(“float”,”uint8”)，默认取值”float32”, 以 float32 类型输出，设置为uint8时，输出类型将为uint8。</p></li>
+<li><p>interpolation：指定插值的方式，取值范围为 opencv 中采用的插值方式，默认为空。</p>
+<p>目前interpolation仅支持为空或opencv中的INTER_CUBIC两种插值方法，当interpolation为空时，默认使用INTER_LINEAR方式。</p>
+<p>以下为opencv中支持的插值方式及说明（目前未支持的插值方式将在后续迭代中逐步支持）：</p>
+<ul class="simple">
+<li><p>INTER_NEAREST，最近邻插值；</p></li>
+<li><p>INTER_LINEAR，双线性插值，当interpolation为空时，默认使用这种方法。</p></li>
+<li><p>INTER_CUBIC，双三次插值4x4像素邻域内的双立方插值。</p></li>
+<li><p>INTER_AREA，使用像素面积关系重采样。它可能是图像抽取的首选方法，因为它可以提供无莫尔条纹的结果。但是当图像被缩放时，它类似于INTER_NEAREST方法。</p></li>
+<li><p>INTER_LANCZOS4，8x8邻域的Lanczos插值。</p></li>
+<li><p>INTER_LINEAR_EXACT，位精确双线性插值。</p></li>
+<li><p>INTER_NEAREST_EXACT，位精确最近邻插值。这将产生与PIL、scikit-image或Matlab中的最近邻方法相同的结果。</p></li>
+<li><p>INTER_MAX，插值代码的掩码。</p></li>
+<li><p>WARP_FILL_OUTLIERS，标志，填充所有目标图像像素。如果其中一些对应于源图像中的异常值，则将它们设置为零。</p></li>
+<li><p>WARP_INVERSE_MAP，标志，逆变换。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将短边大小调整为256，插值方式为双线性插值</span>
+ShortSideResizeTransformer<span class="o">(</span><span class="nv">short_size</span><span class="o">=</span><span class="m">256</span><span class="o">)</span>
+
+<span class="c1"># 将短边大小调整为256，插值方式为 8x8像素邻域内的Lanczos插值</span>
+ShortSideResizeTransformer<span class="o">(</span><span class="nv">short_size</span><span class="o">=</span><span class="m">256</span>, <span class="nv">interpolation</span><span class="o">=</span>Image.LANCZOS4<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="paddedcentercroptransformer">
+<h3><span class="section-number">6.3.17. </span>PaddedCenterCropTransformer<a class="headerlink" href="#paddedcentercroptransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>使用填充的方式对图片中心进行裁剪的操作。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>仅适用于EfficientNet-lite相关实例模型。</p>
+<p>计算方式为：</p>
+<ol class="arabic simple">
+<li><p>计算系数，int((float( image_size ) / ( image_size + crop_pad ))。</p></li>
+<li><p>计算中心size的大小， 系数 * np.minimum( 原始图片的高度, 原始图片的宽度 ))。</p></li>
+<li><p>根据计算出来的size大小，做中心裁剪。</p></li>
+</ol>
+</div>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>image_size：图片的大小，默认值为224。</p></li>
+<li><p>crop_pad：中心填充的大小，默认值为32。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 裁剪大小为240*240，填充值为32</span>
+PaddedCenterCropTransformer<span class="o">(</span><span class="nv">image_size</span><span class="o">=</span><span class="m">240</span>, <span class="nv">crop_pad</span><span class="o">=</span><span class="m">32</span><span class="o">)</span>
+
+<span class="c1"># 裁剪大小为224*224，填充值为32</span>
+PaddedCenterCropTransformer<span class="o">()</span>
+</pre></div>
+</div>
+</section>
+<section id="bgr2rgbtransformer">
+<h3><span class="section-number">6.3.18. </span>BGR2RGBTransformer<a class="headerlink" href="#bgr2rgbtransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由BGR转成RGB的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：数据格式，取值范围为(CHW,HWC)，默认值为CHW。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做BGR转为RGB</span>
+BGR2RGBTransformer<span class="o">()</span>
+
+<span class="c1"># layout为NHWC时，做BGR转为RGB</span>
+BGR2RGBTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;HWC&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rgb2bgrtransformer">
+<h3><span class="section-number">6.3.19. </span>RGB2BGRTransformer<a class="headerlink" href="#rgb2bgrtransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由RGB转成BGR的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：数据格式，取值范围为(CHW,HWC)，默认值为CHW。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做RGB转成BGR</span>
+RGB2BGRTransformer<span class="o">()</span>
+
+<span class="c1"># layout为NHWC时，做RGB转成BGR</span>
+RGB2BGRTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;HWC&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rgb2graytransformer">
+<h3><span class="section-number">6.3.20. </span>RGB2GRAYTransformer<a class="headerlink" href="#rgb2graytransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由RGB转成GRAY的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围(“CHW”,”HWC”)，默认为”CHW”。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做RGB转成GRAY</span>
+RGB2GRAYTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做RGB转成GRAY</span>
+RGB2GRAYTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bgr2graytransformer">
+<h3><span class="section-number">6.3.21. </span>BGR2GRAYTransformer<a class="headerlink" href="#bgr2graytransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由 BGR 转成 GRAY 的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围 [“CHW”,”HWC”]，默认值为”CHW”。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做BGR转成GRAY</span>
+BGR2GRAYTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做BGR转成GRAY</span>
+BGR2GRAYTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rgb2gray-128transformer">
+<h3><span class="section-number">6.3.22. </span>RGB2GRAY_128Transformer<a class="headerlink" href="#rgb2gray-128transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>输入格式由RGB转成GRAY_128的操作。GRAY_128取值范围为(-128,127)。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”,”HWC”]，默认值为”CHW”，此项为必填项。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做RGB转成GRAY_128</span>
+RGB2GRAY_128Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做RGB转成GRAY_128</span>
+RGB2GRAY_128Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rgb2yuv444transformer">
+<h3><span class="section-number">6.3.23. </span>RGB2YUV444Transformer<a class="headerlink" href="#rgb2yuv444transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由RGB转成YUV444的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”, “HWC”]，默认值为”CHW”，此项为必填项。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做BGR转成YUV444</span>
+BGR2YUV444Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做BGR转成YUV444</span>
+BGR2YUV444Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bgr2yuv444transformer">
+<h3><span class="section-number">6.3.24. </span>BGR2YUV444Transformer<a class="headerlink" href="#bgr2yuv444transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由BGR转成YUV444的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”,”HWC”]，默认值为 “CHW”，此项为必填项。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做BGR转成YUV444</span>
+BGR2YUV444Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做BGR转成YUV444</span>
+BGR2YUV444Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bgr2yuv444-128transformer">
+<h3><span class="section-number">6.3.25. </span>BGR2YUV444_128Transformer<a class="headerlink" href="#bgr2yuv444-128transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由BGR转成YUV444_128的操作。YUV444_128取值范围为(-128,127)。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”,”HWC”]，默认值为 “CHW”，此项为必填项。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做BGR转成YUV444_128</span>
+BGR2YUV444_128Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做BGR转成YUV444_128</span>
+BGR2YUV444_128Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rgb2yuv444-128transformer">
+<h3><span class="section-number">6.3.26. </span>RGB2YUV444_128Transformer<a class="headerlink" href="#rgb2yuv444-128transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由RGB转成YUV444_128的操作。YUV444_128取值范围为(-128,127)。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”,”HWC”]，默认值为”CHW”，此项为必填项。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW 时，做RGB转成YUV444_128</span>
+RGB2YUV444_128Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做RGB转成 YUV444_128</span>
+RGB2YUV444_128Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bgr2yuvbt601videotransformer">
+<h3><span class="section-number">6.3.27. </span>BGR2YUVBT601VIDEOTransformer<a class="headerlink" href="#bgr2yuvbt601videotransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由BGR转成YUV_BT601_Video_Range的操作。</p>
+<p>YUV_BT601_Video_Range，某些摄像头输入数据都是YUV BT601(Video Range)格式的，取值范围为16~235，该transformer就是适配这种格式的数据产生的。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”,”HWC”]，默认值为”CHW”，此项为必填项。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为 NCHW时，做BGR转成YUV_BT601_Video_Range</span>
+BGR2YUVBT601VIDEOTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做BGR转成YUV_BT601_Video_Range</span>
+BGR2YUVBT601VIDEOTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rgb2yuvbt601videotransformer">
+<h3><span class="section-number">6.3.28. </span>RGB2YUVBT601VIDEOTransformer<a class="headerlink" href="#rgb2yuvbt601videotransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由RGB转成YUV_BT601_Video_Range的操作。</p>
+<p>YUV_BT601_Video_Range，某些摄像头输入数据都是YUV BT601(Video Range)格式的，取值范围为16~235，该transformer就是适配这种格式的数据产生的。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”,”HWC”]，默认值为”CHW”，此项为必填项。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，做RGB转成YUV_BT601_Video_Range</span>
+RGB2YUVBT601VIDEOTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;CHW&#39;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，做RGB转成YUV_BT601_Video_Range</span>
+RGB2YUVBT601VIDEOTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s1">&#39;HWC&#39;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="yuvtransformer">
+<h3><span class="section-number">6.3.29. </span>YUVTransformer<a class="headerlink" href="#yuvtransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式转成YUV444的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>color_sequence：颜色序列，此项为必填项。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将BGR读入的图片转为YUV444</span>
+YUVTransformer<span class="o">(</span><span class="nv">color_sequence</span><span class="o">=</span><span class="s2">&quot;BGR&quot;</span><span class="o">)</span>
+
+<span class="c1"># 将RGB读入的图片转为YUV444</span>
+YUVTransformer<span class="o">(</span><span class="nv">color_sequence</span><span class="o">=</span><span class="s2">&quot;RGB&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="reducechanneltransformer">
+<h3><span class="section-number">6.3.30. </span>ReduceChannelTransformer<a class="headerlink" href="#reducechanneltransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将C通道缩减为单通道的操作。该transformer主要是针对于C通道，如shape为1*3*224*224 改为1*1*224*224。 使用时layout一定要和data_format值对齐，避免造成删错通道。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”, “HWC”]，默认值为”CHW”。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 删除layout为NCHW的C通道</span>
+ReduceChannelTransformer<span class="o">()</span>
+<span class="c1"># 或者</span>
+ReduceChannelTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;CHW&quot;</span><span class="o">)</span>
+
+<span class="c1"># 删除layout为NHWC的C通道</span>
+ReduceChannelTransformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;HWC&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="bgr2nv12transformer">
+<h3><span class="section-number">6.3.31. </span>BGR2NV12Transformer<a class="headerlink" href="#bgr2nv12transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由BGR转成NV12的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的layout类型，取值范围为[“CHW”,”HWC”]，默认值为”CHW”。</p></li>
+<li><p>cvt_mode：cvt模式，取值范围为(rgb_calc，opencv)，默认值为rgb_calc。</p>
+<ul>
+<li><p>rgb_calc，采用mergeUV的方式处理图片；</p></li>
+<li><p>opencv，采用opencv的方式处理图片。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，由BGR转为NV12，采用rgb_calc模式处理图片</span>
+BGR2NV12Transformer<span class="o">()</span>
+<span class="c1"># 或者</span>
+BGR2NV12Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;CHW&quot;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，由BGR转为NV12，采用opencv模式处理图片</span>
+BGR2NV12Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;HWC&quot;</span>, <span class="nv">cvt_mode</span><span class="o">=</span><span class="s2">&quot;opencv&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rgb2nv12transformer">
+<h3><span class="section-number">6.3.32. </span>RGB2NV12Transformer<a class="headerlink" href="#rgb2nv12transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由RGB转成NV12的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>data_format：输入的 layout 类型，取值范围 [“CHW”, “HWC”], 默认值为”CHW”。</p></li>
+<li><p>cvt_mode：cvt模式，取值范围为(rgb_calc,opencv)，默认值为rgb_calc。</p>
+<ul>
+<li><p>rgb_calc，采用mergeUV的方式处理图片；</p></li>
+<li><p>opencv，采用opencv的方式处理图片。</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW时，有RGB转为NV12，采用rgb_calc模式处理图片</span>
+RGB2NV12Transformer<span class="o">()</span>
+<span class="c1"># 或者</span>
+RGB2NV12Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;CHW&quot;</span><span class="o">)</span>
+
+<span class="c1"># layout为NHWC时，有RGB转为NV12，采用opencv模式处理图片</span>
+RGB2NV12Transformer<span class="o">(</span><span class="nv">data_format</span><span class="o">=</span><span class="s2">&quot;HWC&quot;</span>, <span class="nv">cvt_mode</span><span class="o">=</span><span class="s2">&quot;opencv&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="nv12toyuv444transformer">
+<h3><span class="section-number">6.3.33. </span>NV12ToYUV444Transformer<a class="headerlink" href="#nv12toyuv444transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>将输入格式由NV12转成YUV444的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>target_size：目标大小，值为元组，如(240,240)。</p></li>
+<li><p>yuv444_output_layout：yuv444输出的layout，取值范围为(HWC,CHW)，默认值为”HWC”。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># layout为NCHW ，大小为768*768, nv12转yuv444</span>
+NV12ToYUV444Transformer<span class="o">(</span><span class="nv">target_size</span><span class="o">=(</span><span class="m">768</span>, <span class="m">768</span><span class="o">))</span>
+
+<span class="c1"># layout为NHWC ，大小为224*224, nv12转yuv444</span>
+NV12ToYUV444Transformer<span class="o">((</span><span class="m">224</span>, <span class="m">224</span><span class="o">)</span>, <span class="nv">yuv444_output_layout</span><span class="o">=</span><span class="s2">&quot;HWC&quot;</span><span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="warpaffinetransformer">
+<h3><span class="section-number">6.3.34. </span>WarpAffineTransformer<a class="headerlink" href="#warpaffinetransformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于做图像仿射变换的操作。</p>
+<p><strong>参数</strong>：</p>
+<ul class="simple">
+<li><p>input_shape：输入的shape值。</p></li>
+<li><p>scale：乘以的系数。</p></li>
+</ul>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 大小为512*512，长边长度为1.0</span>
+WarpAffineTransformer<span class="o">((</span><span class="m">512</span>, <span class="m">512</span><span class="o">)</span>, <span class="m">1</span>.0<span class="o">)</span>
+</pre></div>
+</div>
+</section>
+<section id="f32tos8transformer">
+<h3><span class="section-number">6.3.35. </span>F32ToS8Transformer<a class="headerlink" href="#f32tos8transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于做输入格式从float32转换为int8的操作。</p>
+<p><strong>参数</strong>：不涉及。</p>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 输入格式从 float32转为 int8</span>
+F32ToS8Transformer<span class="o">()</span>
+</pre></div>
+</div>
+</section>
+<section id="f32tou8transformer">
+<h3><span class="section-number">6.3.36. </span>F32ToU8Transformer<a class="headerlink" href="#f32tou8transformer" title="永久链接至标题"></a></h3>
+<p><strong>说明</strong>：</p>
+<p>用于做输入格式从float32转换为uint8的操作。</p>
+<p><strong>参数</strong>：不涉及。</p>
+<p><strong>使用举例</strong>：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 输入格式从 float32 转为 uint8</span>
+F32ToU8Transformer<span class="o">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2><span class="section-number">6.4. </span>常见故障处理<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<p>本章节为您介绍在使用地平线J5工具链产品时，您可能遇到的一些异常故障现象。针对这些故障，我们为您提供对应故障的可能原因及通用解决建议，方便您快速定位问题及解决故障。</p>
+<section id="hb-mapper-checker">
+<h3><span class="section-number">6.4.1. </span>hb_mapper checker 常见故障<a class="headerlink" href="#hb-mapper-checker" title="永久链接至标题"></a></h3>
+<p><strong>背景信息</strong>：模型检查命令（ <code class="docutils literal notranslate"><span class="pre">hb_mapper</span> <span class="pre">checker</span></code> ）</p>
+<p>在实际工程中，由于并非所有浮点模型均能够转为量化模型，因此在转换之前需要进行一次检查，这个check过程，会完成一遍模型转换的过程，
+但是对于比较耗时的步骤，进行了简化处理。该命令在完成模型的检查后, 会输出检查结果和OP在设备上的部署情况。</p>
+<p><strong>故障场景</strong>：以下为在使用 <code class="docutils literal notranslate"><span class="pre">hb_mapper</span> <span class="pre">checker</span></code> 时常见的故障场景：</p>
+<ol class="arabic simple">
+<li><p>故障现象一：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR The shape of model input:input is <span class="o">[</span>xxx<span class="o">]</span> which has dimensions of <span class="m">0</span>.
+Please specify input-shape parameter.
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是模型输入为动态shape。</p>
+<p>解决建议：针对此故障，您可使用参数 <code class="docutils literal notranslate"><span class="pre">--input-shape</span> <span class="pre">&quot;input_name</span> <span class="pre">input_shape&quot;</span></code> 来指定输入节点的shape信息。</p>
+<ol class="arabic simple" start="2">
+<li><p>故障现象二：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR HorizonRT not support these cpu operators: <span class="o">{</span>op_type<span class="o">}</span>
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是使用的CPU算子为地平线不支持的CPU算子。</p>
+<p>解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容对算子进行替换；若不被支持的CPU算子为模型核心算子，请您联系地平线对此进行开发评估。</p>
+<ol class="arabic simple" start="3">
+<li><p>故障现象三：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Unsupported op <span class="o">{</span>op_type<span class="o">}</span>
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是使用的BPU算子为地平线不支持的BPU算子。</p>
+<p>解决建议：针对此故障，若模型整体性能可满足需要，您可以忽略该日志；若模型整体性能不能达到您的预期，您可以根据我们提供的算子支持列表中的内容对算子进行替换。</p>
+<ol class="arabic simple" start="4">
+<li><p>故障现象四：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR nodes:<span class="o">[</span><span class="s1">&#39;{op_type}&#39;</span><span class="o">]</span> are specified as domain:xxx, which are not supported by official onnx.
+Please check whether these ops are official onnx ops or defined by yourself
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是使用的自定义算子为地平线不支持的自定义算子。</p>
+<p>解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容对算子进行替换或参考 <a class="reference external" href="https://developer.horizon.ai/forumDetail/71036525692881018">地平线开发者论坛-自定义算子开发</a> 中的内容完成自定义CPU算子注册。</p>
+</section>
+<section id="hb-mapper-makertbin">
+<h3><span class="section-number">6.4.2. </span>hb_mapper makertbin常见故障<a class="headerlink" href="#hb-mapper-makertbin" title="永久链接至标题"></a></h3>
+<p><strong>背景信息</strong>：模型编译命令（ <code class="docutils literal notranslate"><span class="pre">hb_mapper</span> <span class="pre">makertbin</span></code> ）</p>
+<p>该命令根据配置文件和模型的种类，会生成ONNX量化模型以及仿真上板情况的runtime模型。</p>
+<p><strong>故障场景</strong>：以下为在使用 <code class="docutils literal notranslate"><span class="pre">hb_mapper</span> <span class="pre">makertbin</span></code> 时常见的故障场景：</p>
+<ol class="arabic simple">
+<li><p>故障现象一：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Layer <span class="o">{</span>op_name<span class="o">}</span>
+  xxx expect data shape range:<span class="o">[[</span>xxx<span class="o">][</span>xxx<span class="o">]]</span>, but the data shape is <span class="o">[</span>xxx<span class="o">]</span>
+Layer <span class="o">{</span>op_name<span class="o">}</span>
+  Tensor xxx expects be n dimensions, but m provided
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是，{op_name}算子超过支持限制被回退到CPU计算。</p>
+<p>解决建议：针对此故障，若CPU算子带来的性能损耗您可接受，则无需关注该信息；若性能不能达到您的要求，您可以根据我们提供的算子支持列表中的内容将该op修改至BPU可支持的范围。</p>
+<ol class="arabic simple" start="2">
+<li><p>故障现象二：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR There is an error <span class="k">in</span> pass: <span class="o">{</span>op_name<span class="o">}</span>. Error message:xxx
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是，{op_name}算子优化失败。</p>
+<p>解决建议：针对此故障，请您将模型以及.log文件收集好后提供给地平线技术人员进行分析处理。</p>
+<ol class="arabic simple" start="3">
+<li><p>故障现象三：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Error There is an error <span class="k">in</span> pass:constant_folding.
+Error message: Could not find an implementation <span class="k">for</span> the node <span class="o">{</span>op_name<span class="o">}</span>
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是该算子onnxruntime暂未支持。</p>
+<p>解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容对算子进行替换，如不被支持的算子为核心算子，请您联系地平线对此进行开发评估。</p>
+<ol class="arabic simple" start="4">
+<li><p>故障现象四：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Start to parse the onnx model
+core dump
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是模型解析失败（可能是导出模型时只为一个output/input节点指定了name）。</p>
+<p>解决建议：针对此故障，建议您重新导出onnx并确认其有效性（导出onnx模型时不指定output/input name，或者依次为每个output/input节点指定名称）。</p>
+<ol class="arabic simple" start="5">
+<li><p>故障现象五：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Start to calibrate/quantize the model
+core dump
+
+Start to compile the model
+core dump
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是模型量化/编译失败。</p>
+<p>解决建议：针对此故障，请您将模型以及.log文件收集好后提供给地平线技术人员进行分析处理。</p>
+<ol class="arabic simple" start="6">
+<li><p>故障现象六：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR model conversion faild: Inferred shape and existing shape differ <span class="k">in</span> dimension x: <span class="o">(</span>n<span class="o">)</span> vs <span class="o">(</span>m<span class="o">)</span>
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是onnx模型的输入shape非法，或者是工具优化pass有误。</p>
+<p>解决建议：针对此故障，请您确保onnx模型的有效性，若onnx模型可正常推理，请将模型提供给地平线技术人员进行分析处理。</p>
+<ol class="arabic simple" start="7">
+<li><p>故障现象七：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>WARNING got unexpected input/output/sumin threshold on conv <span class="o">{</span>op_name<span class="o">}</span>! value: xxx
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是数据预处理有误，或该节点weight值太小/太大。</p>
+<p>解决建议：针对此故障，请您检查数据预处理是否有误；我们建议您使用BN算子优化数据分布。</p>
+<ol class="arabic simple" start="8">
+<li><p>故障现象八：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR hbdk-cc compile hbir model failed with returncode -n
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是模型编译失败。</p>
+<p>解决建议：针对此故障，请您将模型以及.log文件收集好后提供给地平线技术人员进行分析处理。</p>
+<ol class="arabic simple" start="9">
+<li><p>故障现象九：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR <span class="o">{</span>op_type<span class="o">}</span>  only support <span class="m">4</span> dim input
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是工具链暂不支持该op输入维度为非四维。</p>
+<p>解决建议：针对此故障，我们建议您将该op输入维度调整为四维输入。</p>
+<ol class="arabic simple" start="10">
+<li><p>故障现象十：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR <span class="o">{</span>op_type<span class="o">}</span> Not support this attribute/mode<span class="o">=</span>xxx
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是工具链暂不支持op的该属性。</p>
+<p>解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容进行替换或联系地平线对此进行开发评估。</p>
+<ol class="arabic simple" start="11">
+<li><p>故障现象十一：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR There is no node can execute on BPU <span class="k">in</span> this model,
+please make sure the model has at least one conv node which is supported by BPU.
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是模型中没有可量化的BPU节点。</p>
+<p>解决建议：针对此故障，请您确保onnx模型的有效性，且模型中至少使用了一个conv；若前述条件均已满足，请您将模型以及.log文件收集好后提供给地平线技术人员进行分析处理。</p>
+<ol class="arabic simple" start="12">
+<li><p>故障现象十二：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR The opset version of the onnx model is n, only model with opset_version <span class="m">10</span>/11 is supported
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是模型opset版本超出工具链支持限制。</p>
+<p>解决建议：针对此故障，请您重新导出模型，确保opset_version=10或者11。</p>
+<ol class="arabic simple" start="13">
+<li><p>故障现象十三：</p></li>
+</ol>
+<p><strong>在使用run_on_bpu后转换报错。</strong></p>
+<p>故障可能原因：发生此故障的原因可能是目前暂不支持将该算子run_on_bpu。</p>
+<p>解决建议：run_on_bpu暂仅支持指定模型尾部的Relu/Softmax/pooling（maxpool、avgpool等）算子以及CPU*+Transpose组合（可通过声明Transpose节点名称，将CPU*+Transpose都运行在BPU上，CPU*特指BPU支持的op），
+若满足前述条件但仍run_on_bpu失败，请您联系地平线技术人员对此进行分析处理；若不满足前述条件，可联系地平线技术人员对此进行开发评估。</p>
+<ol class="arabic simple" start="14">
+<li><p>故障现象十四：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR unsupported model: BAYES not support excute one model on 2core simultaneously now
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因是J5目前暂不支持编译双核模型。</p>
+<p>解决建议：针对此故障，建议您将yaml配置文件中的core_num设置为1。</p>
+<ol class="arabic simple" start="15">
+<li><p>故障现象十五：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR tool limits <span class="k">for</span> max output num is <span class="m">32</span>
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是工具链仅支持模型输出节点数量不超过32。</p>
+<p>解决建议：针对此故障，建议您将模型输出节点数量控制在32个以内。</p>
+</section>
+<section id="hb-model-modifier">
+<h3><span class="section-number">6.4.3. </span>hb_model_modifier常见故障<a class="headerlink" href="#hb-model-modifier" title="永久链接至标题"></a></h3>
+<p><strong>背景信息</strong>： <code class="docutils literal notranslate"><span class="pre">hb_model_modifier</span></code> 工具用于对指定的runtime模型中输入端的Transpose、Quantize节点和输出端的Transpose、Dequanti、Cast、Reshape、softmax节点进行删除操作，
+并将删除节点的信息存放在BIN模型中，可以通过 hb_model_info 进行查看。</p>
+<p><strong>故障场景</strong>：以下为在使用 <code class="docutils literal notranslate"><span class="pre">hb_model_modifier</span></code> 时常见的故障场景：</p>
+<p>故障现象：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR Can not find value info <span class="o">{</span>op_name<span class="o">}</span>
+</pre></div>
+</div>
+<p>故障可能原因：该问题为地平线已知问题，于OE1.1.14版本进行了修复。</p>
+<p>解决建议：针对此故障，请您完整更新OE开发包或将horizon-tc-ui升级至1.7.8。</p>
+</section>
+<section id="hb-model-verifier">
+<h3><span class="section-number">6.4.4. </span>hb_model_verifier常见故障<a class="headerlink" href="#hb-model-verifier" title="永久链接至标题"></a></h3>
+<p><strong>背景信息</strong>： <code class="docutils literal notranslate"><span class="pre">hb_model_verifier</span></code> 工具是用于对指定的定点模型和runtime模型进行结果验证的工具。
+该工具会使用指定图片，进行定点模型推理，runtime模型板端和x86端模拟器上的推理，并对其三方的结果进行两两比较，给出是否通过的结论。</p>
+<p><strong>故障场景</strong>：以下为在使用 <code class="docutils literal notranslate"><span class="pre">hb_model_verifier</span></code> 时常见的故障场景：</p>
+<ol class="arabic simple">
+<li><p>故障现象一：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR Arm result does not exist, program halted
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障后，您可查看终端执行日志相关提示，一般原因为板子连接失败或板端推理失败。</p>
+<p>解决建议：针对此故障，若查看到连接失败的相关提示，请您再次确认在当前环境中是否可ping通开发板；
+若相关提示为板端推理失败，可通过在板端的 <code class="docutils literal notranslate"><span class="pre">/userdata/model_verifier_test</span></code> 路径下执行 <code class="docutils literal notranslate"><span class="pre">infer.sh</span></code> 来查看推理失败的具体原因。</p>
+<ol class="arabic simple" start="2">
+<li><p>故障现象二：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR Quanti onnx and Arm result Strict check FAILED
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是模型一致性比对失败。</p>
+<p>解决建议：针对此故障，请您将模型提供给地平线技术人员进行分析处理。</p>
+</section>
+<section id="hb-onnxruntime">
+<h3><span class="section-number">6.4.5. </span>hb_onnxruntime常见故障<a class="headerlink" href="#hb-onnxruntime" title="永久链接至标题"></a></h3>
+<p><strong>背景信息</strong>： <code class="docutils literal notranslate"><span class="pre">hb_onnxruntime</span></code> 主要是用于onnx模型推理的类。</p>
+<p><strong>故障场景</strong>：以下为在使用 <code class="docutils literal notranslate"><span class="pre">hb_onnxruntime</span></code> 时常见的故障场景：</p>
+<p>故障现象：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ERROR <span class="o">[</span>ONNXRuntimeError<span class="o">]</span> : <span class="m">2</span>：INVALID_ARGUMENT : Unexpected input data type.
+Actual: <span class="o">(</span>N11onnxruntime17PrimitiveDataTypexxx<span class="o">)</span>, expected: <span class="o">(</span>N11onnxruntime17PrimitiveDataTypexxx<span class="o">)</span>
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是输入数据格式与模型不匹配。</p>
+<p>解决建议：针对此故障，一般来说浮点onnx模型的输入格式为float32，量化后模型输入格式为int8。可使用可视化工具查看onnx模型input节点的属性。</p>
+</section>
+<section id="libdnn">
+<h3><span class="section-number">6.4.6. </span>libDNN常见故障<a class="headerlink" href="#libdnn" title="永久链接至标题"></a></h3>
+<p><strong>背景信息</strong>： <code class="docutils literal notranslate"><span class="pre">libDNN</span></code> 主要是用于地平线模型的推理库。</p>
+<p><strong>故障场景</strong>：以下为在使用 <code class="docutils literal notranslate"><span class="pre">libDNN</span></code> 时常见的故障场景：</p>
+<ol class="arabic simple">
+<li><p>故障现象一：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>common.h:79<span class="o">)</span>: HR:ERROR: op_name:xxx invalid attr key xxx
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是libDNN暂不支持该op的某个属性（后续我们将逐步把算子约束前移至模型转换阶段提醒）。</p>
+<p>解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容进行替换或联系地平线对此进行开发评估。</p>
+<ol class="arabic simple" start="2">
+<li><p>故障现象二：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>hb_dnn_ndarray.cpp:xxx<span class="o">)</span>: data <span class="nb">type</span> of ndarray <span class="k">do</span> not match specified type. NDArray dtype_: n, given：m
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是libDNN暂不支持该输入类型（后续我们将逐步把算子约束前移至模型转换阶段提醒）。</p>
+<p>解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容进行替换或联系地平线对此进行开发评估。</p>
+<ol class="arabic simple" start="3">
+<li><p>故障现象三：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>validate_util.cpp:xxx<span class="o">)</span>：tensor aligned shape size is xxx , but tensor hbSysMem memSize is xxx,
+tensor hbSysMem memSize should &gt;<span class="o">=</span> tensor aligned shape size!
+</pre></div>
+</div>
+<p>故障可能原因：发生此故障的原因可能是输入数据申请内存不足。</p>
+<p>解决建议：针对此故障，由于使用hrt_model_exec model_info查看模型input节点的aligned shape，是按aligned shape*size_of(tensor type)来申请内存空间的。
+此处我们建议：若您的libDNN版本高于1.5.4b，建议直接使用hbDNNTensorProperties.alignedByteSize来申请内存空间，若您的libDNN版本低于1.5.4b版本则直接使用aligned*size来申请内存空间。</p>
+<ol class="arabic simple" start="4">
+<li><p>故障现象四：</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">(</span>bpu_model_info.cpp:xxx<span class="o">)</span>: HR:ERROR: hbm model input feature names must be equal to graph node input names
+</pre></div>
+</div>
+<p>故障可能原因：该问题为地平线已知问题，属于hb_model_modifer工具已知问题，已于OE1.1.14版本进行了修复。</p>
+<p>解决建议：针对此故障，请您完整更新OE开发包或将horizon-tc-ui升级至1.7.8版本。</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dsp.html" class="btn btn-neutral float-left" title="5. DSP开发文档" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

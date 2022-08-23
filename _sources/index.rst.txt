@@ -1,0 +1,52 @@
+地平线 J5 芯片开发手册
+=====================================
+
+**征程Journey5** （简称J5）是地平线2021年面向自动驾驶AUTO领域推出的低功耗、高性能AI处理器。 
+
+计算能力方面，J5内置了八核 Cortex-A55 CPU, 双核 Vision P6 DSP 及双核 BPU (Brain Processing Unit) AI加速器，
+其中BPU加速器采用了全新一代的贝叶斯 (Bayes) 架构设计，可提供 128 TOPS的AI算力。
+
+.. note::
+  BPU是地平线自研的AI加速核，在设计过程中具体结合了Auto的场景需求，从算法、计算架构、编译器三个方面进行了软硬协同优化，
+  使得在功耗不变前提下提高数倍的AI计算性能。
+  
+  J5芯片内置了贝叶斯架构的BPU核，它极大提升了对先进CNN网络的支持，同时大大降低了DDR带宽占用率，
+  可提供实时像素级视频分割和结构化视频分析等能力。
+
+图像处理能力方面，J5芯片内置了2个高性能 ISP 图像处理模块，每个 ISP 模块可支持 2x4k/8M\@30fps 图像处理，
+可以支持多帧曝光宽动态 (HDR)，可以在严苛光照场景下得到高质量图像。
+同时还支持各种主流CFA，如：RGGB、RCCC、RGBIR 2x2、RCCB、RCCG和RYYCy等。
+
+J5 ISP还提供了包括黑电平补偿 (black level correction)，缺陷像素检测与校正(defect pixel detection and correction)，
+图像降噪 (spatial noise reduction)，色差矫正(chromatic aberration correction)，镜头矫正(lens shading correction)，
+去马赛克(demosaicing)等多种能力，同时我们还提供了专有的ISP修改工具，用于赋能客户调整ISP参数和图像效果。
+
+其他方面：请联系地平线技术支持或销售进行解决。
+
+此外，为了让用户更好的使用J5芯片的AI能力，我们提供完整的开发板套件、AI开发平台以及围绕芯片打造各种行业方案，
+您可以参考后续相关章节进行了解。
+
+
+.. toctree::
+   :hidden:
+   :maxdepth: 3
+   :caption: 概述
+
+.. toctree::
+   :hidden:
+   :maxdepth: 3
+   :caption: 芯片介绍
+
+   ./common_doc_cn/j5_board_overview.rst
+
+.. toctree::
+   :hidden:
+   :maxdepth: 3
+   :caption: 系统镜像
+
+   ./common_doc_cn/j5_dev_board_system_image.rst
+   ./common_doc_cn/j5_board_command.rst
+   ./source_doc/j5_ddk_docs.rst   
+   ./source_doc/j5_oe_detail.rst   
+
+

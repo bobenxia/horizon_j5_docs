@@ -1,0 +1,221 @@
+发布物介绍
+=========================
+
+模型量化示例包 ``horizon_model_convert_sample``
+-----------------------------------------------------
+
+模型转换示例包的目录结构如下所示:
+
+.. code-block:: bash
+
+  ├── 01_common                              # 此路径包含PTQ示例包通用脚本和数据
+  |   ├── calibration_data
+  |   ├── data -> /data/horizon_j5/data/     # 用于放置公共数据集的软链接
+  |   ├── model_zoo -> ../../../model_zoo    # 用于放置模型发布物的软链接
+  |   ├── python
+  |   ├── README.md
+  |   ├── test_data
+  |   └── tools
+  ├── 02_preq_examples
+  |   ├── 01_fcos_efficientnetb0
+  |   ├── 02_fcos_efficientnetb2
+  |   ├── 03_fcos_efficientnetb3
+  |   ├── det_evaluate.py
+  |   ├── det_inference.py
+  |   ├── seg_evaluate.py
+  |   └── seg_inference.py 
+  ├── 03_classification                      # 算法模型示例
+  |   ├── 01_mobilenet
+  |   ├── 02_googlenet
+  |   ├── 03_resnet18
+  |   ├── 05_efficientnet_lite0_onnx
+  |   ├── 06_efficientnet_lite1_onnx
+  |   ├── 07_efficientnet_lite2_onnx
+  |   ├── 08_efficientnet_lite3_onnx
+  |   ├── 09_efficientnet_lite4_onnx
+  |   ├── 10_vargconvnet
+  |   ├── 11_efficientnasnet_m
+  |   ├── 12_efficientnasnet_s  
+  |   ├── cls_evaluate.py
+  |   └── cls_inference.py
+  ├── 04_detection
+  |   ├── 01_yolov2_darknet19
+  |   ├── 02_yolov3_darknet53
+  |   ├── 03_yolov5x
+  |   ├── 04_ssd_mobilenetv1
+  |   ├── 05_efficientdetd0
+  |   ├── 06_centernet_resnet101
+  |   ├── 07_fcos_efficientnetb0
+  |   ├── 08_yolov4
+  |   ├── 09_yolov3_vargdarknet
+  |   ├── 10_fcos_resnet50
+  |   ├── 11_fcos_resnext101
+  |   ├── det_evaluate.py
+  |   └── det_inference.py
+  ├── 05_miscellaneous
+  |   ├── 01_lenet_gray
+  |   ├── 02_resnet50_feature
+  |   ├── 03_vector_diff
+  |   ├── 07_model_verifier
+  |   ├── 08_model_info
+  |   ├── 09_mobilenet_bgr
+  |   ├── 11_mobilenet_yuv444
+  |   └── mis_inference.py
+  ├── 06_custom_op
+  |   └── mapper
+  ├── 07_segmentation
+  |   ├── 01_unet_mobilenet
+  |   ├── 02_deeplabv3plus_efficientnetb0
+  |   ├── 03_fastscnn_efficientnetb0
+  |   ├── 04_deeplabv3plus_dilation1248
+  |   ├── 05_deeplabv3plus_efficientnetm1
+  |   ├── 06_deeplabv3plus_efficientnetm2
+  |   ├── seg_evaluate.py
+  |   └── seg_inference.py
+  ├── data_preprocess.py
+  └── version.txt
+
+示例包中包含的主要内容：
+
+.. _algo_sample_doc_ref:
+
+:doc:`算法模型示例 <algorithm_sample>`
+
+算法模型示例的主要目标是指导用户：
+
+* 快速体验模型转换的流程
+* 快速评测模型转换的精度
+* 体验转换的效果
+
+
+:doc:`杂项示例 <misc_sample>`
+
+  miscellaneous，杂项示例，指导用户使用地平线芯片工具链提供的一些其他内容。
+  比如：如何使用地平线模型转换工具，使rgb数据训练的模型能在runtime运行时接受yuv数据。
+
+  `03_vector_diff` 指导用户如何使用 ``vec_diff`` 工具来定位问题的一个示例。
+
+.. note::
+
+  这部分示例会不定期更新，为用户常见的问题提供示例解答。
+
+模型发布物 ``model_zoo``
+--------------------------------
+
+``model_zoo`` 包含两个路径： ``mapper`` 和 ``runtime``。
+其中 ``mapper`` 路径下包含了PTQ和QAT方案进行模型转换时要使用的模型（ONNX或Caffe格式的浮点模型），
+其中fcos_efficientnetb0、fcos_efficientnetb2和fcos_efficientnetb3为QAT模型，其余为PTQ模型；
+``runtime`` 路径下包含了嵌入式运行时开发要使用的bin模型。
+
+以下仅展示PTQ和QAT示例要使用的模型发布物：
+
+.. code-block:: bash
+
+  ├── classification
+  │   ├── efficientnasnet
+  │   │   ├── efficientnasnet-m.onnx
+  │   │   ├── efficientnasnet.onnx
+  │   │   └── efficientnasnet-s.onnx
+  │   ├── efficientnet_lite_onnx
+  │   │   ├── efficientnet_lite0_fp32.onnx
+  │   │   ├── efficientnet_lite1_fp32.onnx
+  │   │   ├── efficientnet_lite2_fp32.onnx
+  │   │   ├── efficientnet_lite3_fp32.onnx
+  │   │   └── efficientnet_lite4_fp32.onnx
+  │   ├── googlenet
+  │   │   └── googlenet.onnx
+  │   ├── mobilenet
+  │   │   ├── mobilenet.caffemodel
+  │   │   ├── mobilenet_deploy.prototxt
+  │   │   ├── mobilenet_v2.caffemodel
+  │   │   └── mobilenet_v2_deploy.prototxt
+  │   ├── mobilenet_onnx
+  │   │   └── mobilenetv2.onnx
+  │   ├── resnet18
+  │   │   ├── resnet18.caffemodel
+  │   │   └── resnet18_deploy.prototxt
+  │   ├── resnet50
+  │   │   ├── resnet_50.caffemodel
+  │   │   └── resnet_50_deploy.prototxt
+  │   ├── se_resnet_gray_onnx
+  │   │   └── se_resnet_gray.onnx
+  │   └── vargnet
+  │       └── vargconvnet.onnx
+  ├── custom_op
+  │   ├── googlenet_cop.onnx
+  │   ├── resnet_50.caffemodel
+  │   └── resnet_50_deploy_cpu.prototxt
+  ├── detection
+  │   ├── centernet
+  │   │   ├── centernet_resnet101_coco.onnx
+  │   │   └── centernet_resnet50.onnx
+  │   ├── efficientdetd0
+  │   │   └── efficientdet_nhwc.onnx
+  │   ├── fcos_efficientnetb0
+  │   │   ├── fcos_effb0.onnx
+  │   │   └── fcos.onnx
+  │   ├── fcos_efficientnetb3
+  │   │   └── fcos_effb3.onnx
+  │   ├── fcos_resnet50
+  │   │   └── fcos_resnet50.onnx
+  │   ├── fcos_resnext101
+  │   │   └── fcos_resnext101.onnx
+  │   ├── ssd_mobilenetv1
+  │   │   ├── mobilenet_iter_73000.caffemodel
+  │   │   └── MobileNetSSD_deploy.prototxt
+  │   ├── yolov2_darknet19
+  │   │   ├── README.md
+  │   │   ├── yolov2.caffemodel
+  │   │   └── yolov2_transposed.prototxt
+  │   ├── yolov3_darknet53
+  │   │   ├── README.md
+  │   │   ├── yolov3.caffemodel
+  │   │   └── yolov3_transposed.prototxt
+  │   ├── yolov3_vargdarknet
+  │   │   └── yolov3_vargdarknet53.onnx
+  │   ├── yolov4
+  │   │   └── yolov4_efficientnetb0.onnx
+  │   └── yolov5_onnx_optimized
+  │       ├── YOLOv5l.onnx
+  │       ├── YOLOv5m.onnx
+  │       ├── YOLOv5s.onnx
+  │       └── YOLOv5x.onnx
+  ├── other
+  │   ├── fcos_efficientnetb0
+  │   │   └── fcos_efficientnetb0_qat.onnx
+  │   ├── lenet
+  │   │   ├── lenet_iter_100000.caffemodel
+  │   │   └── lenet_train_test.prototxt
+  │   ├── mobilenetv2_three_inputs
+  │   │   ├── mobilenetv2_three_inputs.caffemodel
+  │   │   └── mobilenetv2_three_inputs.prototxt
+  │   ├── multi_type
+  │   │   └── original_float_model.onnx
+  │   ├── resizer_model
+  │   │   └── resizer_model.onnx
+  │   └── resnet50_feature
+  │       ├── resnet50_feature.caffemodel
+  │       ├── resnet50_feature_deploy.prototxt
+  │       ├── resnet50_pre.caffemodel
+  │       └── resnet50_pre.prototxt
+  ├── preq_examples
+  │   └── fcos_efficientnet
+  │       ├── fcos_effb0_qat.onnx
+  │       ├── fcos_effb2_qat.onnx 
+  │       └── fcos_effb3_qat.onnx  
+  └── segmentation
+      ├── deeplabv3plus_efficientnetb0
+      │   ├── deeplabv3_cityscapes_dila1248_permute.onnx
+      │   └── deeplabv3plus_efficientnetb0.onnx
+      ├── deeplabv3plus_efficientnetm
+      │   ├── deeplabv3plus_efficientnetm1.onnx
+      │   └── deeplabv3plus_efficientnetm2.onnx      
+      ├── fastscnn_efficientnetb0
+      │   └── fastscnn_efficientnetb0.onnx
+      ├── mobilenet_unet
+      │   └── tf_unet_trained.onnx
+      └── unet_mobilenet
+          └── tf_unet_trained.onnx
+
+
+下一小节内容将为您介绍算法模型示例相关的内容。

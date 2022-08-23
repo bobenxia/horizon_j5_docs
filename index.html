@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>地平线 J5 芯片开发手册</title>
+    
+      <link rel="stylesheet" href="_static/pygments.css">
+      <!-- bundled in js (rollup iife) -->
+      <!-- <link rel="stylesheet" href="_static/theme.css"> -->
+      <link rel="stylesheet" href="_static/sphinx_press_theme.css">
+          <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="_static/css/theme.css " type="text/css" />
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="_static/theme-vendors.js"></script> -->
+      <script src="_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="genindex.html" />
+  <link rel="search" title="搜索" href="search.html" />
+  <link rel="next" title="关于征程5代芯片" href="common_doc_cn/j5_board_overview.html" /> 
+  </head>
+
+  <body>
+    <div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="#" class="home-link">
+    
+      <span class="site-name">地平线J5芯片开发手册</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="https://horizon.ai/"
+        class="nav-link external">
+          地平线官网 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://developer.horizon.ai/"
+        class="nav-link external">
+          社区问题求助 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://wenjuan.feishu.cn/m?t=srSlsnSEmgsi-ambr"
+        class="nav-link external">
+          产品使用反馈 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="https://horizon.ai/"
+        class="nav-link external">
+          地平线官网 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://developer.horizon.ai/"
+        class="nav-link external">
+          社区问题求助 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://wenjuan.feishu.cn/m?t=srSlsnSEmgsi-ambr"
+        class="nav-link external">
+          产品使用反馈 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+
+            
+          </navlinks><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="#j5">概述</a></span>
+      </p>
+      <ul class="">
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="#j5">芯片介绍</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="common_doc_cn/j5_board_overview.html" class="reference internal ">关于征程5代芯片</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="#j5">系统镜像</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="common_doc_cn/j5_dev_board_system_image.html" class="reference internal ">系统镜像升级</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="common_doc_cn/j5_board_command.html" class="reference internal ">常用工具介绍</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="source_doc/j5_ddk_docs.html" class="reference internal ">开发手册</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="source_doc/j5_oe_detail.html" class="reference internal ">附录：发布物内容</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="#">Docs</a> &raquo;</li>
+    
+    <li>地平线 J5 芯片开发手册</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="next">
+    <a href="common_doc_cn/j5_board_overview.html"
+       title="下一章">关于征程5代芯片 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="j5">
+<h1>地平线 J5 芯片开发手册<a class="headerlink" href="#j5" title="永久链接至标题">¶</a></h1>
+<p><strong>征程Journey5</strong> （简称J5）是地平线2021年面向自动驾驶AUTO领域推出的低功耗、高性能AI处理器。</p>
+<p>计算能力方面，J5内置了八核 Cortex-A55 CPU, 双核 Vision P6 DSP 及双核 BPU (Brain Processing Unit) AI加速器，
+其中BPU加速器采用了全新一代的贝叶斯 (Bayes) 架构设计，可提供 128 TOPS的AI算力。</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>BPU是地平线自研的AI加速核，在设计过程中具体结合了Auto的场景需求，从算法、计算架构、编译器三个方面进行了软硬协同优化，
+使得在功耗不变前提下提高数倍的AI计算性能。</p>
+<p>J5芯片内置了贝叶斯架构的BPU核，它极大提升了对先进CNN网络的支持，同时大大降低了DDR带宽占用率，
+可提供实时像素级视频分割和结构化视频分析等能力。</p>
+</div>
+<p>图像处理能力方面，J5芯片内置了2个高性能 ISP 图像处理模块，每个 ISP 模块可支持 2x4k/8M&#64;30fps 图像处理，
+可以支持多帧曝光宽动态 (HDR)，可以在严苛光照场景下得到高质量图像。
+同时还支持各种主流CFA，如：RGGB、RCCC、RGBIR 2x2、RCCB、RCCG和RYYCy等。</p>
+<p>J5 ISP还提供了包括黑电平补偿 (black level correction)，缺陷像素检测与校正(defect pixel detection and correction)，
+图像降噪 (spatial noise reduction)，色差矫正(chromatic aberration correction)，镜头矫正(lens shading correction)，
+去马赛克(demosaicing)等多种能力，同时我们还提供了专有的ISP修改工具，用于赋能客户调整ISP参数和图像效果。</p>
+<p>其他方面：请联系地平线技术支持或销售进行解决。</p>
+<p>此外，为了让用户更好的使用J5芯片的AI能力，我们提供完整的开发板套件、AI开发平台以及围绕芯片打造各种行业方案，
+您可以参考后续相关章节进行了解。</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="next">
+    <a href="common_doc_cn/j5_board_overview.html"
+       title="下一章">关于征程5代芯片 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2022, Horizon Robotics.
+</div>
+            </div>
+          </div>
+      </page>
+    </div>
+    
+    
+  </body>
+</html>

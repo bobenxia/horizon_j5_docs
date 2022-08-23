@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>关于征程5代芯片</title>
+    
+      <link rel="stylesheet" href="../_static/pygments.css">
+      <!-- bundled in js (rollup iife) -->
+      <!-- <link rel="stylesheet" href="../_static/theme.css"> -->
+      <link rel="stylesheet" href="../_static/sphinx_press_theme.css">
+          <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../_static/css/theme.css " type="text/css" />
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../_static/theme-vendors.js"></script> -->
+      <script src="../_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="../genindex.html" />
+  <link rel="search" title="搜索" href="../search.html" />
+  <link rel="next" title="系统镜像升级" href="j5_dev_board_system_image.html" />
+  <link rel="prev" title="地平线 J5 芯片开发手册" href="../index.html" /> 
+  </head>
+
+  <body>
+    <div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../index.html" class="home-link">
+    
+      <span class="site-name">地平线J5芯片开发手册</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="https://horizon.ai/"
+        class="nav-link external">
+          地平线官网 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://developer.horizon.ai/"
+        class="nav-link external">
+          社区问题求助 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://wenjuan.feishu.cn/m?t=srSlsnSEmgsi-ambr"
+        class="nav-link external">
+          产品使用反馈 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="https://horizon.ai/"
+        class="nav-link external">
+          地平线官网 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://developer.horizon.ai/"
+        class="nav-link external">
+          社区问题求助 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://wenjuan.feishu.cn/m?t=srSlsnSEmgsi-ambr"
+        class="nav-link external">
+          产品使用反馈 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+
+            
+          </navlinks><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">概述</a></span>
+      </p>
+      <ul class="">
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">芯片介绍</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">关于征程5代芯片</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#soc" class="reference internal">1. SoC</a></li>
+                
+                  <li class="toctree-l2"><a href="#id2" class="reference internal">2. 片内外设</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">系统镜像</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="j5_dev_board_system_image.html" class="reference internal ">系统镜像升级</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="j5_board_command.html" class="reference internal ">常用工具介绍</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../source_doc/j5_ddk_docs.html" class="reference internal ">开发手册</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../source_doc/j5_oe_detail.html" class="reference internal ">附录：发布物内容</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+    <li>关于征程5代芯片</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="../index.html"
+       title="上一章">← 地平线 J5 芯片开发手册</a>
+  </li>
+  <li class="next">
+    <a href="j5_dev_board_system_image.html"
+       title="下一章">系统镜像升级 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="id1">
+<h1>关于征程5代芯片<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>本节内容介绍J5芯片的片上系统和外设。</p>
+<section id="soc">
+<h2>1. SoC<a class="headerlink" href="#soc" title="永久链接至标题">¶</a></h2>
+<p>芯片的功能框图如下图所示：</p>
+<img alt="../_images/chip_function_frame.png" src="../_images/chip_function_frame.png" />
+<ul class="simple">
+<li><p>CPU规格：J5芯片采用八核Cortex-A55作为主控CPU；</p></li>
+<li><p>BPU规格：J5芯片采用双核地平线第三代贝叶斯 (Bayes) 架构的BPU；</p></li>
+<li><p>DSP规格：J5芯片包含两个可编程的Vision P6 DSP模块，可用于CV计算加速；同时可以用神经网络计算。
+该DSP支持SIMD和VLIW计算架构提升计算效率，频率最高到650MHz。
+DSP可配置成256 8x8 MAC，总共达到0.67TOPS。</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>J5内置的2个BPU Core，为业务层面的模型调度提供了非常灵活的多核调度能力，其中包括：</p>
+<ol class="arabic simple">
+<li><p><strong>单帧单核</strong>：将单次模型推理手动调度到单个BPU Core上进行，
+从而针对检测+分类等场景，可以将全图检测高优先级模型与一些低优先级模型进行物理隔离。</p></li>
+<li><p><strong>单帧双核</strong>：单次模型推理同时使用两个BPU Core的硬件资源，从而实现 <strong>真双核</strong> 的执行能力，可显著降低单次模型推理的延迟。</p></li>
+</ol>
+<p>在DDR等资源未达到瓶颈的情况下， <strong>单帧单核</strong> 可以保证两个BPU核的调度推理隔离。
+<strong>多线程多帧双核</strong> 场景可以实现推理FPS的双倍提升。
+针对大模型， <strong>单帧双核</strong> 可显著降低单次模型推理的延迟。
+但是 <strong>多线程多帧双核</strong> 则会由于双核调度的开销，无法实现FPS的双倍提升。
+关于高效使用双核BPU的更多信息，请参考 <a class="reference external" href="../ddk_doc/navigation/ai_toolchain/bpu_sdk_api_doc/index.html">《BPU SDK API手册》</a> 来了解相关技术细节。</p>
+</div>
+<p>地平线J5 SoC严格按照功能安全要求和流程进行设计，集成多种安全机制，可对硬件故障进行快速检测和响应，符合ASIL-B标准。
+J5芯片在2022年Q4将会完成功能安全认证。</p>
+</section>
+<section id="id2">
+<h2>2. 片内外设<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li><p>支持4路2.5G MIPI CSI RX接口</p></li>
+<li><p>支持2路2.5G MIPI CSI TX接口</p></li>
+<li><p>支持1路DVP接口</p></li>
+<li><p>支持8路I2C接口</p></li>
+<li><p>支持4路SPI master接口和2路SPI slave接口，其中有1路SPI master和1路SPI slave接口复用</p></li>
+<li><p>支持4路UART接口</p></li>
+<li><p>支持4路CANF-FD接口</p></li>
+<li><p>支持2路1Gb Ethernet接口，其中eth0接口支持TSN（时间敏感网路）</p></li>
+<li><p>支持1路PCIe Gen3 2Lane接口</p></li>
+<li><p>支持16 LPWM接口和2路PWM接口</p></li>
+<li><p>支持1路EMMC和1路SD/SDIO接口</p></li>
+<li><p>支持1路OSPI接口连接nor/hyper/nand flash</p></li>
+<li><p>支持64bit LPDDR4/4X memory接口</p></li>
+<li><p>支持2路Vision P6 DSP</p></li>
+<li><p>Optical flow processor</p></li>
+<li><p>支持2路I2S接口</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="../index.html"
+       title="上一章">← 地平线 J5 芯片开发手册</a>
+  </li>
+  <li class="next">
+    <a href="j5_dev_board_system_image.html"
+       title="下一章">系统镜像升级 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2022, Horizon Robotics.
+</div>
+            </div>
+          </div>
+      </page>
+    </div>
+    
+    
+  </body>
+</html>

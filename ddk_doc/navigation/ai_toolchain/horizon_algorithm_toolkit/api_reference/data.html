@@ -1,0 +1,1237 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hat.data &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hat.callbacks" href="callbacks.html" />
+    <link rel="prev" title="ModelZoo" href="../model_zoo/model_zoo.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/registry.html">注册机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hat.data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data">Data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#collates">collates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dataloaders">dataloaders</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#datasets">datasets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#samplers">samplers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transforms">transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-hat.data.collates">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>hat.data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api_reference/data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hat-data">
+<h1>hat.data<a class="headerlink" href="#hat-data" title="Permalink to this headline">¶</a></h1>
+<p>Main data module for training in HAT, which contains datasets, transforms, samplers.</p>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="collates">
+<h3>collates<a class="headerlink" href="#collates" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.collates.collate_2d" title="hat.data.collates.collate_2d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collate_2d</span></code></a></p></td>
+<td><p>Merge a list of samples to form a mini-batch of Tensor(s).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.collates.collate_3d" title="hat.data.collates.collate_3d"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collate_3d</span></code></a></p></td>
+<td><p>Merge a list of samples to form a mini-batch of Tensor(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.collates.collate_psd" title="hat.data.collates.collate_psd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collate_psd</span></code></a></p></td>
+<td><p>Merge a list of samples to form a mini-batch of Tensor(s).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="dataloaders">
+<h3>dataloaders<a class="headerlink" href="#dataloaders" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.dataloaders.PassThroughDataLoader" title="hat.data.dataloaders.PassThroughDataLoader"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PassThroughDataLoader</span></code></a></p></td>
+<td><p>Directly pass through input example.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="datasets">
+<h3>datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.datasets.BatchTransformDataset" title="hat.data.datasets.BatchTransformDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchTransformDataset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.datasets.Cityscapes" title="hat.data.datasets.Cityscapes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cityscapes</span></code></a></p></td>
+<td><p>Cityscapes provides the method of reading cityscapes data from target pack type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.datasets.CityscapesPacker" title="hat.data.datasets.CityscapesPacker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CityscapesPacker</span></code></a></p></td>
+<td><p>CityscapesPacker is used for converting Cityscapes dataset in torchvision to target DataType format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.datasets.RepeatDataset" title="hat.data.datasets.RepeatDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RepeatDataset</span></code></a></p></td>
+<td><p>A wrapper of repeated dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.datasets.ComposeDataset" title="hat.data.datasets.ComposeDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ComposeDataset</span></code></a></p></td>
+<td><p>Dataset wrapper for multiple datasets with precise batch size.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.datasets.ResampleDataset" title="hat.data.datasets.ResampleDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResampleDataset</span></code></a></p></td>
+<td><p>A wrapper of resample dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.datasets.ConcatDataset" title="hat.data.datasets.ConcatDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConcatDataset</span></code></a></p></td>
+<td><p>A wrapper of concatenated dataset with group flag.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.datasets.ImageNet" title="hat.data.datasets.ImageNet"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ImageNet</span></code></a></p></td>
+<td><p>ImageNet provides the method of reading imagenet data from target pack type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.datasets.ImageNetPacker" title="hat.data.datasets.ImageNetPacker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ImageNetPacker</span></code></a></p></td>
+<td><p>ImageNetPacker is used for converting ImageNet dataset in torchvision to DataType format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.datasets.ImageNetFromImage" title="hat.data.datasets.ImageNetFromImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ImageNetFromImage</span></code></a></p></td>
+<td><p>ImageNet from image by torchvison.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.datasets.Coco" title="hat.data.datasets.Coco"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Coco</span></code></a></p></td>
+<td><p>Coco provides the method of reading coco data from target pack type.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.datasets.CocoDetection" title="hat.data.datasets.CocoDetection"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CocoDetection</span></code></a></p></td>
+<td><p>Coco Detection Dataset.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.datasets.CocoDetectionPacker" title="hat.data.datasets.CocoDetectionPacker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CocoDetectionPacker</span></code></a></p></td>
+<td><p>CocoDetectionPacker is used for packing coco dataset to target format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.datasets.CocoFromImage" title="hat.data.datasets.CocoFromImage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CocoFromImage</span></code></a></p></td>
+<td><p>Coco from image by torchvision.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.datasets.RandDataset" title="hat.data.datasets.RandDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandDataset</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="samplers">
+<h3>samplers<a class="headerlink" href="#samplers" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.samplers.DistSamplerHook" title="hat.data.samplers.DistSamplerHook"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DistSamplerHook</span></code></a></p></td>
+<td><p>The hook api for torch.utils.data.DistributedDampler.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="transforms">
+<h3>transforms<a class="headerlink" href="#transforms" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.ConvertLayout" title="hat.data.transforms.ConvertLayout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ConvertLayout</span></code></a></p></td>
+<td><p>ConvertLayout is used for layout convert.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.BgrToYuv444" title="hat.data.transforms.BgrToYuv444"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BgrToYuv444</span></code></a></p></td>
+<td><p>BgrToYuv444 is used for color format convert.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.OneHot" title="hat.data.transforms.OneHot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OneHot</span></code></a></p></td>
+<td><p>OneHot is used for convert layer to one-hot format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.LabelSmooth" title="hat.data.transforms.LabelSmooth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelSmooth</span></code></a></p></td>
+<td><p>LabelSmooth is used for label smooth.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.TimmTransforms" title="hat.data.transforms.TimmTransforms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimmTransforms</span></code></a></p></td>
+<td><p>Transforms of timm.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.TimmMixup" title="hat.data.transforms.TimmMixup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TimmMixup</span></code></a></p></td>
+<td><p>Mixup of timm.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.Resize" title="hat.data.transforms.Resize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Resize</span></code></a></p></td>
+<td><p>Resize image &amp; bbox &amp; mask &amp; seg.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.RandomFlip" title="hat.data.transforms.RandomFlip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomFlip</span></code></a></p></td>
+<td><p>Flip image &amp; bbox &amp; mask &amp; seg &amp; flow.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pad</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Normalize</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomCrop</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.ToTensor" title="hat.data.transforms.ToTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ToTensor</span></code></a></p></td>
+<td><p>Convert objects of various python types to torch.Tensor and convert the img to yuv444 format if to_yuv is True.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Batchify</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.FixedCrop" title="hat.data.transforms.FixedCrop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FixedCrop</span></code></a></p></td>
+<td><p>Crop image with fixed position and size.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.ColorJitter" title="hat.data.transforms.ColorJitter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ColorJitter</span></code></a></p></td>
+<td><p>Randomly change the brightness, contrast, saturation and hue of an image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.AugmentHSV" title="hat.data.transforms.AugmentHSV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AugmentHSV</span></code></a></p></td>
+<td><p>Random add color disturbance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.RandomExpand" title="hat.data.transforms.RandomExpand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RandomExpand</span></code></a></p></td>
+<td><p>Random expand the image &amp; bboxes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.MinIoURandomCrop" title="hat.data.transforms.MinIoURandomCrop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MinIoURandomCrop</span></code></a></p></td>
+<td><p>Random crop the image &amp; bboxes, the cropped patches have minimum IoU requirement with original image &amp; bboxes, the IoU threshold is randomly selected from min_ious.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.SegRandomCrop" title="hat.data.transforms.SegRandomCrop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SegRandomCrop</span></code></a></p></td>
+<td><p>Random crop on data with gt_seg label, can only be used for segmentation</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.SegReWeightByArea" title="hat.data.transforms.SegReWeightByArea"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SegReWeightByArea</span></code></a></p></td>
+<td><p>Calculate the weight of each category according to the area of each category.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.LabelRemap" title="hat.data.transforms.LabelRemap"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabelRemap</span></code></a></p></td>
+<td><p>Remap labels.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.SegOneHot" title="hat.data.transforms.SegOneHot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SegOneHot</span></code></a></p></td>
+<td><p>OneHot is used for convert layer to one-hot format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.SegResize" title="hat.data.transforms.SegResize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SegResize</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.SegRandomAffine" title="hat.data.transforms.SegRandomAffine"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SegRandomAffine</span></code></a></p></td>
+<td><p>Apply random for both image and label.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.Scale" title="hat.data.transforms.Scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Scale</span></code></a></p></td>
+<td><p>Scale input according to a scale list.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">FlowRandomAffineScale</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.ListToDict" title="hat.data.transforms.ListToDict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ListToDict</span></code></a></p></td>
+<td><p>Convert list args to dict.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.DeleteKeys" title="hat.data.transforms.DeleteKeys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeleteKeys</span></code></a></p></td>
+<td><p>Delete keys in input dict.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.RenameKeys" title="hat.data.transforms.RenameKeys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RenameKeys</span></code></a></p></td>
+<td><p>Rename keys in input dict.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.Undistortion" title="hat.data.transforms.Undistortion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Undistortion</span></code></a></p></td>
+<td><p>Convert a <code class="docutils literal notranslate"><span class="pre">PIL</span> <span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> to</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.data.transforms.PILToTensor" title="hat.data.transforms.PILToTensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PILToTensor</span></code></a></p></td>
+<td><p>Convert PIL Image to Tensor.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.data.transforms.TensorToNumpy" title="hat.data.transforms.TensorToNumpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorToNumpy</span></code></a></p></td>
+<td><p>Convert tensor to numpy.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-hat.data.collates">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-hat.data.collates" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="hat.data.collates.collate_2d">
+<code class="sig-prename descclassname">hat.data.collates.</code><code class="sig-name descname">collate_2d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>torch.Tensor<span class="p">, </span>Dict<span class="p">]</span><a class="headerlink" href="#hat.data.collates.collate_2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge a list of samples to form a mini-batch of Tensor(s).</p>
+<p>Used in 2d task, for collating data with inconsistent shapes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch</strong> (<em>list</em>) – list of data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="hat.data.collates.collate_3d">
+<code class="sig-prename descclassname">hat.data.collates.</code><code class="sig-name descname">collate_3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch_data</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.collates.collate_3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge a list of samples to form a mini-batch of Tensor(s).</p>
+<p>Used in bev task.     * If output tensor from dataset shape is (n,c,h,w),concat on         aixs 0 directly.     * If output tensor from dataset shape is (c,h,w),expand_dim on         axis 0 and concat.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch</strong> (<em>list</em>) – list of data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="hat.data.collates.collate_psd">
+<code class="sig-prename descclassname">hat.data.collates.</code><code class="sig-name descname">collate_psd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.collates.collate_psd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge a list of samples to form a mini-batch of Tensor(s).</p>
+<p>Used in parking slot detection(psd) task.         For collating data with inconsistent shapes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch</strong> (<em>list</em>) – list of data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-hat.data.dataloaders"></span><dl class="py class">
+<dt id="hat.data.dataloaders.PassThroughDataLoader">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.dataloaders.</code><code class="sig-name descname">PassThroughDataLoader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">clone</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.dataloaders.PassThroughDataLoader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Directly pass through input example.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>Any</em>) – Input data</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – Length of dataloader</p></li>
+<li><p><strong>clone</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether clone input data</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-hat.data.datasets"></span><dl class="py class">
+<dt id="hat.data.datasets.BatchTransformDataset">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">BatchTransformDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">transforms_cfgs</span></em>, <em class="sig-param"><span class="n">epoch_steps</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.BatchTransformDataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.Cityscapes">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">Cityscapes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">transforms</span><span class="p">:</span> <span class="n">list</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pack_type</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pack_kwargs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.Cityscapes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cityscapes provides the method of reading cityscapes data
+from target pack type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_path</strong> (<em>str</em>) – The path of packed file.</p></li>
+<li><p><strong>pack_type</strong> (<em>str</em>) – The pack type.</p></li>
+<li><p><strong>transfroms</strong> (<em>list</em>) – Transfroms of cityscapes before using.</p></li>
+<li><p><strong>pack_kwargs</strong> (<em>dict</em>) – Kwargs for pack type.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.CityscapesPacker">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">CityscapesPacker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_data_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">target_data_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">split_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">num_workers</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">pack_type</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">num_samples</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.CityscapesPacker" title="Permalink to this definition">¶</a></dt>
+<dd><p>CityscapesPacker is used for converting Cityscapes dataset
+in torchvision to target DataType format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src_data_dir</strong> (<em>str</em>) – The dir of original cityscapes data.</p></li>
+<li><p><strong>target_data_dir</strong> (<em>str</em>) – Path for packed file.</p></li>
+<li><p><strong>split_name</strong> (<em>str</em>) – Split name of data, such as train, val and so on.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em>) – Num workers for reading data using multiprocessing.</p></li>
+<li><p><strong>pack_type</strong> (<em>str</em>) – The file type for packing.</p></li>
+<li><p><strong>num_samples</strong> (<em>int</em>) – the number of samples you want to pack. You
+will pack all the samples if num_samples is None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.data.datasets.CityscapesPacker.pack_data">
+<code class="sig-name descname">pack_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.CityscapesPacker.pack_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read orginal data from Folder with some process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – Idx for reading.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Processed data for pack.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.Coco">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">Coco</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">transforms</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pack_type</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pack_kwargs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.Coco" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coco provides the method of reading coco data from target pack type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_path</strong> (<em>str</em>) – The path of packed file.</p></li>
+<li><p><strong>transforms</strong> (<em>list</em>) – Transfroms of data before using.</p></li>
+<li><p><strong>pack_type</strong> (<em>str</em>) – The pack type.</p></li>
+<li><p><strong>pack_kwargs</strong> (<em>dict</em>) – Kwargs for pack type.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.CocoDetection">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">CocoDetection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">root</span></em>, <em class="sig-param"><span class="n">annFile</span></em>, <em class="sig-param"><span class="n">num_classes</span><span class="o">=</span><span class="default_value">80</span></em>, <em class="sig-param"><span class="n">transform</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">target_transform</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">transforms</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.CocoDetection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coco Detection Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root</strong> (<em>string</em>) – Root directory where images are downloaded to.</p></li>
+<li><p><strong>annFile</strong> (<em>string</em>) – Path to json annotation file.</p></li>
+<li><p><strong>num_classes</strong> (<em>int</em>) – The number of classes of coco. 80 or 91.</p></li>
+<li><p><strong>transform</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function transform that takes in an
+PIL image and returns a transformed version.
+E.g, <code class="docutils literal notranslate"><span class="pre">transforms.ToTensor</span></code></p></li>
+<li><p><strong>target_transform</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function transform that takes
+in the target and transforms it.</p></li>
+<li><p><strong>transforms</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function transform that takes input
+sample and its target as entry and returns a transformed version.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.CocoDetectionPacker">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">CocoDetectionPacker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_data_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">target_data_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">split_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">num_workers</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">pack_type</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">num_classes</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">80</span></em>, <em class="sig-param"><span class="n">num_samples</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.CocoDetectionPacker" title="Permalink to this definition">¶</a></dt>
+<dd><p>CocoDetectionPacker is used for packing coco dataset to target format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src_data_dir</strong> (<em>str</em>) – The dir of original coco data.</p></li>
+<li><p><strong>target_data_dir</strong> (<em>str</em>) – Path for packed file.</p></li>
+<li><p><strong>split_name</strong> (<em>str</em>) – Split name of data, such as train, val and so on.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em>) – The num workers for reading data
+using multiprocessing.</p></li>
+<li><p><strong>pack_type</strong> (<em>str</em>) – The file type for packing.</p></li>
+<li><p><strong>num_classes</strong> (<em>int</em>) – The num of classes produced.</p></li>
+<li><p><strong>num_samples</strong> (<em>int</em>) – the number of samples you want to pack. You
+will pack all the samples if num_samples is None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.data.datasets.CocoDetectionPacker.pack_data">
+<code class="sig-name descname">pack_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.CocoDetectionPacker.pack_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read orginal data from Folder with some process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – Idx for reading.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Processed data for pack.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.CocoFromImage">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">CocoFromImage</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.CocoFromImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Coco from image by torchvision.</p>
+<p>The params of COCOFromImage is same as params of
+torchvision.dataset.CocoDetection.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.ComposeDataset">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">ComposeDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">datasets</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Dict<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">batchsize_list</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.ComposeDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dataset wrapper for multiple datasets with precise batch size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasets</strong> – config for each dataset.</p></li>
+<li><p><strong>batchsize_list</strong> – batchsize for each task dataset.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.ConcatDataset">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">ConcatDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">datasets</span></em>, <em class="sig-param"><span class="n">with_flag</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.ConcatDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper of concatenated dataset with group flag.</p>
+<p>Same as <code class="xref py py-obj docutils literal notranslate"><span class="pre">torch.utils.data.dataset.ConcatDataset</span></code>,
+addititionally concatenat the group flag of all dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>datasets</strong> – A list of datasets.</p></li>
+<li><p><strong>with_flag</strong> – If concatenate datasets flags. If True,
+concatenate all datasets flag (all datasets must
+has flag attribute in this case).
+Default to False.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.ImageNet">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">ImageNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">out_pil</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">transforms</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pack_type</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pack_kwargs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.ImageNet" title="Permalink to this definition">¶</a></dt>
+<dd><p>ImageNet provides the method of reading imagenet data
+from target pack type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_path</strong> (<em>str</em>) – The path of packed file.</p></li>
+<li><p><strong>transforms</strong> (<em>list</em>) – Transforms of voc before using.</p></li>
+<li><p><strong>pack_type</strong> (<em>str</em>) – The pack type.</p></li>
+<li><p><strong>pack_kwargs</strong> (<em>dict</em>) – Kwargs for pack type.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.ImageNetFromImage">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">ImageNetFromImage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transforms</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.ImageNetFromImage" title="Permalink to this definition">¶</a></dt>
+<dd><p>ImageNet from image by torchvison.</p>
+<p>The params of ImageNetFromImage are same as params of
+torchvision.datasets.ImageNet.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.ImageNetPacker">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">ImageNetPacker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">src_data_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">target_data_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">split_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">num_workers</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">pack_type</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">num_samples</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.ImageNetPacker" title="Permalink to this definition">¶</a></dt>
+<dd><p>ImageNetPacker is used for converting ImageNet dataset
+in torchvision to DataType format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src_data_dir</strong> (<em>str</em>) – The dir of original imagenet data.</p></li>
+<li><p><strong>target_data_dir</strong> (<em>str</em>) – Path for LMDB file.</p></li>
+<li><p><strong>split_name</strong> (<em>str</em>) – Split name of data, such as train, val and so on.</p></li>
+<li><p><strong>num_workers</strong> (<em>int</em>) – Num workers for reading data using multiprocessing.</p></li>
+<li><p><strong>pack_type</strong> (<em>str</em>) – The file type for packing.</p></li>
+<li><p><strong>num_samples</strong> (<em>int</em>) – the number of samples you want to pack. You
+will pack all the samples if num_samples is None.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.data.datasets.ImageNetPacker.pack_data">
+<code class="sig-name descname">pack_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.ImageNetPacker.pack_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read orginal data from Folder with some process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>idx</strong> (<em>int</em>) – Idx for reading.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Processed data for pack.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.RandDataset">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">RandDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">example</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="n">clone</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.RandDataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.RepeatDataset">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">RepeatDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">times</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.RepeatDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper of repeated dataset.</p>
+<p>Using RepeatDataset can reduce the data loading time between epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>torch.utils.data.Dataset</em>) – The datasets for repeating.</p></li>
+<li><p><strong>times</strong> (<em>int</em>) – Repeat times.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.datasets.ResampleDataset">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.datasets.</code><code class="sig-name descname">ResampleDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">resample_interval</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.datasets.ResampleDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper of resample dataset.</p>
+<dl class="simple">
+<dt>Using ResampleDataset can resample on original dataset</dt><dd><p>with specific interval.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> (<em>dict</em>) – The datasets for resampling.</p></li>
+<li><p><strong>resample_interval</strong> (<em>int</em>) – resample interval.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-hat.data.samplers"></span><dl class="py class">
+<dt id="hat.data.samplers.DistSamplerHook">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.samplers.</code><code class="sig-name descname">DistSamplerHook</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dataset</span></em>, <em class="sig-param"><span class="n">num_replicas</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rank</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">shuffle</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">drop_last</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.samplers.DistSamplerHook" title="Permalink to this definition">¶</a></dt>
+<dd><p>The hook api for torch.utils.data.DistributedDampler.
+Used to get local rank and num_replicas before create DistributedSampler.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataset</strong> – compose dataset</p></li>
+<li><p><strong>num_replicas</strong> – same as DistributedSampler</p></li>
+<li><p><strong>rank</strong> – Same as DistributedSampler</p></li>
+<li><p><strong>shuffle</strong> – if shuffle data</p></li>
+<li><p><strong>seed</strong> – random seed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-hat.data.transforms"></span><dl class="py class">
+<dt id="hat.data.transforms.AugmentHSV">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">AugmentHSV</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hgain</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">sgain</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">vgain</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.AugmentHSV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Random add color disturbance.</p>
+<p>Convert RGB img to HSV, and then randomly change the hue,
+saturation and value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hgain</strong> (<em>float</em>) – Gain of hue.</p></li>
+<li><p><strong>sgain</strong> (<em>float</em>) – Gain of saturation.</p></li>
+<li><p><strong>vgain</strong> (<em>float</em>) – Gain of value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.BgrToYuv444">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">BgrToYuv444</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rgb_input</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.BgrToYuv444" title="Permalink to this definition">¶</a></dt>
+<dd><p>BgrToYuv444 is used for color format convert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rgb_input</strong> (<em>bool</em>) – The input is rgb input or not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.ColorJitter">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">ColorJitter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">brightness</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">contrast</span><span class="o">=</span><span class="default_value">(0.5, 1.5)</span></em>, <em class="sig-param"><span class="n">saturation</span><span class="o">=</span><span class="default_value">(0.5, 1.5)</span></em>, <em class="sig-param"><span class="n">hue</span><span class="o">=</span><span class="default_value">0.1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.ColorJitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly change the brightness, contrast, saturation and
+hue of an image.</p>
+<p>For det and dict input are the main differences
+with ColorJitter in torchvision and the default settings have been
+changed to the most common settings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>brightness</strong> (<em>float</em><em> or </em><em>tuple of float</em><em> (</em><em>min</em><em>, </em><em>max</em><em>)</em>) – How much to jitter brightness.</p></li>
+<li><p><strong>contrast</strong> (<em>float</em><em> or </em><em>tuple of float</em><em> (</em><em>min</em><em>, </em><em>max</em><em>)</em>) – How much to jitter contrast.</p></li>
+<li><p><strong>saturation</strong> (<em>float</em><em> or </em><em>tuple of float</em><em> (</em><em>min</em><em>, </em><em>max</em><em>)</em>) – How much to jitter saturation.</p></li>
+<li><p><strong>hue</strong> (<em>float</em><em> or </em><em>tuple of float</em><em> (</em><em>min</em><em>, </em><em>max</em><em>)</em>) – How much to jitter hue.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.ConvertLayout">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">ConvertLayout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hwc2chw</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">keys</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.ConvertLayout" title="Permalink to this definition">¶</a></dt>
+<dd><p>ConvertLayout is used for layout convert.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hwc2chw</strong> (<em>bool</em>) – Whether to convert hwc to chw.</p></li>
+<li><p><strong>keys</strong> (<em>list</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.DeleteKeys">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">DeleteKeys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keys</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.DeleteKeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete keys in input dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>keys</strong> – key list to detele</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.FixedCrop">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">FixedCrop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">min_area</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">min_iou</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">dynamic_roi_params</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.FixedCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crop image with fixed position and size.</p>
+<dl class="py method">
+<dt id="hat.data.transforms.FixedCrop.inverse_transform">
+<code class="sig-name descname">inverse_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs</span></em>, <em class="sig-param"><span class="n">task_type</span></em>, <em class="sig-param"><span class="n">inverse_info</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.FixedCrop.inverse_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse option of transform to map the prediction to the original image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<em>array</em>) – Prediction</p></li>
+<li><p><strong>task_type</strong> (<em>str</em>) – <cite>detection</cite> or <cite>segmentation</cite>.</p></li>
+<li><p><strong>inverse_info</strong> (<em>dict</em>) – The transform keyword is the key,
+and the corresponding value is the value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.LabelRemap">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">LabelRemap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapping</span><span class="p">:</span> <span class="n">Sequence</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.LabelRemap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remap labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>mapping</strong> (<em>Sequence</em>) – Mapping from input to output.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.LabelSmooth">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">LabelSmooth</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_classes</span></em>, <em class="sig-param"><span class="n">eta</span><span class="o">=</span><span class="default_value">0.1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.LabelSmooth" title="Permalink to this definition">¶</a></dt>
+<dd><p>LabelSmooth is used for label smooth.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_classes</strong> (<em>int</em>) – Num classes.</p></li>
+<li><p><strong>eta</strong> (<em>float</em>) – Eta of label smooth.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.ListToDict">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">ListToDict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keys</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.ListToDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert list args to dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>keys</strong> – keys for each object in args.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.MinIoURandomCrop">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">MinIoURandomCrop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_ious</span><span class="o">=</span><span class="default_value">(0.1, 0.3, 0.5, 0.7, 0.9)</span></em>, <em class="sig-param"><span class="n">min_crop_size</span><span class="o">=</span><span class="default_value">0.3</span></em>, <em class="sig-param"><span class="n">bbox_clip_border</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">repeat_num</span><span class="o">=</span><span class="default_value">50</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.MinIoURandomCrop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Random crop the image &amp; bboxes, the cropped patches have minimum IoU
+requirement with original image &amp; bboxes, the IoU threshold is randomly
+selected from min_ious.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_ious</strong> (<em>tuple</em>) – minimum IoU threshold for all intersections with</p></li>
+<li><p><strong>boxes</strong> (<em>bounding</em>) – </p></li>
+<li><p><strong>min_crop_size</strong> (<em>float</em>) – minimum crop’s size (i.e. h,w := a*h, a*w,</p></li>
+<li><p><strong>a &gt;= min_crop_size</strong><strong>)</strong><strong></strong> (<em>where</em>) – </p></li>
+<li><p><strong>bbox_clip_border</strong> (<em>bool</em>) – Whether clip the objects outside
+the border of the image. Defaults to True.</p></li>
+<li><p><strong>repeat_num</strong> (<em>float</em>) – Max repeat num for finding avaiable bbox.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.OneHot">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">OneHot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_classes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.OneHot" title="Permalink to this definition">¶</a></dt>
+<dd><p>OneHot is used for convert layer to one-hot format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_classes</strong> (<em>int</em>) – Num classes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.PILToTensor">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">PILToTensor</code><a class="headerlink" href="#hat.data.transforms.PILToTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert PIL Image to Tensor.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.RandomExpand">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">RandomExpand</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mean</span><span class="o">=</span><span class="default_value">(0, 0, 0)</span></em>, <em class="sig-param"><span class="n">ratio_range</span><span class="o">=</span><span class="default_value">(1, 4)</span></em>, <em class="sig-param"><span class="n">prob</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.RandomExpand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Random expand the image &amp; bboxes.</p>
+<p>Randomly place the original image on a canvas of ‘ratio’ x original image
+size filled with mean values. The ratio is in the range of ratio_range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ratio_range</strong> (<em>tuple</em>) – range of expand ratio.</p></li>
+<li><p><strong>prob</strong> (<em>float</em>) – probability of applying this transformation</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.RandomFlip">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">RandomFlip</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">px</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">py</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.RandomFlip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flip image &amp; bbox &amp; mask &amp; seg &amp; flow.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>px</strong> – Horizontal flip probability, range between [0, 1].</p></li>
+<li><p><strong>py</strong> – Vertical flip probability, range between [0, 1].</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.RenameKeys">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">RenameKeys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keys</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">split</span><span class="o">=</span><span class="default_value">'|'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.RenameKeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rename keys in input dict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>keys</strong> – key list to rename, in “old_name | new_name” format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.Resize">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">Resize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_scale</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Sequence<span class="p">[</span>int<span class="p">]</span><span class="p">, </span>Sequence<span class="p">[</span>Sequence<span class="p">[</span>int<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">max_scale</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Sequence<span class="p">[</span>int<span class="p">]</span><span class="p">, </span>Sequence<span class="p">[</span>Sequence<span class="p">[</span>int<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">multiscale_mode</span><span class="o">=</span><span class="default_value">'range'</span></em>, <em class="sig-param"><span class="n">ratio_range</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">keep_ratio</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.Resize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resize image &amp; bbox &amp; mask &amp; seg.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img_scale</strong> – See above.</p></li>
+<li><p><strong>max_scale</strong> – The max size of image. If the image’s shape &gt; max_scale,
+The image is resized to max_scale</p></li>
+<li><p><strong>multiscale_mode</strong> (<em>str</em>) – Value must be one of “range” or “value”.
+This transform resizes the input image and bbox to same scale
+factor.
+There are 3 multiscale modes:
+‘ratio_range’ is not None: randomly sample a ratio from the ratio
+range and multiply with the image scale.
+e.g. Resize(img_scale=(400, 500)), multiscale_mode=’range’,
+ratio_range=(0.5, 2.0)
+‘ratio_range’ is None and ‘multiscale_mode’ == “range”: randomly
+sample a scale from a range, the length of img_scale[tuple] must be
+2, which represent small img_scale and large img_scale.
+e.g. Resize(img_scale=((100, 200), (400,500)),
+multiscale_mode=’range’)
+‘ratio_range’ is None and ‘multiscale_mode’ == “value”: randomly
+sample a scale from multiple scales.
+e.g. Resize(img_scale=((100, 200), (300, 400), (400, 500)),
+multiscale_mode=’value’)))</p></li>
+<li><p><strong>ratio_range</strong> (<em>tuple</em><em>[</em><em>float</em><em>]</em>) – Value represent (min_ratio, max_ratio),             scale factor range.</p></li>
+<li><p><strong>keep_ratio</strong> (<em>bool</em>) – Whether to keep the aspect ratio when resizing the             image.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.data.transforms.Resize.inverse_transform">
+<code class="sig-name descname">inverse_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs</span></em>, <em class="sig-param"><span class="n">task_type</span></em>, <em class="sig-param"><span class="n">inverse_info</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.Resize.inverse_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse option of transform to map the prediction to the original image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<em>array|Tensor</em>) – Prediction.</p></li>
+<li><p><strong>task_type</strong> (<em>str</em>) – <cite>detection</cite> or <cite>segmentation</cite>.</p></li>
+<li><p><strong>inverse_info</strong> (<em>dict</em>) – The transform keyword is the key,
+and the corresponding value is the value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.Scale">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">Scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scales</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>numbers.Real<span class="p">, </span>Sequence<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'nearest'</span></em>, <em class="sig-param"><span class="n">mul_scale</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.Scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scale input according to a scale list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scales</strong> (<em>Union</em><em>[</em><em>Real</em><em>, </em><em>Sequence</em><em>]</em>) – The scales to apply on input.</p></li>
+<li><p><strong>mode</strong> (<em>str</em>) – algorithm used for upsampling:
+<code class="docutils literal notranslate"><span class="pre">'nearest'</span></code> | <code class="docutils literal notranslate"><span class="pre">'bilinear'</span></code> | <code class="docutils literal notranslate"><span class="pre">'area'</span></code>. Default: <code class="docutils literal notranslate"><span class="pre">'nearest'</span></code></p></li>
+<li><p><strong>mul_scale</strong> (<em>bool</em>) – Whether to multiply the scale coefficient.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.SegOneHot">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">SegOneHot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_classes</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.SegOneHot" title="Permalink to this definition">¶</a></dt>
+<dd><p>OneHot is used for convert layer to one-hot format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_classes</strong> (<em>int</em>) – Num classes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.SegRandomAffine">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">SegRandomAffine</code><span class="sig-paren">(</span><em class="sig-param">degrees: Union[Sequence</em>, <em class="sig-param">float] = 0</em>, <em class="sig-param">translate: Tuple = None</em>, <em class="sig-param">scale: Tuple = None</em>, <em class="sig-param">shear: Union[Sequence</em>, <em class="sig-param">float] = None</em>, <em class="sig-param">interpolation: torchvision.transforms.functional.InterpolationMode = &lt;InterpolationMode.NEAREST: 'nearest'&gt;</em>, <em class="sig-param">fill: Union[tuple</em>, <em class="sig-param">int] = 0</em>, <em class="sig-param">label_fill_value: Union[tuple</em>, <em class="sig-param">int] = -1</em>, <em class="sig-param">translate_p: float = 1.0</em>, <em class="sig-param">scale_p: float = 1.0</em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.SegRandomAffine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply random for both image and label.</p>
+<p>Please refer to <code class="xref py py-class docutils literal notranslate"><span class="pre">RandomAffine</span></code> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>label_fill_value</strong> (<em>tuple</em><em> or </em><em>int</em><em>, </em><em>optional</em>) – Fill value for label.
+Defaults to -1.</p></li>
+<li><p><strong>translate_p</strong> – Translate flip probability, range between [0, 1].</p></li>
+<li><p><strong>scale_p</strong> – Scale flip probability, range between [0, 1].</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.SegRandomCrop">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">SegRandomCrop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span></em>, <em class="sig-param"><span class="n">cat_max_ratio</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">ignore_index</span><span class="o">=</span><span class="default_value">255</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.SegRandomCrop" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Random crop on data with gt_seg label, can only be used for segmentation</dt><dd><p>task.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>tuple</em>) – Expected size after cropping, (h, w).</p></li>
+<li><p><strong>cat_max_ratio</strong> (<em>float</em><em>, </em><em>optional</em>) – The maximum ratio that single category
+could occupy.</p></li>
+<li><p><strong>ignore_index</strong> (<em>int</em><em>, </em><em>optional</em>) – When considering the cat_max_ratio
+condition, the area corresponding to ignore_index will be ignored.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.data.transforms.SegRandomCrop.get_crop_bbox">
+<code class="sig-name descname">get_crop_bbox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.SegRandomCrop.get_crop_bbox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly get a crop bounding box.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.SegReWeightByArea">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">SegReWeightByArea</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seg_num_classes</span></em>, <em class="sig-param"><span class="n">lower_bound</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">ignore_index</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">255</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.SegReWeightByArea" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the weight of each category according to the area of each
+category.</p>
+<p>For each category, the calculation formula of weight is as follows:
+weight = max(1.0 - seg_area / total_area, lower_bound)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seg_num_classes</strong> (<em>int</em>) – Number of segmentation categories.</p></li>
+<li><p><strong>lower_bound</strong> (<em>float</em>) – Lower bound of weight.</p></li>
+<li><p><strong>ignore_index</strong> (<em>int</em>) – Index of ignore class.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.SegResize">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">SegResize</code><span class="sig-paren">(</span><em class="sig-param">size</em>, <em class="sig-param">interpolation=&lt;InterpolationMode.BILINEAR: 'bilinear'&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.SegResize" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="hat.data.transforms.SegResize.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.SegResize.forward" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>PIL Image</em><em> or </em><em>Tensor</em>) – Image to be scaled.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rescaled image.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PIL Image or Tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.TensorToNumpy">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">TensorToNumpy</code><a class="headerlink" href="#hat.data.transforms.TensorToNumpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert tensor to numpy.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.TimmMixup">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">TimmMixup</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.TimmMixup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mixup of timm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>are the same as timm.data.Mixup</strong> (<em>args</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.TimmTransforms">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">TimmTransforms</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.TimmTransforms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms of timm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>are the same as timm.data.create_transform</strong> (<em>args</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.ToTensor">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">ToTensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">to_yuv</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.data.transforms.ToTensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert objects of various python types to torch.Tensor and convert the
+img to yuv444 format if to_yuv is True.</p>
+<p>Supported types are: numpy.ndarray, torch.Tensor, Sequence, int, float.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>to_yuv</strong> (<em>bool</em>) – If true, convert the img to yuv444 format.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.data.transforms.Undistortion">
+<em class="property">class </em><code class="sig-prename descclassname">hat.data.transforms.</code><code class="sig-name descname">Undistortion</code><a class="headerlink" href="#hat.data.transforms.Undistortion" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Convert a <code class="docutils literal notranslate"><span class="pre">PIL</span> <span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> to</dt><dd><p>undistor <code class="docutils literal notranslate"><span class="pre">PIL</span> <span class="pre">Image</span></code> or <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="callbacks.html" class="btn btn-neutral float-right" title="hat.callbacks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../model_zoo/model_zoo.html" class="btn btn-neutral float-left" title="ModelZoo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

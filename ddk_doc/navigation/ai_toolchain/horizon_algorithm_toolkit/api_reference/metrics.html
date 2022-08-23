@@ -1,0 +1,581 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hat.metrics &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hat.visualize" href="visualize.html" />
+    <link rel="prev" title="hat.models" href="models.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/registry.html">注册机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data.html">hat.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">hat.models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hat.metrics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#metrics">Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-hat.metrics">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>hat.metrics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api_reference/metrics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hat-metrics">
+<h1>hat.metrics<a class="headerlink" href="#hat-metrics" title="Permalink to this headline">¶</a></h1>
+<p>Metrics widely used for different datasets in HAT.</p>
+<div class="section" id="metrics">
+<h2>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.metrics.Accuracy" title="hat.metrics.Accuracy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Accuracy</span></code></a></p></td>
+<td><p>Computes accuracy classification score.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.metrics.AccuracySeg" title="hat.metrics.AccuracySeg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AccuracySeg</span></code></a></p></td>
+<td><p># TODO(min.du, 0.5): merged with Accuracy #.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.metrics.TopKAccuracy" title="hat.metrics.TopKAccuracy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TopKAccuracy</span></code></a></p></td>
+<td><p>Computes top k predictions accuracy.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.metrics.COCODetectionMetric" title="hat.metrics.COCODetectionMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">COCODetectionMetric</span></code></a></p></td>
+<td><p>Evaluation in COCO protocol.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.metrics.LossShow" title="hat.metrics.LossShow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LossShow</span></code></a></p></td>
+<td><p>Show loss.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.metrics.MeanIOU" title="hat.metrics.MeanIOU"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MeanIOU</span></code></a></p></td>
+<td><p>Evaluation segmentation results.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.metrics.EvalMetric" title="hat.metrics.EvalMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EvalMetric</span></code></a></p></td>
+<td><p>Base class for all evaluation metrics.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-hat.metrics">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-hat.metrics" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="hat.metrics.Accuracy">
+<em class="property">class </em><code class="sig-prename descclassname">hat.metrics.</code><code class="sig-name descname">Accuracy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">axis</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'accuracy'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.Accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes accuracy classification score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> (<em>int</em>) – The axis that represents classes</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of this metric instance for display.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.metrics.Accuracy.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">labels</span></em>, <em class="sig-param"><span class="n">preds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.Accuracy.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to update the state variables.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.metrics.AccuracySeg">
+<em class="property">class </em><code class="sig-prename descclassname">hat.metrics.</code><code class="sig-name descname">AccuracySeg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'accuracy'</span></em>, <em class="sig-param"><span class="n">axis</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.AccuracySeg" title="Permalink to this definition">¶</a></dt>
+<dd><p># TODO(min.du, 0.5): merged with Accuracy #.</p>
+<dl class="py method">
+<dt id="hat.metrics.AccuracySeg.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.AccuracySeg.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to update the state variables.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.metrics.COCODetectionMetric">
+<em class="property">class </em><code class="sig-prename descclassname">hat.metrics.</code><code class="sig-name descname">COCODetectionMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ann_file</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">val_interval</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'COCOMeanAP'</span></em>, <em class="sig-param"><span class="n">save_prefix</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'./WORKSPACE/results'</span></em>, <em class="sig-param"><span class="n">adas_eval_task</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">use_time</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">cleanup</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.COCODetectionMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluation in COCO protocol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ann_file</strong> – validation data annotation json file path.</p></li>
+<li><p><strong>val_interval</strong> – evaluation interval.</p></li>
+<li><p><strong>name</strong> – name of this metric instance for display.</p></li>
+<li><p><strong>save_prefix</strong> – path to save result.</p></li>
+<li><p><strong>adas_eval_task</strong> – task name for adas-eval, such as ‘vehicle’, ‘person’
+and so on.</p></li>
+<li><p><strong>use_time</strong> – whether to use time for name.</p></li>
+<li><p><strong>cleanup</strong> – whether to clean up the saved results when the process ends.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – fail to write json to disk.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.metrics.COCODetectionMetric.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.COCODetectionMetric.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get evaluation metrics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.COCODetectionMetric.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.COCODetectionMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the metric state variables to their default value.</p>
+<p>If （and only if） there are state variables that are not registered
+with <cite>self.add_state</cite> need to be regularly set to default values,
+please extend this method in subclasses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.COCODetectionMetric.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span><span class="p">:</span> <span class="n">Dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.COCODetectionMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update internal buffer with latest predictions.</p>
+<p>Note that the statistics are not available until
+you call self.get() to return the metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>output</strong> – A dict of model output which includes det results and
+image infos.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.metrics.EvalMetric">
+<em class="property">class </em><code class="sig-prename descclassname">hat.metrics.</code><code class="sig-name descname">EvalMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">, </span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">process_group</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>torch._C._distributed_c10d.ProcessGroup<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">warn_without_compute</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.EvalMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for all evaluation metrics.</p>
+<p>Built on top of <cite>torchmetrics.metric.Metric</cite>, this base class introduces
+the name attribute and a name-value format output (the get method). It
+also makes possible to syncnronize state tensors of different shapes in
+each device to support AP-like metrics.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a base class that provides common metric interfaces.
+One should not use this class directly, but inherit it to create new
+metric classes instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of this metric instance for display.</p></li>
+<li><p><strong>process_group</strong> – Specify the process group on which synchronization is
+called. Default: None (which selects the entire world)</p></li>
+<li><p><strong>warn_without_compute</strong> – Whether to output warning log if <cite>self.compute</cite>
+is not called in <cite>self.get</cite>. Since synchronization among devices
+is executed in <cite>self.compute</cite>, this value reflects if the metric
+will support distributed computation.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.metrics.EvalMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>float<span class="p">, </span>List<span class="p">[</span>float<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#hat.metrics.EvalMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to compute final results from metric states.</p>
+<p>All states variables registered with <cite>self.add_state</cite> are synchronized
+across devices before the execution of this method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.EvalMetric.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span><span class="p">, </span>Union<span class="p">[</span>float<span class="p">, </span>List<span class="p">[</span>float<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#hat.metrics.EvalMetric.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current evaluation result.</p>
+<p>To skip the synchronization among devices, please override this method
+and calculate results without calling <cite>self.compute()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Name of the metrics.
+values: Value of the evaluations.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.EvalMetric.get_name_value">
+<code class="sig-name descname">get_name_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.EvalMetric.get_name_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return zipped name and value pairs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A (name, value) tuple list.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List(tuples)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.EvalMetric.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.metrics.EvalMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the metric state variables to their default value.</p>
+<p>If （and only if） there are state variables that are not registered
+with <cite>self.add_state</cite> need to be regularly set to default values,
+please extend this method in subclasses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.EvalMetric.update">
+<em class="property">abstract </em><code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">_</span><span class="p">:</span> <span class="n">Any</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">__</span><span class="p">:</span> <span class="n">Any</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.metrics.EvalMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to update the state variables.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.metrics.LossShow">
+<em class="property">class </em><code class="sig-prename descclassname">hat.metrics.</code><code class="sig-name descname">LossShow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'loss'</span></em>, <em class="sig-param"><span class="n">norm</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.LossShow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show loss.</p>
+<p># TODO(min.du, 0.1): a better class name is required #</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of this metric instance for display.</p></li>
+<li><p><strong>norm</strong> – Whether norm loss when loss size bigger than 1.
+If True, calculate mean loss, else calculate loss sum.
+Default True.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.metrics.LossShow.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.LossShow.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get current evaluation result.</p>
+<p>To skip the synchronization among devices, please override this method
+and calculate results without calling <cite>self.compute()</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Name of the metrics.
+values: Value of the evaluations.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.LossShow.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.LossShow.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset the metric state variables to their default value.</p>
+<p>If （and only if） there are state variables that are not registered
+with <cite>self.add_state</cite> need to be regularly set to default values,
+please extend this method in subclasses.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.LossShow.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loss</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>torch.Tensor<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>torch.Tensor<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.LossShow.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to update the state variables.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.metrics.MeanIOU">
+<em class="property">class </em><code class="sig-prename descclassname">hat.metrics.</code><code class="sig-name descname">MeanIOU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seg_class</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'MeanIOU'</span></em>, <em class="sig-param"><span class="n">ignore_index</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">255</span></em>, <em class="sig-param"><span class="n">global_ignore_index</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Sequence<span class="p">, </span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">255</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.MeanIOU" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluation segmentation results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>seg_class</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – A list of classes the segmentation dataset
+includes，the order should be the same as the label.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of this metric instance for display, also used as
+monitor params for Checkpoint.</p></li>
+<li><p><strong>ignore_index</strong> (<em>int</em>) – The label index that will be ignored in evaluation.</p></li>
+<li><p><strong>global_ignore_index</strong> (<em>list</em><em>,</em><em>int</em>) – The label index that will be ignored in
+global evaluation,such as:mIoU,mAcc,aAcc.Supporting list of label
+index.</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – Whether to return verbose value for aidi eval, default
+is False.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.metrics.MeanIOU.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.MeanIOU.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get evaluation metrics.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.metrics.MeanIOU.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">label</span><span class="p">:</span> <span class="n">torch.Tensor</span></em>, <em class="sig-param"><span class="n">preds</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Sequence<span class="p">[</span>torch.Tensor<span class="p">]</span><span class="p">, </span>torch.Tensor<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.MeanIOU.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update internal buffer with latest predictions.</p>
+<p>Note that the statistics are not available until
+you call self.get() to return the metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>preds</strong> – model output.</p></li>
+<li><p><strong>label</strong> – gt.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.metrics.TopKAccuracy">
+<em class="property">class </em><code class="sig-prename descclassname">hat.metrics.</code><code class="sig-name descname">TopKAccuracy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">top_k</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'top_k_accuracy'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.TopKAccuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes top k predictions accuracy.</p>
+<p><cite>TopKAccuracy</cite> differs from Accuracy in that it considers the prediction
+to be <code class="docutils literal notranslate"><span class="pre">True</span></code> as long as the ground truth label is in the top K
+predicated labels.</p>
+<p>If <cite>top_k</cite> = <code class="docutils literal notranslate"><span class="pre">1</span></code>, then <cite>TopKAccuracy</cite> is identical to <cite>Accuracy</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>top_k</strong> (<em>int</em>) – Whether targets are in top k predictions.</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – Name of this metric instance for display.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.metrics.TopKAccuracy.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">labels</span></em>, <em class="sig-param"><span class="n">preds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.metrics.TopKAccuracy.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override this method to update the state variables.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="visualize.html" class="btn btn-neutral float-right" title="hat.visualize" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="models.html" class="btn btn-neutral float-left" title="hat.models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

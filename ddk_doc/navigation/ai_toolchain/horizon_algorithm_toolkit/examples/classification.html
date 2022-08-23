@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>VargConvNet分类模型训练 &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FCOS检测模型训练" href="fcos.html" />
+    <link rel="prev" title="执行脚本" href="scripts.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/registry.html">注册机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/data.html">hat.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">执行脚本</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">VargConvNet分类模型训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">1. 训练流程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">数据集准备</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">模型训练</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>VargConvNet分类模型训练</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/classification.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="vargconvnet">
+<h1>VargConvNet分类模型训练<a class="headerlink" href="#vargconvnet" title="Permalink to this headline">¶</a></h1>
+<p>这篇教程主要是告诉大家如何利用 <cite>HAT</cite> 在 <cite>ImageNet</cite> 上训练一个state-of-art的浮点模型。
+<cite>ImageNet</cite> 是图像分类里用的最多的数据集，很多最先进的图像分类研究都会优先基于这个数据集做好验证。虽然有很多方法在社区或者其他途径里可以获取到 state-of-art 的分类模型，但从头训一个 state-of-art 的分类模型仍然不是一个简单的任务，本篇教程将会重点讲叙从数据集准备开始如何在 <cite>ImageNet</cite> 上训练出一个 state-of-art 的模型，包括浮点、量化和定点三种模式。</p>
+<p>其中 <cite>ImageNet</cite> 数据集可以从这里下载：<a class="reference external" href="http://image-net.org/">http://image-net.org/</a>。下载之后的数据集格式为：</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ILSVRC2012_img_train.tar
+ILSVRC2012_img_val.tar
+ILSVRC2012_devkit_t12.tar.gz
+</pre></div>
+</div>
+</div></blockquote>
+<p>这里我们使用 <cite>VargConvNet</cite> 的例子来详细介绍整个分类的流程。</p>
+<div class="section" id="id1">
+<h2>1. 训练流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>如果你只是想简单的使用 <cite>HAT</cite> 的接口来进行简单的实验，那么首先阅读一下这一小节的内容是个不错的选择。对于所有的训练和评测的任务， <cite>HAT</cite> 统一采用 <cite>tools + config</cite> 的形式来完成。在准备好原始数据集之后，通过以下的流程，我们可以方便的完成整个训练的流程。</p>
+<div class="section" id="id2">
+<h3>数据集准备<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>首先是数据集打包，打包数据集与原始数据集在处理速度上有明显的优势，这里我们选择与 <cite>PyTorch</cite> 一脉相承的 <cite>LMDB</cite> 的打包方法，当然由于 <cite>HAT</cite> 在处理 <cite>dataset</cite> 上的灵活性，其他形式的数据集打包和读取形式，如 <cite>MXRecord</cite> 也是可以独立支持的。</p>
+<p>在 <cite>tools/datasets</cite> 目录下提供了 <cite>cityscapes</cite> 、 <cite>imagenet</cite> 、 <cite>voc</cite>、
+<cite>mscoco</cite> 这些常见数据集的打包脚本。例如 <cite>imagenet2lmdb</cite> 的脚本，可以利用<cite>torchvision</cite> 提供的默认公开数据集处理方法直接将原始的公开 <cite>ImageNet</cite> 数据集转成 <cite>Numpy</cite> 或者 <cite>Tensor</cite> 的格式，最后将得到的数据统一用 <cite>msgpack</cite>的方法压缩到 <cite>LMDB</cite> 的文件中。</p>
+<p>这个过程可以很方便通过下面的脚本完成数据集打包:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/datasets/imagenet_packer.py --src-data-dir <span class="si">${</span><span class="nv">src</span><span class="p">-data-dir</span><span class="si">}</span> --target-data-dir <span class="si">${</span><span class="nv">target</span><span class="p">-data-dir</span><span class="si">}</span> --split-name train --num-workers <span class="m">10</span> --pack-type lmdb
+
+python3 tools/datasets/imagenet_packer.py --src-data-dir <span class="si">${</span><span class="nv">src</span><span class="p">-data-dir</span><span class="si">}</span> --target-data-dir <span class="si">${</span><span class="nv">target</span><span class="p">-data-dir</span><span class="si">}</span> --split-name val --num-workers <span class="m">10</span> --pack-type lmdb
+</pre></div>
+</div>
+</div></blockquote>
+<p>在完成数据集打包之后，可以得到含有 <cite>ImageNet</cite> 的 <cite>LMDB</cite> 数据集。下一步就可以开始训练。</p>
+</div>
+<div class="section" id="id3">
+<h3>模型训练<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>在网络训练开始之前，你可以使用以下命令先测试一下网络的计算量和参数数量：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/calops.py --config configs/classification/vargconvnet.py --input-shape <span class="s2">&quot;1,3,224,224&quot;</span>
+</pre></div>
+</div>
+<p>准备打包好数据集之后，便可以开始训练模型。只需要运行下面的命令就可以启动训练：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/train.py --step <span class="s2">&quot;float&quot;</span> --config configs/classification/vargconvnet.py
+</pre></div>
+</div>
+<p>如果想要验证已经训练好的模型精度,运行下面的命令即可：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/train.py --step float --config configs/classification/vargconvnet.py --val-ckpt float-checkpoint-best.pth.tar --val-only
+</pre></div>
+</div>
+<p>如果想要导出onnx模型, 运行下面的命令即可：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/export_onnx.py --config configs/classification/vargconvnet.py --ckpt float-checkpoint-best.pth.tar --onnx-name vargconvnet.onnx
+</pre></div>
+</div>
+<p>由于HAT算法包使用了一种巧妙的注册机制，使得每一个训练任务都可以按照这种train.py加上config配置文件的形式启动。train.py是统一的训练脚本，与任务无关，我们需要训练什么样的任务、使用什么样的数据集以及训练相关的超参数设置都在指定的config配置文件里面。config文件
+里面提供了模型构建、数据读取等关键的dict。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="fcos.html" class="btn btn-neutral float-right" title="FCOS检测模型训练" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="scripts.html" class="btn btn-neutral float-left" title="执行脚本" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+hat.data
+========
+
+Main data module for training in HAT, which contains datasets, transforms, samplers.
+
+Data
+----
+
+collates
+^^^^^^^^
+
+.. py:currentmodule:: hat.data.collates
+
+.. autosummary::
+    :nosignatures:
+
+    collate_2d
+
+    collate_3d
+
+    collate_psd
+
+dataloaders
+^^^^^^^^^^^
+
+.. py:currentmodule:: hat.data.dataloaders
+
+.. autosummary::
+    :nosignatures:
+
+    PassThroughDataLoader
+
+datasets
+^^^^^^^^
+
+.. py:currentmodule:: hat.data.datasets
+
+.. autosummary::
+    :nosignatures:
+
+    BatchTransformDataset
+
+    Cityscapes
+
+    CityscapesPacker
+
+    RepeatDataset
+
+    ComposeDataset
+
+    ResampleDataset
+
+    ConcatDataset
+
+    ImageNet
+
+    ImageNetPacker
+
+    ImageNetFromImage
+
+    Coco
+
+    CocoDetection
+
+    CocoDetectionPacker
+
+    CocoFromImage
+
+    RandDataset
+
+samplers
+^^^^^^^^
+
+.. py:currentmodule:: hat.data.samplers
+
+.. autosummary::
+    :nosignatures:
+
+    DistSamplerHook
+
+transforms
+^^^^^^^^^^
+
+.. py:currentmodule:: hat.data.transforms
+
+.. autosummary::
+    :nosignatures:
+
+    ConvertLayout
+
+    BgrToYuv444
+
+    OneHot
+
+    LabelSmooth
+
+    TimmTransforms
+
+    TimmMixup
+
+    Resize
+
+    RandomFlip
+
+    Pad
+
+    Normalize
+
+    RandomCrop
+
+    ToTensor
+
+    Batchify
+
+    FixedCrop
+
+    ColorJitter
+
+    AugmentHSV
+
+    RandomExpand
+
+    MinIoURandomCrop
+
+    SegRandomCrop
+
+    SegReWeightByArea
+
+    LabelRemap
+
+    SegOneHot
+
+    SegResize
+
+    SegRandomAffine
+
+    Scale
+
+    FlowRandomAffineScale
+
+    ListToDict
+
+    DeleteKeys
+
+    RenameKeys
+
+    Undistortion
+
+    PILToTensor
+
+    TensorToNumpy
+
+API Reference
+--------------
+
+.. automodule:: hat.data.collates
+    :members:
+
+.. automodule:: hat.data.dataloaders
+    :members:
+
+.. automodule:: hat.data.datasets
+    :members:
+
+.. automodule:: hat.data.samplers
+    :members:
+
+.. automodule:: hat.data.transforms
+    :members:
+

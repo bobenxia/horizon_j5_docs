@@ -1,0 +1,33 @@
+hat.metrics
+===========
+
+Metrics widely used for different datasets in HAT.
+
+Metrics
+-------
+
+.. py:currentmodule:: hat.metrics
+
+.. autosummary::
+    :nosignatures:
+
+    Accuracy
+
+    AccuracySeg
+
+    TopKAccuracy
+
+    COCODetectionMetric
+
+    LossShow
+
+    MeanIOU
+
+    EvalMetric
+
+API Reference
+--------------
+
+.. automodule:: hat.metrics
+    :members:
+

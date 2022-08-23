@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. 产品介绍 &mdash; Horizon J5 AI Toolchain User Guide  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="2. 环境部署" href="env_prepare.html" />
+    <link rel="prev" title="地平线J5 AI芯片工具链用户手册" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Horizon J5 AI Toolchain User Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本手册目录结构:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 产品介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1.1. 工具链概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">1.2. 工具链使用流程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="env_prepare.html">2. 环境部署</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution.html">3. PTQ浮点定点模型转换方案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application_development.html">4. runtime应用开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">5. DSP开发文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Horizon J5 AI Toolchain User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>产品介绍</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>产品介绍<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2><span class="section-number">1.1. </span>工具链概览<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<p>地平线J5芯片工具链（以下简称 工具链）是一套完整的边缘AI算法落地解决方案，可以帮助您把浮点模型量化为定点模型，
+并在地平线AI芯片上快速部署自研算法模型。</p>
+<p>目前在GPU上训练的模型大部分都是浮点模型，即参数使用的是float类型存储。
+地平线BPU架构的AI芯片使用的是int8的计算精度（业内AI芯片的通用精度），能运行定点量化模型。
+那么从训练出的浮点精度转为定点模型的过程，我们叫做量化。
+同时模型量化后能够有效减少模型大小，加速深度学习推理的速度，因此也在学术界和工业界的广泛研究和应用。</p>
+<p>量化方法为：</p>
+<p>后量化（即：Post-training Quantization，浮点定点转换方案 ）：先训练浮点模型，然后使用校准图片计算量化参数，将浮点模型转为量化模型。该方法简单、快捷，但将浮点模型直接转为量化模型难免会有一些量化损失，地平线浮点转换工具链中提供的后量化工具能做到80%以上的模型量化误差小于1%。</p>
+<p>PTQ方法支持通过公开DL框架获得的浮点模型（Caffe模型或ONNX模型）。 这种方法过程简单，不需要在训练阶段考虑量化问题。</p>
+<p>有关PTQ方案的详细信息请阅读 <a class="reference internal" href="ptq_solution.html"><span class="doc">PTQ浮点定点模型转换方案</span></a> 章节。</p>
+<p>工具链由PTQ模型后量化转换和嵌入式编译等部分组成，其软件逻辑框图如下：</p>
+<img alt="_images/toolchain_framework.png" class="align-center" src="_images/toolchain_framework.png" />
+<p>其中：</p>
+<p><strong>Runtime SDK</strong> 提供了异构模型的运行库支持，运行库包含arm和x86(暂未提供)两个部分，分别用于在地平线AI芯片平台和X86仿真平台执行异构模型。
+有关runtime应用开发请阅读 <a class="reference internal" href="application_development.html"><span class="doc">runtime应用开发</span></a> 章节。</p>
+<p>此外，工具链提供了丰富的开发 <strong>工具</strong>、<strong>示例</strong> 以及内置了大量算法模型的 <strong>模型发布物</strong> 帮助用户上手理解, 并可以提高用户的开发效率。</p>
+</section>
+<section id="id3">
+<h2><span class="section-number">1.2. </span>工具链使用流程<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>J5 AI芯片工具链的整体使用流程如下图所示：</p>
+<img alt="_images/toolchain_workflow.png" class="align-center" src="_images/toolchain_workflow.png" />
+<p>如上图所示，步骤2中的PTQ方案可完成模型量化。</p>
+<p>下一章内容将为您介绍如何搭建开发环境。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="地平线J5 AI芯片工具链用户手册" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="env_prepare.html" class="btn btn-neutral float-right" title="2. 环境部署" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

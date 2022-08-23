@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Deeplab分割模型训练 &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Fastscnn分割模型训练" href="fastscnn.html" />
+    <link rel="prev" title="FCOS检测模型训练" href="fcos.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/registry.html">注册机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/data.html">hat.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deeplab分割模型训练</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">1. 训练流程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">数据集下载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">数据集打包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">模型训练</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Deeplab分割模型训练</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/deeplab.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deeplab">
+<h1>Deeplab分割模型训练<a class="headerlink" href="#deeplab" title="Permalink to this headline">¶</a></h1>
+<p>作为 <cite>HAT</cite> 分割任务的示例，这篇教程主要向大家展示如何使用 <cite>HAT</cite> 在 <cite>Cityscapes</cite> 数据集上训练一个 state-of-the-art 的浮点和定点模型。</p>
+<p><cite>Cityscapes</cite> 是一个城市驾驶场景的图像数据集，包含了5000张具有像素级标注的图像，图像中的物体被分为19个类别。分割任务相对复杂，对模型能力的要求较高，使用小模型在分割任务上取得较好的指标并不是很轻易的事。本教程将从零开始，详细描述如何使用 <cite>HAT</cite> 在<cite>Cityscapes</cite> 数据集上训练一个 state-of-the-art 的分割模型，并在浮点模型基础上进行量化训练，最终得到一个定点模型。</p>
+<div class="section" id="id1">
+<h2>1. 训练流程<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>数据集下载<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>要下载 <cite>Cityscapes</cite> 数据集，首先需要在 <a class="reference external" href="https://www.cityscapes-dataset.com/register/">官方网站</a> 注册一个账号。</p>
+<p>之后便可在 <a class="reference external" href="https://www.cityscapes-dataset.com/downloads/">下载页面</a> 下载需要的数据集文件，这里我们只需要 <cite>gtFine_trainvaltest.zip</cite> 和 <cite>leftImg8bit_trainvaltest.zip</cite> 两个文件。</p>
+<p>同时， <cite>Cityscapes</cite> 数据集官方还提供了一个脚本用于数据的下载和处理，见 <a class="reference external" href="https://github.com/mcordts/cityscapesScripts">Github链接</a> 。首先使用如下命令安装官方工具：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip install cityscapesscripts
+</pre></div>
+</div>
+<p>然后使用官方工具下载所需数据集文件（注意，使用此工具下载仍需要登录上面注册的账号）。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>csDownload -d <span class="si">${</span><span class="nv">data</span><span class="p">-dir</span><span class="si">}</span> gtFine_trainvaltest.zip
+csDownload -d <span class="si">${</span><span class="nv">data</span><span class="p">-dir</span><span class="si">}</span> leftImg8bit_trainvaltest.zip
+</pre></div>
+</div>
+<p>最后对下载好的文件进行解包即可（可选）：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="si">${</span><span class="nv">data</span><span class="p">-dir</span><span class="si">}</span>
+unzip gtFine_trainvaltest.zip
+unzip leftImg8bit_trainvaltest.zip
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>数据集打包<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>为了高效地读取数据，我们推荐预先将数据集打包为 <cite>LMDB</cite> 格式。 <cite>HAT</cite> 提供了<code class="docutils literal notranslate"><span class="pre">cityscapes2lmdb.py</span></code> 脚本来方便地将数据集从原始公开的格式转换为 <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>或 <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code> ，使用 <code class="docutils literal notranslate"><span class="pre">msgpack</span></code> 对数据进行封装，并最终打包为 <cite>LMDB</cite> 文件。</p>
+<p>数据集打包的命令如下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/datasets/cityscapes_packer.py --src-data-dir <span class="si">${</span><span class="nv">data</span><span class="p">-dir</span><span class="si">}</span> --split-name train --pack-type lmdb
+python3 tools/datasets/cityscapes_packer.py --src-data-dir <span class="si">${</span><span class="nv">data</span><span class="p">-dir</span><span class="si">}</span> --split-name val --pack-type lmdb
+</pre></div>
+</div>
+<p>生成的 lmdb 文件保存在 ${data-dir}/train_lmdb 和 ${data-dir}/val_lmdb 路径下。</p>
+</div>
+<div class="section" id="id6">
+<h3>模型训练<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>将数据集打包为 <cite>LMDB</cite> 文件后，就可以开始模型的训练了。 <cite>HAT</cite> 提供了 <code class="docutils literal notranslate"><span class="pre">train.py</span></code>训练脚本来方便地配合 <cite>config</cite> 文件实现模型训练。</p>
+<p>模型训练的命令如下，开始训练之前请确保将 <code class="docutils literal notranslate"><span class="pre">deeplabv3plus.py</span></code> 配置文件中的数据集路径（<code class="docutils literal notranslate"><span class="pre">data_rootdir</span></code>）设置为数据集 <cite>LMDB</cite> 文件所在位置。</p>
+<p>在网络训练开始之前，你可以使用以下命令先测试一下网络的计算量和参数数量：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/calops.py --config configs/segmentation/deeplabv3plus.py --input-shape <span class="s2">&quot;1,3,1024,2048&quot;</span>
+</pre></div>
+</div>
+<p>如果你只是单纯的想启动这样的训练任务，运行下面的命令就可以：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/train.py --step float --config configs/segmentation/deeplabv3plus.py
+</pre></div>
+</div>
+<p>如果想要验证已经训练好的模型精度,运行下面的命令即可：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/train.py --step float --config configs/segmentation/deeplabv3plus.py --val-ckpt float-checkpoint-best.pth.tar --val-only
+</pre></div>
+</div>
+<p>如果想要导出onnx模型, 运行下面的命令即可：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 tools/export_onnx.py --config configs/segmentation/deeplabv3plus.py --ckpt float-checkpoint-best.pth.tar --onnx-name deeplab.onnx
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="fastscnn.html" class="btn btn-neutral float-right" title="Fastscnn分割模型训练" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="fcos.html" class="btn btn-neutral float-left" title="FCOS检测模型训练" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

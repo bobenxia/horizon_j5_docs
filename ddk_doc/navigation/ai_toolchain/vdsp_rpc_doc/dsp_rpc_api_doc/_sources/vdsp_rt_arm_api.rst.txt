@@ -1,0 +1,180 @@
+ARM芯片API
+=================
+
+数据类型与数据结构
+-------------------
+
+``HB_DSP_INITIALIZE_RPC_CTRL_PARAM``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: c
+  
+  #define HB_DSP_INITIALIZE_RPC_CTRL_PARAM(param)  \
+    {                                              \
+      (param)->dspCoreId = HB_DSP_CORE_ANY;        \
+      (param)->rpcCmd = HB_DSP_RPC_CMD_BUTT;       \
+      (param)->priority = 0;                       \
+    }
+
+初始化控制参数。
+
+``hbDSPRpcCmd``
+^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: c
+  
+  typedef enum { HB_DSP_RPC_CMD_SOFTMAX = 0x1, HB_DSP_RPC_CMD_BUTT = 0xff } hbDSPRpcCmd;
+
+DSP RPC 命令。
+
++ 成员
+
+  .. table::
+    :align: center
+
+    +----------------------------+--------------------------------------+
+    | **成员名称**               | **描述**                             |
+    +----------------------------+--------------------------------------+
+    | ``HB_DSP_RPC_CMD_SOFTMAX`` | DSP SoftMax命令。                    |
+    +----------------------------+--------------------------------------+
+    | ``HB_DSP_RPC_CMD_BUTT``    | DSP 最大命令编码，获取注册命令信息。 |
+    +----------------------------+--------------------------------------+
+  
+``hbDspRpcPriority``
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: c
+  
+  typedef enum { HB_DSP_RPC_PRIORITY_LOWEST = 0, HB_DSP_RPC_PRIORITY_HIGHEST = 255 } hbDspRpcPriority;
+
+DSP RPC 任务优先级。
+
++ 成员
+
+  .. table::
+    :align: center
+
+    +--------------------------------+---------------------+
+    | **成员名称**                   | **描述**            |
+    +--------------------------------+---------------------+
+    | ``HB_DSP_RPC_PRIORITY_LOWEST`` | DSP RPC最低优先级。 |
+    +--------------------------------+---------------------+
+    | ``HB_DSP_RPC_PRIORITY_HIGHEST``| DSP RPC最高优先级。 |
+    +--------------------------------+---------------------+
+
+``hbDSPRpcCtrlParam``
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: c
+  
+  typedef struct {
+    int dspCoreId; 
+    int rpcCmd;
+    int priority;  
+    int reserved1;
+    int reserved2;
+    int reserved3;
+    int reserved4;
+  } hbDSPRpcCtrlParam;
+
+DSP RPC 控制参数。
+
++ 成员
+
+  .. table::
+    :align: center
+
+    ==================== ==================================================
+    **成员名称**           **描述**
+    ==================== ==================================================
+    ``dspCoreId``	        DSP核ID；0为任意核，1为核0，2为核1。
+    ``rpcCmd``            DSP任务命令。
+    ``priority``	        任务优先级。
+    ``reserved1``	        保留字段1。
+    ``Reserved2``	        保留字段2。
+    ``Reserved3``	        保留字段3。
+    ``Reserved4``	        保留字段4。
+    ==================== ==================================================
+
+``hbDSPTask_t``
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: c
+
+  typedef void *hbDSPTask_t;
+
+DSP任务指针。
+
+API接口
+-------------
+
+``hbDSPRpc``
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: c
+  
+  int hbDSPRpc(hbDSPTask_t *task, hbSysMem *input, hbSysMem *output, hbDSPRpcCtrlParam *rpcCtrlParam);
+
+向DSP提交一个rpc任务。
+
++ 参数
+
+  - [out]     ``task``          任务句柄， ``hbDSPWaitTaskDone`` 接口用它等待指定任务结束。
+  - [in]      ``input``         表示任务的输入内存。
+  - [in/out]  ``output``        表示任务的输出内存。
+  - [in]      ``rpcCtrlParam``  任务控制参数，可以为任务指定运行核，可以指定任务优先级。
+
++ 返回值
+
+  - 返回 ``0`` 则表示API成功执行，否则执行失败。
+
+``hbDSPWaitTaskDone``
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: c
+  
+  int hbDSPWaitTaskDone(hbDSPTask_t task, int timeout);
+
+等待任务运行结束。
+
++ 参数
+
+  - [in] ``task``     任务句柄。
+  - [in] ``timeout``  任务超时时间, 单位是ms。
+  
++ 返回值
+
+  - 返回 ``0`` 则表示API成功执行，否则执行失败。
+
+.. note::
+
+  1. ``timeout > 0`` 表示等待时间；
+  2. ``timeout <= 0`` 表示一直等待，直到任务完成。
+
+``hbDSPReleaseTask``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: c
+
+  int hbDSPReleaseTask(hbDSPTask_t task);
+
+释放task handle，需要在 ``hbDSPWaitTaskDone`` 之后调用。
+
++ 参数
+
+  - [in] ``task``  task handle。
+
++ 返回值
+
+  - 返回 ``0`` 则表示API成功执行，否则执行失败。
+
+错误码
+-------------
+
+.. code-block:: c
+
+    HB_DSP_OK = 0                         // 执行成功
+    HB_DSP_ERR_INVALID_ARGUMENT,          // 非法参数
+    HB_DSP_ERR_MEM_ALLOC_FAIL,            // 内存申请失败
+    HB_DSP_ERR_TASK_TIME_OUT,             // 任务超时
+    HB_DSP_ERR_TASK_RUN_FAIL              // 任务失败

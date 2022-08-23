@@ -1,0 +1,62 @@
+Horizon Algorithm Toolkit (海图)
+================================
+
+Horizon Algorithm Toolkit是地平线提供基于Pytorch的深度学习训练
+工具。
+
+
+HAT算法包是基于Pytorch的接口开发的一套高效且用户友好的AI算法工具。同时它还可以提供包含分类，检测，分割等常见的图像
+任务的SOTA(state-of-the-art)深度学习模型。
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Introduction
+
+   introduction/introduction.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Framework
+
+   framework/framework.md
+   framework/engine.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Tutorials
+
+   tutorials/registry.md
+   tutorials/config.md
+   tutorials/opts.md
+   tutorials/calops.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: ModelZoo
+
+   model_zoo/model_zoo.md
+
+.. toctree::
+   :maxdepth: 1
+   :caption: API Reference
+
+   api_reference/data.rst
+   api_reference/callbacks.rst
+   api_reference/engine.rst
+   api_reference/models.rst
+   api_reference/metrics.rst
+   api_reference/profilers.rst
+   api_reference/visualize.rst
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Examples
+
+   examples/scripts
+   examples/classification
+   examples/fcos
+   examples/deeplab
+   examples/fastscnn
+   examples/unet
+   examples/community_qat

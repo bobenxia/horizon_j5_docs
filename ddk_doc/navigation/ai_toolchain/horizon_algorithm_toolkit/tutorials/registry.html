@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>注册机制 &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="config 文件介绍" href="config.html" />
+    <link rel="prev" title="执行引擎" href="../framework/engine.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">注册机制</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">自定义模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#backbone-mobilenet">1. 定义一个新的backbone（如MobileNet）：</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2. 导入新定义的模块</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configbackbone">3. 在<code class="docutils literal notranslate"><span class="pre">config</span></code>中使用新的<code class="docutils literal notranslate"><span class="pre">backbone</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/data.html">hat.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>注册机制</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/tutorials/registry.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>注册机制<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>注册机制是辅助构建<code class="docutils literal notranslate"><span class="pre">config</span></code>的重要模块，也是<code class="docutils literal notranslate"><span class="pre">HAT</span></code>的重要组成部分。</p>
+<p>本小节通过自定义模块的例子说明如何在注册机制下在增加新的模块并在<code class="docutils literal notranslate"><span class="pre">config</span></code>中正常使用。</p>
+<div class="section" id="id2">
+<h2>自定义模块<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>以<code class="docutils literal notranslate"><span class="pre">backbone</span></code>为例，这里展示一下如何开发以<code class="docutils literal notranslate"><span class="pre">mobilenet</span></code>为例的新模块。</p>
+<div class="section" id="backbone-mobilenet">
+<h3>1. 定义一个新的backbone（如MobileNet）：<a class="headerlink" href="#backbone-mobilenet" title="Permalink to this headline">¶</a></h3>
+<p>新建一个新文件：<code class="docutils literal notranslate"><span class="pre">hat/models/backbones/mobilenet.py</span></code></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="kn">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">hat.registry</span> <span class="kn">import</span> <span class="n">OBJECT_REGISTRY</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MobileNet&quot;</span><span class="p">]</span>
+
+<span class="nd">@OBJECT_REGISTRY.register</span>
+<span class="k">class</span> <span class="nc">MobileNet</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args1</span><span class="p">,</span> <span class="n">args2</span><span class="p">):</span>
+        <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>2. 导入新定义的模块<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>可以在<code class="docutils literal notranslate"><span class="pre">hat/models/backbones/__init__.py</span></code>中增加导入模块的行。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">.mobilenet</span> <span class="kn">import</span> <span class="n">MobileNet</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configbackbone">
+<h3>3. 在<code class="docutils literal notranslate"><span class="pre">config</span></code>中使用新的<code class="docutils literal notranslate"><span class="pre">backbone</span></code><a class="headerlink" href="#configbackbone" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="n">backbone</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;MobileNet&quot;</span><span class="p">,</span>
+        <span class="n">args1</span><span class="o">=</span><span class="n">xxx</span><span class="p">,</span>
+        <span class="n">args2</span><span class="o">=</span><span class="n">xxx</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>以此类推，其他任何可注册的模块，都可以使用这种方法来完成开发和使用。</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="config.html" class="btn btn-neutral float-right" title="config 文件介绍" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../framework/engine.html" class="btn btn-neutral float-left" title="执行引擎" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

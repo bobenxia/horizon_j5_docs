@@ -1,0 +1,54 @@
+hat.engine
+==========
+
+Engine of the main train loop in HAT.
+
+Engine
+------
+
+.. py:currentmodule:: hat.engine
+
+.. autosummary::
+    :nosignatures:
+
+    build_launcher
+
+    LoopBase
+
+    Predictor
+
+    CalibratorComm
+
+    Trainer
+
+    DistributedDataParallelTrainer
+
+    DataParallelTrainer
+
+processors
+^^^^^^^^^^
+
+.. py:currentmodule:: hat.engine.processors
+
+.. autosummary::
+    :nosignatures:
+
+    BatchProcessorMixin
+
+    BasicBatchProcessor
+
+    MultiBatchProcessor
+
+    collect_loss_by_index
+
+    collect_loss_by_regex
+
+API Reference
+--------------
+
+.. automodule:: hat.engine
+    :members:
+
+.. automodule:: hat.engine.processors
+    :members:
+

@@ -1,0 +1,53 @@
+# ModelZoo
+
+
+
+## Classification
+
+**HAT：**
+
+| network | float | dataset |
+| :---- | :---: | :---: |
+| VargConvNet | 78.98 | ImageNet |
+| efficientnasnetm | 80.25 | ImageNet |
+| efficientnasnets | 76.64 | ImageNet |
+
+
+## Detection
+
+
+**FCOS**
+
+| network             | backbone        | float | dataset |
+| :------------------ | :-------------: | :---: |  :---:  |
+| FCOS-EfficientNetB0 | EfficientNet-B0 | 36.27 | MS COCO |
+| FCOS-EfficientNetB2 | EfficientNet-B0 | 45.35 | MS COCO |
+| FCOS-EfficientNetB3 | EfficientNet-B3 | 48.02 | MS COCO |
+
+## Segmentation
+
+
+**UNet**
+
+| network |  backbone   |    model     | MeanIoU | MeanAcc |  dataset   |
+| :------ | :---------: | :----------: | :-----: | :-----: | :--------: |
+| UNet    | MobileNetV1 |    float     |  68.02  |  76.84  | Cityscapes |
+
+
+**Deeplab**
+
+| network |  backbone   |    model     | MeanIoU | MeanAcc |  dataset   |
+| :------ | :---------: | :----------: | :-----: | :-----: | :--------: |
+| Deeplab | EfficientNet-M0 |    float     |  76.30  |  84.48 | Cityscapes |
+| Deeplab | EfficientNet-M1 |    float     |  77.94  |  85.35 | Cityscapes |
+| Deeplab | EfficientNet-M2 |    float     |  78.82  |  86.43 | Cityscapes |
+
+
+**FastScnn**
+
+| network |  backbone   |    model     | MeanIoU | MeanAcc |  dataset   |
+| :------ | :---------: | :----------: | :-----: | :-----: | :--------: |
+| FastScnn | EfficientNet-B0lite |    float     |  69.97  |  77.06  | Cityscapes |
+
+
+

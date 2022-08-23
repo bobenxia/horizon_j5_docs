@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>附录：发布物内容</title>
+    
+      <link rel="stylesheet" href="../_static/pygments.css">
+      <!-- bundled in js (rollup iife) -->
+      <!-- <link rel="stylesheet" href="../_static/theme.css"> -->
+      <link rel="stylesheet" href="../_static/sphinx_press_theme.css">
+          <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../_static/css/theme.css " type="text/css" />
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../_static/theme-vendors.js"></script> -->
+      <script src="../_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="../genindex.html" />
+  <link rel="search" title="搜索" href="../search.html" />
+  <link rel="prev" title="开发手册" href="j5_ddk_docs.html" /> 
+  </head>
+
+  <body>
+    <div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../index.html" class="home-link">
+    
+      <span class="site-name">地平线J5芯片开发手册</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="https://horizon.ai/"
+        class="nav-link external">
+          地平线官网 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://developer.horizon.ai/"
+        class="nav-link external">
+          社区问题求助 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://wenjuan.feishu.cn/m?t=srSlsnSEmgsi-ambr"
+        class="nav-link external">
+          产品使用反馈 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="https://horizon.ai/"
+        class="nav-link external">
+          地平线官网 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://developer.horizon.ai/"
+        class="nav-link external">
+          社区问题求助 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://wenjuan.feishu.cn/m?t=srSlsnSEmgsi-ambr"
+        class="nav-link external">
+          产品使用反馈 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+
+            
+          </navlinks><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">概述</a></span>
+      </p>
+      <ul class="">
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">芯片介绍</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="../common_doc_cn/j5_board_overview.html" class="reference internal ">关于征程5代芯片</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">系统镜像</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 "><a href="../common_doc_cn/j5_dev_board_system_image.html" class="reference internal ">系统镜像升级</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../common_doc_cn/j5_board_command.html" class="reference internal ">常用工具介绍</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="j5_ddk_docs.html" class="reference internal ">开发手册</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">附录：发布物内容</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#release-note-txt" class="reference internal">1. release_note.txt</a></li>
+                
+                  <li class="toctree-l2"><a href="#bsp" class="reference internal">2. bsp</a></li>
+                
+                  <li class="toctree-l2"><a href="#tools" class="reference internal">3. tools</a></li>
+                
+                  <li class="toctree-l2"><a href="#doc" class="reference internal">4. doc</a></li>
+                
+                  <li class="toctree-l2"><a href="#ddk" class="reference internal">5. ddk</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+    <li>附录：发布物内容</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="j5_ddk_docs.html"
+       title="上一章">← 开发手册</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="id1">
+<h1>附录：发布物内容<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>horizon_j5_open_explorer_{version}_2022xxxx.tar.gz解压后包含以下内容：</p>
+<section id="release-note-txt">
+<h2>1. release_note.txt<a class="headerlink" href="#release-note-txt" title="永久链接至标题">¶</a></h2>
+<p>release_note.txt记录了发布的模块及相应版本号：</p>
+<p>Release Note：</p>
+<p>Horizon OpenExplorer v{version}(release_date:2022XXXX)</p>
+<p>各个模块的具体信息，请参考各个模块内部相关的release_note说明。</p>
+</section>
+<section id="bsp">
+<h2>2. bsp<a class="headerlink" href="#bsp" title="永久链接至标题">¶</a></h2>
+<p>bsp目录为系统镜像目录, 其中放置了 J5 系统镜像</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>bsp目录下包含的镜像仅适用于特定开发板, 若需要其他开发板镜像, 需联系地平线进行获取。</p>
+</div>
+<p>内容包括：</p>
+<p>1).J5-Img-{version}.tgz；</p>
+</section>
+<section id="tools">
+<h2>3. tools<a class="headerlink" href="#tools" title="永久链接至标题">¶</a></h2>
+<p>tools文件夹下包含了一些用户在windows下会使用到的usb_driver 和 hbupdate板端升级工具。其中hbupdate工具我们为您提供了多平台(win/linux/mac)的版本。内容包括：</p>
+<p>1).hbupdate_linux_cli_{version}.tgz；</p>
+<p>2).hbupdate_linux_gui_{version}.tgz；</p>
+<p>3).hbupdate_mac_{version}.app.tar.gz；</p>
+<p>4).hbupdate_win64_{version}.zip；</p>
+</section>
+<section id="doc">
+<h2>4. doc<a class="headerlink" href="#doc" title="永久链接至标题">¶</a></h2>
+<p>doc目录为发布物文档。文档中包含了对J5芯片的介绍，系统镜像的安装升级方法，开发板的常用命令和工具链开发手册等。</p>
+</section>
+<section id="ddk">
+<h2>5. ddk<a class="headerlink" href="#ddk" title="永久链接至标题">¶</a></h2>
+<p>ddk目录为主要的开发组件目录，目录下包含了 package、samles及tools文件夹。</p>
+<section id="ddk-package">
+<h3>5.1 ddk.package<a class="headerlink" href="#ddk-package" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ddk.package</span></code> 目录下包含了发布物运行的一些基础库和组件。</p>
+<section id="ddk-package-board">
+<h4>5.1.1 ddk.package.board<a class="headerlink" href="#ddk-package-board" title="永久链接至标题">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">ddk.package.board</span></code> 文件夹下为板端可执行程序。
+<code class="docutils literal notranslate"><span class="pre">hrt_model_exec</span></code> 是一个模型执行工具 ，可直接在 <strong>开发板上</strong> 进行评测模型的推理性能、获取模型信息。工具分别提供了 <code class="docutils literal notranslate"><span class="pre">infer</span></code> 、模型性能分析 <code class="docutils literal notranslate"><span class="pre">perf</span></code> 和查看模型信息 <code class="docutils literal notranslate"><span class="pre">model_info</span></code> 三类功能；
+<code class="docutils literal notranslate"><span class="pre">hrt_bin_dump</span></code> 是ptq debug模型的layer dump工具，工具的输出文件为二进制文件。
+<code class="docutils literal notranslate"><span class="pre">install.sh</span></code> 是一键安装脚本，可以一键将hrt工具安装到指定的开发板。</p>
+</section>
+<section id="ddk-package-host">
+<h4>5.1.2 ddk.package.host<a class="headerlink" href="#ddk-package-host" title="永久链接至标题">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">ddk.package.host</span></code> 文件夹下为发布物在x86开发环境下的环境依赖和工具依赖。
+通过执行该目录下的脚本 <code class="docutils literal notranslate"><span class="pre">install.sh</span></code> 即可在开发机上安装程序运行的所有环境和工具依赖。</p>
+</section>
+</section>
+<section id="ddk-tools">
+<h3>5.2 ddk.tools<a class="headerlink" href="#ddk-tools" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ddk.tools</span></code> 文件夹下包含了交叉编译工具和其他的一些图像处理相关的工具。内容包括：</p>
+<p>1).gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu.tar.gz；</p>
+<p>2).gdc-tool-gui-0.23.68.zip；</p>
+<p>3).hobotplayerv.1.12.1.rar；</p>
+<p>4).ISP_Calibration_Tool_IV009_v3.38.tar.gz。</p>
+</section>
+<section id="ddk-samples">
+<h3>5.3 ddk.samples<a class="headerlink" href="#ddk-samples" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ddk.samples</span></code> 下包含了 <strong>ai_benchmark、ai_toolchain、ai_forward_view_sample、vdsp_rpc_sample和model_zoo</strong> 。</p>
+<p>ai_benchmark 提供了常见的分类、检测和分割模型的评测示例，包括性能评测和精度评测两部分。</p>
+<p>ai_toolchain 提供了一些模型算法的一系列示例。
+（其中 horizon_model_train_samples 为浮点模型训练框架示例,
+horizon_model_convert_sample 为浮点模型转定点模型的转换示例,
+horizon_runtime_sample 为定点模型的上板示例。）</p>
+<p>ai_forward_view_sample 示例展示了如何在J5上运行一个检测模型并展示结果, 结果包括物体框和全图分割数据。</p>
+<p>vdsp_rpc_sample 示例展示了如何在j5上使用dsp进行任务处理。</p>
+<p>model_zoo 是一个模型库，包含了工具链示例模型编译的源模型和runtime模型。</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="j5_ddk_docs.html"
+       title="上一章">← 开发手册</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2022, Horizon Robotics.
+</div>
+            </div>
+          </div>
+      </page>
+    </div>
+    
+    
+  </body>
+</html>

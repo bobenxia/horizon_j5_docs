@@ -1,0 +1,79 @@
+FCOS检测模型训练
+================
+
+
+这篇教程以fcos-EfficientNet为例，告诉大家如何使用HAT算法包训练一个浮点的检测模型。
+
+
+数据集准备
+-------------
+在开始训练模型之前，第一步是需要准备好数据集，这里我们下载\
+MSCOCO的 `train2017.zip <http://images.cocodataset.org/zips/train2017.zip>`_ 和\
+`val2017.zip <http://images.cocodataset.org/zips/val2017.zip>`_ 做为网络的训练集和验证集,同时需要下载相应的标签数据\
+`annotations_trainval2017.zip <http://images.cocodataset.org/annotations/annotations_trainval2017.zip>`_ , 解压缩之后\
+数据目录结构如下所示：
+
+  .. code-block:: bash
+
+    tmp_data
+    |-- mscoco
+      |-- annotations_trainval2017.zip
+      |-- train2017.zip
+      |-- val2017.zip
+      |-- annotations
+      |-- train2017
+      |-- val2017
+
+同时，为了提升训练的速度，我们对原始的jpg格式的数据集做了一个打包，将其转换成lmdb格式的数据集。只需要运行下面的脚本，就可以成功\
+实现转换：
+
+  .. code-block:: python
+
+    python3 tools/datasets/mscoco_packer.py --src-data-dir ./tmp_data/mscoco/ --target-data-dir ./tmp_data/mscoco --split-name train --pack-type lmdb
+    python3 tools/datasets/mscoco_packer.py --src-data-dir ./tmp_data/mscoco/ --target-data-dir ./tmp_data/mscoco --split-name val --pack-type lmdb
+
+上面这两条命令分别对应着转换训练数据集和验证数据集，打包完成之后，data目录下的文件结构应该如下所示：
+
+  .. code-block:: bash
+
+    tmp_data
+    |-- mscoco
+      |-- annotations
+      |-- train2017
+      |-- train_lmdb
+      |-- val2017
+      |-- val_lmdb
+
+train_lmdb和val_lmdb就是打包之后的训练数据集和验证数据集，也是网络最终读取的数据集。
+
+
+浮点模型训练
+-------------
+数据集准备好之后，就可以开始训练浮点的检测网络了。在网络训练开始之前，你可以使用以下命令先测试一下网络的计算量\
+和参数数量：
+
+  .. code-block:: python
+
+    python3 tools/calops.py --config configs/detection/fcos/fcos_efficientnetb0_mscoco.py --input-shape "1,3,512,512"
+
+如果你只是单纯的想启动这样的训练任务，只需要修改打包好的数据集的路径，运行下面的命令就可以：
+
+  .. code-block:: python
+
+    python3 tools/train.py --step float --config configs/detection/fcos/fcos_efficientnetb0_mscoco.py
+
+如果想要验证已经训练好的模型精度,运行下面的命令即可：
+  
+  .. code-block:: python
+
+    python3 tools/train.py --step float --config configs/detection/fcos/fcos_efficientnetb0_mscoco.py --val-ckpt float-checkpoint-best.pth.tar --val-only
+
+如果想要导出onnx模型, 运行下面的命令即可：
+
+  .. code-block:: python
+
+    python3 tools/export_onnx.py --config configs/detection/fcos/fcos_efficientnetb0_mscoco.py --ckpt float-checkpoint-best.pth.tar --onnx-name fcos.onnx
+
+由于HAT算法包使用了一种巧妙的注册机制，使得每一个训练任务都可以按照这种train.py加上config配置文件的形式启动。train.py是\
+统一的训练脚本，与任务无关，我们需要训练什么样的任务、使用什么样的数据集以及训练相关的超参数设置都在指定的config配置文件里面。config文件
+里面提供了模型构建、数据读取等关键的dict。

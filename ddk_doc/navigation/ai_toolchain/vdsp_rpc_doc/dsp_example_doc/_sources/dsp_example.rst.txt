@@ -1,0 +1,197 @@
+前言
+====
+
+DSP示例包展示了如何在j5上使用dsp进行任务处理。示例是采用自定义dsp softmax算子进行mobilenetv1的推理，主要分为arm和dsp两部分，其中arm侧负责准备数据然后发起rpc调用，dsp侧负责接收arm侧发来的任务，完成任务计算，将结果发送给arm。
+
+开发者可以体验并基于该示例进行应用开发，降低开发门槛。
+
+交付物说明
+==========
+
+​交付物主要包括以下内容：
+
+.. table::
+
+  +------------------------+----------------------------+
+  | 名称                   | 内容                       |
+  +------------------------+----------------------------+
+  | vdsp_rpc_sample        | 包含示例源代码和运行脚本。 |
+  +------------------------+----------------------------+
+
+示例代码包
+-----------------
+
+​示例包结构如下所示：
+
+.. code-block:: bash
+
+  +---vdsp_rpc_sample
+  ├── arm                                          # arm侧
+  │   ├── deps                                     # 示例依赖库
+  │   ├── mobilenetv1_with_custom_dsp_softmax       
+  │   │   ├── custom_dsp_softmax.cpp               # arm侧自定义算子实现
+  │   │   ├── custom_dsp_softmax.h                
+  │   │   ├── main.cpp                             # main函数
+  │   │   └── CMakeLists.txt
+  │   ├── script                                   # 示例运行脚本
+  │   ├── util
+  │   ├── build.sh
+  │   └── CMakeLists.txt
+  │
+  ├── dsp                                          # dsp侧
+  │   ├── deps                                     # 示例依赖库
+  │   ├── softmax                                  # dsp侧softmax算子实现
+  │   ├── main.cc
+  │   ├── build.sh
+  │   └── CMakeLists.txt                                     
+  └── README.md
+
+- **arm**：arm侧示例，主要负责模型推理并发起rpc调用，完成模型推理并获得分类结果。
+- **dsp**：dsp侧示例，主要负责接收arm侧发来的任务，完成softmax计算，将结果发送给arm。
+
+环境构建
+========
+
+开发板准备
+-----------
+
+1. 拿到开发板后，按照刷机说明升级系统镜像到示例包推荐的系统镜像版本。
+
+2. 确保本地开发机和开发板可以远程连接。
+
+编译
+--------
+
+arm侧编译
+~~~~~~~~~~~~
+
+​编译需要当前环境安装好交叉编译工具gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu。
+设置环境变量 ``LINARO_GCC_ROOT`` 为交叉编译工具的实际安装位置：
+
+.. code-block:: shell
+
+  export LINARO_GCC_ROOT=/opt/gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu
+
+然后执行 **vdsp_rpc_sample/arm** 目录下的build.sh脚本即可一键编译真机环境下的可执行程序，可执行程序和对应依赖会自动复制到 **vdsp_rpc_sample/arm/script** 目录下。
+
+dsp侧编译
+~~~~~~~~~~~~
+
+可从地平线获取 ``Xplorer-8.0.13-linux-x64-installer.bin`` 和 ``vdsp_vp6_RI4_linux.tgz`` 安装包。
+
+安装Xtensa Develop Tools
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+这里我们默认把它安装在/opt/xtensa目录下（没有root权限可以通过--prefix自行指定其它目录，后续需要将/opt/xtensa替换为该目录）
+
+.. code-block:: shell
+
+  chmod 777 Xplorer-8.0.13-linux-x64-installer.bin
+  ./Xplorer-8.0.13-linux-x64-installer.bin \
+    --mode unattended \
+    --prefix /opt/xtensa
+
+
+安装 VP6 Core Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: shell
+
+  tar -zxvf vdsp_vp6_RI4_linux.tgz \
+    && mv RI-2020.4-linux/vdsp_vp6_RI4/ /opt/xtensa/XtDevTools/install/builds/RI-2020.4-linux/ \
+    && rm -rf RI-2020.4-linux
+  /opt/xtensa/XtDevTools/install/builds/RI-2020.4-linux/vdsp_vp6_RI4/install \
+    --xtensa-tools /opt/xtensa/XtDevTools/install/tools/RI-2020.4-linux/XtensaTools/
+
+配置环境变量
+^^^^^^^^^^^^^
+
+.. code-block:: shell
+
+  export XTENSA_CORE=vdsp_vp6_RI4 # set default core
+  export LM_LICENSE_FILE=5280@10.9.9.21:5280:10.9.9.22:5280@10.9.9.23  # set license server 
+  export XTENSA_ROOT=/opt/xtensa/XtDevTools/install/tools/RI-2020.4-linux/XtensaTools/
+  export PATH=$PATH:$XTENSA_ROOT/bin
+
+LM_LICENSE_FILE环境变量需要根据实际情况进行设置；
+
+然后执行 **vdsp_rpc_sample/dsp** 目录下的build.sh脚本即可一键编译dsp镜像到 **vdsp_rpc_sample/dsp/output_image** 目录下。
+
+
+
+示例使用
+========
+
+DSP侧
+---------
+
+- 准备一块j5开发板, 设置dsp镜像名称，可以先通过以下命令确认镜像名称是否需要重设：
+
+.. code-block:: shell
+
+  cat /sys/class/remoteproc/remoteproc1/firmware
+  cat /sys/class/remoteproc/remoteproc2/firmware
+
+若镜像名称不是vdsp0和vdsp1，则重新设置dsp镜像名称，命令为：
+
+.. code-block:: shell
+
+  echo vdsp0 > /sys/class/remoteproc/remoteproc1/firmware
+  echo vdsp1 > /sys/class/remoteproc/remoteproc2/firmware
+
+- 停止dsp运行，停止命令为:
+
+.. code-block:: shell
+
+  echo stop > /sys/class/remoteproc/remoteproc1/state (停止vdsp0)
+  echo stop > /sys/class/remoteproc/remoteproc2/state (停止vdsp1)
+
+
+停止成功后，将dsp目录下编译出来的两个镜像vdsp0和vdsp1拷贝到j5开发板上替换掉 **/system/lib/firmware/** 目录下的vdsp0和vdsp1.
+
+.. note::
+
+    1.若dsp核处于stop状态下，执行上述命令会报错，但可以忽略；
+
+    2.加密板子需要更换目录的权限之后才能够替换镜像.
+
+
+- 重新启动dsp镜像，命令为：
+
+.. code-block:: shell
+
+  echo start > /sys/class/remoteproc/remoteproc1/state (启动vdsp0)
+  echo start > /sys/class/remoteproc/remoteproc2/state (启动vdsp1)
+
+.. note::
+
+  在替换新的dsp镜像前一定要先卸载正在运行的dsp镜像；替换完镜像后最好重新启动系统。
+
+ARM侧
+---------
+
+将 **vdsp_rpc_sample/arm/script** 目录拷贝到j5开发版上，然后运行run_custom_op.sh，会执行一次mobilentv1的推理任务, 输出top5的分类:
+
+.. code-block:: shell
+
+  root@j5dvb:/userdata/qiuping.chen/arm/script# sh run_custom_op.sh
+  ./bin/run_custom_op --model_file=./model/mobilenetv1_224x224_nv12.bin --image_file=./test_data/zebra_cls.jpg --image_height=224 --image_width=224 --top_k=5
+  I0000 00:00:00.000000  3331 vlog_is_on.cc:197] RAW: Set VLOG level for "*" to 3
+  I0324 19:46:54.442885  3331 main.cpp:136] hbDNNRegisterLayerCreator success
+  [BPU_PLAT]BPU Platform Version(1.3.2)!
+  [HBRT] set log level as 0. version = 3.13.26
+  [DNN] Runtime version = 1.8.1_(3.13.26 HBRT)
+  [HorizonRT] The model builder version = 1.6.1
+  I0324 19:46:54.682241  3331 main.cpp:151] hbDNNGetModelNameList success
+  I0324 19:46:54.682328  3331 main.cpp:158] hbDNNGetModelHandle success
+  I0324 19:46:54.713505  3331 main.cpp:167] read image to nv12 success
+  I0324 19:46:54.713773  3331 main.cpp:177] prepare nv12 tensor success
+  I0324 19:46:54.713901  3331 main.cpp:187] prepare tensor success
+  I0324 19:46:54.714118  3331 main.cpp:197] hbDNNInfer success
+  I0324 19:46:54.744346  3331 main.cpp:202] task done
+  I0324 19:46:54.744494  3331 main.cpp:207] task post process success
+  I0324 19:46:54.744617  3331 main.cpp:213] TOP 0 result id: 340
+  I0324 19:46:54.744681  3331 main.cpp:213] TOP 1 result id: 292
+  I0324 19:46:54.744714  3331 main.cpp:213] TOP 2 result id: 282
+  I0324 19:46:54.744740  3331 main.cpp:213] TOP 3 result id: 83
+  I0324 19:46:54.744765  3331 main.cpp:213] TOP 4 result id: 288

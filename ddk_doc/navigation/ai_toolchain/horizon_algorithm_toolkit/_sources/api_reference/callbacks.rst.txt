@@ -1,0 +1,47 @@
+hat.callbacks
+=============
+
+Callbacks widely used while training in HAT.
+
+Callbacks
+---------
+
+.. py:currentmodule:: hat.callbacks
+
+.. autosummary::
+    :nosignatures:
+
+    CallbackMixin
+
+    Checkpoint
+
+    CosLrUpdater
+
+    PolyLrUpdater
+
+    StepDecayLrUpdater
+
+    MetricUpdater
+
+    StatsMonitor
+
+    FreezeBNStatistics
+
+    TensorBoard
+
+    Validation
+
+    ExponentialMovingAverage
+
+    ModelTracking
+
+    ExponentialDecayLrUpdater
+
+    OneCycleLrUpdater
+
+API Reference
+--------------
+
+.. automodule:: hat.callbacks
+    :members:
+

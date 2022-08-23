@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html  lang="zh_CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+      <title>系统镜像升级</title>
+    
+      <link rel="stylesheet" href="../_static/pygments.css">
+      <!-- bundled in js (rollup iife) -->
+      <!-- <link rel="stylesheet" href="../_static/theme.css"> -->
+      <link rel="stylesheet" href="../_static/sphinx_press_theme.css">
+          <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+          <link rel="stylesheet" href="../_static/css/theme.css " type="text/css" />
+      
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+
+      <!-- sphinx script_files -->
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+
+      
+      <!-- bundled in js (rollup iife) -->
+      <!-- <script src="../_static/theme-vendors.js"></script> -->
+      <script src="../_static/theme.js" defer></script>
+    
+  <link rel="index" title="索引" href="../genindex.html" />
+  <link rel="search" title="搜索" href="../search.html" />
+  <link rel="next" title="常用工具介绍" href="j5_board_command.html" />
+  <link rel="prev" title="关于征程5代芯片" href="j5_board_overview.html" /> 
+  </head>
+
+  <body>
+    <div id="app" class="theme-container" :class="pageClasses"><navbar @toggle-sidebar="toggleSidebar">
+  <router-link to="../index.html" class="home-link">
+    
+      <span class="site-name">地平线J5芯片开发手册</span>
+    
+  </router-link>
+
+  <div class="links">
+    <navlinks class="can-hide">
+
+  
+    <div class="nav-item">
+      <a href="https://horizon.ai/"
+        class="nav-link external">
+          地平线官网 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://developer.horizon.ai/"
+        class="nav-link external">
+          社区问题求助 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://wenjuan.feishu.cn/m?t=srSlsnSEmgsi-ambr"
+        class="nav-link external">
+          产品使用反馈 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+
+    </navlinks>
+  </div>
+</navbar>
+
+      
+      <div class="sidebar-mask" @click="toggleSidebar(false)">
+      </div>
+        <sidebar @toggle-sidebar="toggleSidebar">
+          
+          <navlinks>
+            
+
+  
+    <div class="nav-item">
+      <a href="https://horizon.ai/"
+        class="nav-link external">
+          地平线官网 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://developer.horizon.ai/"
+        class="nav-link external">
+          社区问题求助 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+    <div class="nav-item">
+      <a href="https://wenjuan.feishu.cn/m?t=srSlsnSEmgsi-ambr"
+        class="nav-link external">
+          产品使用反馈 <outboundlink></outboundlink>
+      </a>
+    </div>
+  
+
+            
+          </navlinks><div class="sidebar-links" role="navigation" aria-label="main navigation">
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">概述</a></span>
+      </p>
+      <ul class="">
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">芯片介绍</a></span>
+      </p>
+      <ul class="">
+        
+          <li class="toctree-l1 "><a href="j5_board_overview.html" class="reference internal ">关于征程5代芯片</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+    <div class="sidebar-group">
+      <p class="caption">
+        <span class="caption-text"><a href="../index.html#j5">系统镜像</a></span>
+      </p>
+      <ul class="current">
+        
+          <li class="toctree-l1 current"><a href="#" class="reference internal current">系统镜像升级</a>
+
+            
+              <ul>
+                
+                  <li class="toctree-l2"><a href="#id2" class="reference internal">1. 选择镜像升级方式</a></li>
+                
+                  <li class="toctree-l2"><a href="#id3" class="reference internal">2. 完成镜像升级前的准备工作</a></li>
+                
+                  <li class="toctree-l2"><a href="#id7" class="reference internal">3. 执行镜像升级</a></li>
+                
+                  <li class="toctree-l2"><a href="#faq" class="reference internal">4. FAQ</a></li>
+                
+              </ul>
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="j5_board_command.html" class="reference internal ">常用工具介绍</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../source_doc/j5_ddk_docs.html" class="reference internal ">开发手册</a>
+
+            
+          </li>
+
+        
+          <li class="toctree-l1 "><a href="../source_doc/j5_oe_detail.html" class="reference internal ">附录：发布物内容</a>
+
+            
+          </li>
+
+        
+      </ul>
+    </div>
+  
+</div>
+        </sidebar>
+
+      <page>
+          <div class="body-header" role="navigation" aria-label="navigation">
+  
+  <ul class="breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+    <li>系统镜像升级</li>
+  </ul>
+  
+
+  <ul class="page-nav">
+  <li class="prev">
+    <a href="j5_board_overview.html"
+       title="上一章">← 关于征程5代芯片</a>
+  </li>
+  <li class="next">
+    <a href="j5_board_command.html"
+       title="下一章">常用工具介绍 →</a>
+  </li>
+</ul>
+  
+</div>
+<hr>
+          <div class="content" role="main" v-pre>
+            
+  <section id="id1">
+<h1>系统镜像升级<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<section id="id2">
+<h2>1. 选择镜像升级方式<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>系统软件更新方式有三种：</p>
+<ol class="arabic simple">
+<li><p>在 <strong>开发板端</strong> 使用OTA命令行升级；</p></li>
+<li><p>在 <strong>主机端</strong> 使用hbupdate工具采用OTA方式升级；</p></li>
+<li><p>在 <strong>主机端</strong> 使用hbupdate工具采用uart方式升级。</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<ul class="simple">
+<li><p>在系统能够正常启动的情况下，推荐使用在开发板端通过 OTA方式进行系统镜像更新。</p></li>
+<li><p>在开发板无法启动的情况下，则只能使用hbupdate工具的 uart 方式进行烧写。</p></li>
+</ul>
+</div>
+</section>
+<section id="id3">
+<h2>2. 完成镜像升级前的准备工作<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<section id="id4">
+<h3>2.1 获取安装文件<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>系统软件安装文件可以从地平线OpenExplorer统一发布包(下称OE包)的 <code class="docutils literal notranslate"><span class="pre">bsp</span></code> 目录下获取，文件名为 <code class="docutils literal notranslate"><span class="pre">J5-Img-{version}.zip</span></code>。</p>
+<p>OTA升级所需的 <code class="docutils literal notranslate"><span class="pre">all_in_one_signed.zip</span></code> 文件可以从解压后的 <code class="docutils literal notranslate"><span class="pre">packages</span></code> 文件夹中获取，uart升级所需的相关依赖均在 <code class="docutils literal notranslate"><span class="pre">package</span></code> 文件夹中。</p>
+</section>
+<section id="id5">
+<h3>2.2 获取正确的升级工具<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>开发板端OTA命令行升级所需的工具为 <code class="docutils literal notranslate"><span class="pre">otaupdate</span></code>， 默认存放于板端 <code class="docutils literal notranslate"><span class="pre">/usr/bin/otaupdate</span></code> 路径中。</p>
+<p>开发板升级工具hbupdate可以从OE包的 <code class="docutils literal notranslate"><span class="pre">tools/hbupdate</span></code> 目录下，根据用户使用的系统情况进行获取。
+除了适用于Windows64位系统的安装包，我们还提供了一个mac版本和两个linux版本的hbupdate工具，其中 <code class="docutils literal notranslate"><span class="pre">gui</span></code> 为图形用户接口， <code class="docutils literal notranslate"><span class="pre">cli</span></code> 为命令行用户接口。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>开发板升级工具hbupdate可能会随版本变动而有所变化，请以OE包中提供的最新工具为准。</p>
+</div>
+</section>
+<section id="id6">
+<h3>2.3 安装串口驱动程序<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>在连接开发板进行升级之前，请先在宿主机系统中安装串口驱动程序，否则宿主机系统可能无法辨认开发板。将串口驱动下载到您的宿主机中并完成安装。
+串口驱动程序位于OE包的 <code class="docutils literal notranslate"><span class="pre">tools/Windows_USB_Driver/CDM21228_Setup.zip</span></code>。</p>
+</section>
+</section>
+<section id="id7">
+<h2>3. 执行镜像升级<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<section id="ota">
+<h3>3.1 开发板端OTA升级<a class="headerlink" href="#ota" title="永久链接至标题">¶</a></h3>
+<p>用户在拿到一个新的OE包后，将OE包的 <code class="docutils literal notranslate"><span class="pre">bsp</span></code> 目录下的 <code class="docutils literal notranslate"><span class="pre">J5-Img-{version}.zip</span></code> 镜像文件解压，可从 <code class="docutils literal notranslate"><span class="pre">package</span></code> 文件夹中找到 <code class="docutils literal notranslate"><span class="pre">all_in_one_signed.zip</span></code> 镜像包。
+该镜像为签名认证过的镜像。
+若使用未经签名的镜像则会导致更新失败。</p>
+<p>将该系统软件包拷贝或挂载到 <strong>开发板</strong> 上，例如:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scp all_in_one_signed.zip root@<span class="o">{</span>ip<span class="o">}</span>:/userdata/
+</pre></div>
+</div>
+<p>登录开发板, 通过板上的otaupdate工具进行软件系统升级：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/usr/bin/otaupdate all /userdata/all_in_one_signed.zip
+</pre></div>
+</div>
+<p>OTA执行完镜像烧录后，会重启几次系统，验证升级是否成功。再次进入系统后，运行以下命令查看系统版本号来验证升级是否成功：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat /etc/issue
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>由于该方式最简单且易上手，因此推荐用户在 <strong>系统能够正常启动</strong> 的前提下首先尝试使用此方法进行系统软件版本的升级。</p>
+</div>
+</section>
+<section id="hbupdate">
+<h3>3.2 hbupdate工具升级<a class="headerlink" href="#hbupdate" title="永久链接至标题">¶</a></h3>
+<section id="id8">
+<h4>3.2.1 使用前准备<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h4>
+<p>使用hbupdate工具时，无论选择何种方式进行升级，都要确保主机端与板端分别通过串口和网线进行相连。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<ul class="simple">
+<li><p>串口端口号要选择正确（参考本节末尾的FAQ内容）；</p></li>
+<li><p>波特率设置与板上DIP开关设置一致；</p></li>
+<li><p>且板端ip与主机ip在同一个网段内。</p></li>
+</ul>
+</div>
+<p>升级前需要在工具中选择 <code class="docutils literal notranslate"><span class="pre">产品类型</span></code>，因此需要 <strong>与地平线技术支持人员确认目标开发板是否为加密板</strong>。
+如果为非加密 <code class="docutils literal notranslate"><span class="pre">nosecure</span></code> 则 <code class="docutils literal notranslate"><span class="pre">产品类型</span></code> 选择 <code class="docutils literal notranslate"><span class="pre">J5</span></code>； 如果为加密 <code class="docutils literal notranslate"><span class="pre">secure</span></code> 则 <code class="docutils literal notranslate"><span class="pre">产品类型</span></code> 选择 <code class="docutils literal notranslate"><span class="pre">J5-key1</span></code>。
+如下图所示：</p>
+<figure class="align-default">
+<img alt="../_images/product_type.png" src="../_images/product_type.png" />
+</figure>
+</section>
+<section id="id9">
+<h4>3.2.2 OTA方式升级<a class="headerlink" href="#id9" title="永久链接至标题">¶</a></h4>
+<p>同命令行OTA升级，将OE包的 <code class="docutils literal notranslate"><span class="pre">bsp</span></code> 目录下的 <code class="docutils literal notranslate"><span class="pre">J5-Img-{version}.zip</span></code> 镜像文件解压，可从 <code class="docutils literal notranslate"><span class="pre">package</span></code> 文件夹中找到 <code class="docutils literal notranslate"><span class="pre">all_in_one_signed.zip</span></code> 镜像包。
+该镜像为签名认证过的镜像。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>若使用未经签名的镜像则会导致更新失败。</p>
+</div>
+<p>在工具的 <code class="docutils literal notranslate"><span class="pre">下载模式</span></code> 中选择 <code class="docutils literal notranslate"><span class="pre">ota</span></code>， <code class="docutils literal notranslate"><span class="pre">下载方式</span></code> 选择 <code class="docutils literal notranslate"><span class="pre">sftp</span></code>， 并选择准备好的ota升级文件，之后填好板端的ip地址(<code class="docutils literal notranslate"><span class="pre">CP</span> <span class="pre">IP地址</span></code>)及PC串口信息。
+如下图所示:</p>
+<figure class="align-default">
+<img alt="../_images/ota_overview.png" src="../_images/ota_overview.png" />
+</figure>
+<p>设置完毕后，即可点击 <code class="docutils literal notranslate"><span class="pre">开始升级</span></code>，
+在升级成功后会出现相应提示。
+如下图所示：</p>
+<figure class="align-default">
+<img alt="../_images/hbupdate_ota_finish.png" src="../_images/hbupdate_ota_finish.png" />
+</figure>
+</section>
+<section id="uart">
+<h4>3.2.3 uart方式升级<a class="headerlink" href="#uart" title="永久链接至标题">¶</a></h4>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>在开发板镜像版本不支持ota方式升级、或系统已无法正常启动的情况下，则可选择uart方式进行烧写。</p>
+</div>
+<p>在工具的 <code class="docutils literal notranslate"><span class="pre">下载模式</span></code> 中选择 <code class="docutils literal notranslate"><span class="pre">uart</span></code>， <code class="docutils literal notranslate"><span class="pre">下载方式</span></code> 选择 <code class="docutils literal notranslate"><span class="pre">fastboot</span></code>， <code class="docutils literal notranslate"><span class="pre">内存类型</span></code> 选择 <code class="docutils literal notranslate"><span class="pre">misc</span></code>，
+并在文件选择栏中选择之前从OE包中解压获取的 <code class="docutils literal notranslate"><span class="pre">packages</span></code> 文件夹，
+并将板端的ip地址( <code class="docutils literal notranslate"><span class="pre">CP</span> <span class="pre">IP地址</span></code>)、 <code class="docutils literal notranslate"><span class="pre">网关地址</span></code> (<code class="docutils literal notranslate"><span class="pre">MAC</span></code> 选项可忽略不填)、 <code class="docutils literal notranslate"><span class="pre">子网掩码</span></code>、 PC端 <code class="docutils literal notranslate"><span class="pre">串口</span></code> 和主机IP （ <code class="docutils literal notranslate"><span class="pre">UDP</span> <span class="pre">IP</span></code>）设置好。
+如下图所示：</p>
+<figure class="align-default">
+<img alt="../_images/uart_overview.png" src="../_images/uart_overview.png" />
+</figure>
+<p>设置完毕后即可点击 <code class="docutils literal notranslate"><span class="pre">开始升级</span></code>， 之后会出现相应提示。需要按照提示进行重启开发板的操作。
+在升级成功后。同样会出现相应提示，如下图所示：</p>
+<figure class="align-default">
+<img alt="../_images/hbupdate_uart_reset.png" src="../_images/hbupdate_uart_reset.png" />
+</figure>
+<figure class="align-default">
+<img alt="../_images/hbupdate_uart_finish.png" src="../_images/hbupdate_uart_finish.png" />
+</figure>
+</section>
+</section>
+</section>
+<section id="faq">
+<h2>4. FAQ<a class="headerlink" href="#faq" title="永久链接至标题">¶</a></h2>
+<section id="id10">
+<h3>4.1 升级工具与开发板网络连接失败怎么办？<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>如果在升级过程中遇到了开发板与主机之间网络连接失败的情况则可以进行以下检查：</p>
+<ul>
+<li><p>检查电脑与开发板间网线是否已正确连接，且开发板与电脑直连；</p></li>
+<li><p>检查电脑与开发板ip是否在同一网段，若不是的话请按下面步骤修改板子网段</p>
+<ol class="arabic">
+<li><p>登陆开发板，通过命令 <code class="docutils literal notranslate"><span class="pre">hrut_ipfull</span> <span class="pre">s</span> <span class="pre">{开发板ip}</span> <span class="pre">{开发板子网掩码}</span> <span class="pre">{开发板网关}</span></code> 将开发板IP设置为和主机一个网段。
+示例： <code class="docutils literal notranslate"><span class="pre">hrut_ipfull</span> <span class="pre">s</span> <span class="pre">10.103.70.66</span> <span class="pre">255.255.255.0</span> <span class="pre">10.103.70.1</span></code>
+修改结果可以通过 <code class="docutils literal notranslate"><span class="pre">hrut_ipfull</span> <span class="pre">g</span></code> 来查看。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@j5dvb</span><span class="p">:</span><span class="o">~</span><span class="c1"># hrut_ipfull g</span>
+<span class="n">ip</span><span class="o">=</span><span class="mf">10.103.70.68</span>
+<span class="n">mask</span><span class="o">=</span><span class="mf">255.255.255.0</span>
+<span class="n">gw</span><span class="o">=</span><span class="mf">10.103.70.1</span>
+</pre></div>
+</div>
+</li>
+<li><p>创建 <code class="docutils literal notranslate"><span class="pre">/userdata/app/init.sh</span></code> 文件，将文件其中IP设置为和步骤1一致。
+设置完毕后执行 <code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">777</span> <span class="pre">/userdata/app/init.sh</span></code>。文件内容如下图：</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="n">ifconfig</span> <span class="n">eth0</span> <span class="n">down</span>
+<span class="n">ifconfig</span> <span class="n">eth1</span> <span class="mf">10.103.70.68</span> <span class="n">netmask</span> <span class="mf">255.255.255.0</span>
+<span class="n">route</span> <span class="n">add</span> <span class="n">default</span> <span class="n">gw</span> <span class="mf">10.103.70.1</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>设置完毕后重启开发板。开发板和主机双向ping，都能ping通则设置完毕。</p></li>
+</ol>
+</li>
+</ul>
+</section>
+<section id="hbupdateota-can-not-connect-chip-via-network">
+<h3>4.2 使用hbupdate工具ota方式升级报错 <code class="docutils literal notranslate"><span class="pre">can</span> <span class="pre">not</span> <span class="pre">connect</span> <span class="pre">chip</span> <span class="pre">via</span> <span class="pre">network</span></code>？<a class="headerlink" href="#hbupdateota-can-not-connect-chip-via-network" title="永久链接至标题">¶</a></h3>
+<p>若升级过程中出现下列失败提示，则需登录开发板并执行 <code class="docutils literal notranslate"><span class="pre">telnetd</span> <span class="pre">start</span></code> ，退出后重新执行升级操作。</p>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/faq2_network_error.png"><img alt="../_images/faq2_network_error.png" src="../_images/faq2_network_error.png" style="width: 791.2px; height: 402.40000000000003px;" /></a>
+</figure>
+</section>
+<section id="id11">
+<h3>4.3 串口选择<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h3>
+<p>当串口线接入PC时，会在设备管理器中出现4个COM口。
+这其中只有一个是能够正确与板端相连的。
+用户需要依次进行升级尝试来判断具体哪个是正确的。
+根据以往经验，工具 <strong>下拉列表排列倒数第二</strong> 串口为正确COM口，推荐从这个COM口开始试起。</p>
+</section>
+</section>
+</section>
+
+
+          </div>
+          <div class="page-nav">
+            <div class="inner"><ul class="page-nav">
+  <li class="prev">
+    <a href="j5_board_overview.html"
+       title="上一章">← 关于征程5代芯片</a>
+  </li>
+  <li class="next">
+    <a href="j5_board_command.html"
+       title="下一章">常用工具介绍 →</a>
+  </li>
+</ul><div class="footer" role="contentinfo">
+      &#169; 版权所有 2022, Horizon Robotics.
+</div>
+            </div>
+          </div>
+      </page>
+    </div>
+    
+    
+  </body>
+</html>

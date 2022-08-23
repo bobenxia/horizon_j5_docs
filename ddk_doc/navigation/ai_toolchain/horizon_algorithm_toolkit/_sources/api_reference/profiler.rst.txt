@@ -1,0 +1,27 @@
+hat.profiler
+============
+
+Profilers widely used for perf in HAT.
+
+Profiler
+--------
+
+.. py:currentmodule:: hat.profiler
+
+.. autosummary::
+    :nosignatures:
+
+    BaseProfiler
+
+    PassThroughProfiler
+
+    SimpleProfiler
+
+    PythonProfiler
+
+API Reference
+--------------
+
+.. automodule:: hat.profiler
+    :members:
+

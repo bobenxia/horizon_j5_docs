@@ -1,0 +1,101 @@
+附录：发布物内容
+========================
+
+horizon_j5_open_explorer_{version}_2022xxxx.tar.gz解压后包含以下内容：
+
+1. release_note.txt
+------------------------
+
+release_note.txt记录了发布的模块及相应版本号：
+
+Release Note：
+
+Horizon OpenExplorer v{version}(release_date:2022XXXX)
+
+各个模块的具体信息，请参考各个模块内部相关的release_note说明。
+
+2. bsp
+------------------------
+
+bsp目录为系统镜像目录, 其中放置了 J5 系统镜像
+
+.. note::
+  bsp目录下包含的镜像仅适用于特定开发板, 若需要其他开发板镜像, 需联系地平线进行获取。
+
+内容包括：
+
+1).J5-Img-{version}.tgz；
+
+3. tools
+------------------------
+
+tools文件夹下包含了一些用户在windows下会使用到的usb_driver 和 hbupdate板端升级工具。其中hbupdate工具我们为您提供了多平台(win/linux/mac)的版本。内容包括：
+
+1).hbupdate_linux_cli_{version}.tgz；
+
+2).hbupdate_linux_gui_{version}.tgz；
+
+3).hbupdate_mac_{version}.app.tar.gz；
+
+4).hbupdate_win64_{version}.zip；
+
+4. doc
+------------------------
+
+doc目录为发布物文档。文档中包含了对J5芯片的介绍，系统镜像的安装升级方法，开发板的常用命令和工具链开发手册等。
+
+
+5. ddk
+------------------------
+
+ddk目录为主要的开发组件目录，目录下包含了 package、samles及tools文件夹。
+
+5.1 ddk.package
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ddk.package`` 目录下包含了发布物运行的一些基础库和组件。
+
+5.1.1 ddk.package.board
+""""""""""""""""""""""""
+
+``ddk.package.board`` 文件夹下为板端可执行程序。
+``hrt_model_exec`` 是一个模型执行工具 ，可直接在 **开发板上** 进行评测模型的推理性能、获取模型信息。工具分别提供了 ``infer`` 、模型性能分析 ``perf`` 和查看模型信息 ``model_info`` 三类功能；
+``hrt_bin_dump`` 是ptq debug模型的layer dump工具，工具的输出文件为二进制文件。
+``install.sh`` 是一键安装脚本，可以一键将hrt工具安装到指定的开发板。
+
+5.1.2 ddk.package.host
+""""""""""""""""""""""""
+
+``ddk.package.host`` 文件夹下为发布物在x86开发环境下的环境依赖和工具依赖。
+通过执行该目录下的脚本 ``install.sh`` 即可在开发机上安装程序运行的所有环境和工具依赖。
+
+5.2 ddk.tools
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ddk.tools`` 文件夹下包含了交叉编译工具和其他的一些图像处理相关的工具。内容包括：
+
+1).gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu.tar.gz；
+
+2).gdc-tool-gui-0.23.68.zip；
+
+3).hobotplayerv.1.12.1.rar；
+
+4).ISP_Calibration_Tool_IV009_v3.38.tar.gz。
+
+5.3 ddk.samples
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+``ddk.samples`` 下包含了 **ai_benchmark、ai_toolchain、ai_forward_view_sample、vdsp_rpc_sample和model_zoo** 。
+
+ai_benchmark 提供了常见的分类、检测和分割模型的评测示例，包括性能评测和精度评测两部分。
+
+ai_toolchain 提供了一些模型算法的一系列示例。
+（其中 horizon_model_train_samples 为浮点模型训练框架示例, 
+horizon_model_convert_sample 为浮点模型转定点模型的转换示例, 
+horizon_runtime_sample 为定点模型的上板示例。）
+
+ai_forward_view_sample 示例展示了如何在J5上运行一个检测模型并展示结果, 结果包括物体框和全图分割数据。
+
+vdsp_rpc_sample 示例展示了如何在j5上使用dsp进行任务处理。
+
+model_zoo 是一个模型库，包含了工具链示例模型编译的源模型和runtime模型。

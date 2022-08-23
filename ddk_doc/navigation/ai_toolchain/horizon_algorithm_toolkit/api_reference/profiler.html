@@ -1,0 +1,424 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hat.profiler &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/registry.html">注册机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data.html">hat.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>hat.profiler</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api_reference/profiler.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hat-profiler">
+<h1>hat.profiler<a class="headerlink" href="#hat-profiler" title="Permalink to this headline">¶</a></h1>
+<p>Profilers widely used for perf in HAT.</p>
+<div class="section" id="profiler">
+<h2>Profiler<a class="headerlink" href="#profiler" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.profiler.BaseProfiler" title="hat.profiler.BaseProfiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseProfiler</span></code></a></p></td>
+<td><p>If you wish to write a custom profiler, you should inherit from this class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.profiler.PassThroughProfiler" title="hat.profiler.PassThroughProfiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PassThroughProfiler</span></code></a></p></td>
+<td><p>This class should be used when you don’t want the (small) overhead of profiling.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.profiler.SimpleProfiler" title="hat.profiler.SimpleProfiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SimpleProfiler</span></code></a></p></td>
+<td><p>This profiler simply records the duration of actions (in seconds) and reports the mean duration of each action and the total time spent over the entire training run.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.profiler.PythonProfiler" title="hat.profiler.PythonProfiler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PythonProfiler</span></code></a></p></td>
+<td><p>This profiler uses Python’s cProfiler to record more detailed information about time spent in each function call recorded during a given action.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-hat.profiler">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-hat.profiler" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="hat.profiler.BaseProfiler">
+<em class="property">class </em><code class="sig-prename descclassname">hat.profiler.</code><code class="sig-name descname">BaseProfiler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dirpath</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>pathlib.Path<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.profiler.BaseProfiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>If you wish to write a custom profiler, you should inherit
+from this class.</p>
+<dl class="py method">
+<dt id="hat.profiler.BaseProfiler.describe">
+<code class="sig-name descname">describe</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.BaseProfiler.describe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log a profile report after the conclusion of run.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.BaseProfiler.profile">
+<code class="sig-name descname">profile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.BaseProfiler.profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yield a context manager to encapsulate the scope of a profiled action.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile</span><span class="p">(</span><span class="s1">&#39;load training data&#39;</span><span class="p">):</span>
+    <span class="c1"># load training data code</span>
+</pre></div>
+</div>
+<p>The profiler will start once you’ve entered the context and will
+automatically stop once you exit the code block.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.BaseProfiler.setup">
+<code class="sig-name descname">setup</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stage</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">local_rank</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.BaseProfiler.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute arbitrary pre-profiling set-up steps.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.BaseProfiler.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.BaseProfiler.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define how to start recording an action.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.BaseProfiler.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.BaseProfiler.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define how to record the duration once an action is complete.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.BaseProfiler.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hat.profiler.BaseProfiler.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create profiler summary in text format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.BaseProfiler.teardown">
+<code class="sig-name descname">teardown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stage</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.BaseProfiler.teardown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute arbitrary post-profiling tear-down steps.</p>
+<p>Closes the currently open file and stream.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.profiler.PassThroughProfiler">
+<em class="property">class </em><code class="sig-prename descclassname">hat.profiler.</code><code class="sig-name descname">PassThroughProfiler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dirpath</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>pathlib.Path<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.profiler.PassThroughProfiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class should be used when you don’t want the (small) overhead of
+profiling. The Trainer uses this class by default.</p>
+<dl class="py method">
+<dt id="hat.profiler.PassThroughProfiler.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.PassThroughProfiler.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define how to start recording an action.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.PassThroughProfiler.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.PassThroughProfiler.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define how to record the duration once an action is complete.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.PassThroughProfiler.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hat.profiler.PassThroughProfiler.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create profiler summary in text format.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.profiler.PythonProfiler">
+<em class="property">class </em><code class="sig-prename descclassname">hat.profiler.</code><code class="sig-name descname">PythonProfiler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dirpath</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>pathlib.Path<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">line_count_restriction</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">output_filename</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.profiler.PythonProfiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>This profiler uses Python’s cProfiler to record more detailed
+information about time spent in each function call recorded
+during a given action. The output is quite verbose and you should
+only use this if you want very detailed reports.</p>
+<dl class="py method">
+<dt id="hat.profiler.PythonProfiler.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.PythonProfiler.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define how to start recording an action.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.PythonProfiler.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.PythonProfiler.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define how to record the duration once an action is complete.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.PythonProfiler.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hat.profiler.PythonProfiler.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create profiler summary in text format.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.PythonProfiler.teardown">
+<code class="sig-name descname">teardown</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">stage</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.PythonProfiler.teardown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Execute arbitrary post-profiling tear-down steps.</p>
+<p>Closes the currently open file and stream.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.profiler.SimpleProfiler">
+<em class="property">class </em><code class="sig-prename descclassname">hat.profiler.</code><code class="sig-name descname">SimpleProfiler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dirpath</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>pathlib.Path<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">extended</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.profiler.SimpleProfiler" title="Permalink to this definition">¶</a></dt>
+<dd><p>This profiler simply records the duration of actions (in seconds) and
+reports the mean duration of each action and the total time spent over
+the entire training run.</p>
+<dl class="py method">
+<dt id="hat.profiler.SimpleProfiler.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.SimpleProfiler.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define how to start recording an action.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.SimpleProfiler.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#hat.profiler.SimpleProfiler.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define how to record the duration once an action is complete.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.profiler.SimpleProfiler.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#hat.profiler.SimpleProfiler.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create profiler summary in text format.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

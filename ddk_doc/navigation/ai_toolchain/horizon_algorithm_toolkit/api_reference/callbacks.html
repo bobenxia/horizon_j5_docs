@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hat.callbacks &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hat.engine" href="engine.html" />
+    <link rel="prev" title="hat.data" href="data.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/registry.html">注册机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data.html">hat.data</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hat.callbacks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#callbacks">Callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-hat.callbacks">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>hat.callbacks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api_reference/callbacks.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hat-callbacks">
+<h1>hat.callbacks<a class="headerlink" href="#hat-callbacks" title="Permalink to this headline">¶</a></h1>
+<p>Callbacks widely used while training in HAT.</p>
+<div class="section" id="callbacks">
+<h2>Callbacks<a class="headerlink" href="#callbacks" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.callbacks.CallbackMixin" title="hat.callbacks.CallbackMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CallbackMixin</span></code></a></p></td>
+<td><p>Callback interface class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.callbacks.Checkpoint" title="hat.callbacks.Checkpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Checkpoint</span></code></a></p></td>
+<td><p>Checkpoint Callback is used for saving model after training and resume model before training as the same times.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.callbacks.CosLrUpdater" title="hat.callbacks.CosLrUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CosLrUpdater</span></code></a></p></td>
+<td><p>Lr Updater Callback for adjusting lr with warmup and cos decay.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.callbacks.PolyLrUpdater" title="hat.callbacks.PolyLrUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PolyLrUpdater</span></code></a></p></td>
+<td><p>Reduce the learning rate according to a polynomial of given power.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.callbacks.StepDecayLrUpdater" title="hat.callbacks.StepDecayLrUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StepDecayLrUpdater</span></code></a></p></td>
+<td><p>Lr Updater Callback for adjusting lr with warmup and decay.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.callbacks.MetricUpdater" title="hat.callbacks.MetricUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MetricUpdater</span></code></a></p></td>
+<td><p>Callback used to reset, update, logging metrics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.callbacks.StatsMonitor" title="hat.callbacks.StatsMonitor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StatsMonitor</span></code></a></p></td>
+<td><p>StatsMonitor Callback is used for some monitors of training including epoch time, batch time and so on.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.callbacks.FreezeBNStatistics" title="hat.callbacks.FreezeBNStatistics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FreezeBNStatistics</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.callbacks.TensorBoard" title="hat.callbacks.TensorBoard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TensorBoard</span></code></a></p></td>
+<td><p>TensorBoard Callback is used for recording somethings durning training, such as loss, image and other visualization.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.callbacks.Validation" title="hat.callbacks.Validation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Validation</span></code></a></p></td>
+<td><p>Callbacks of validation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.callbacks.ExponentialMovingAverage" title="hat.callbacks.ExponentialMovingAverage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExponentialMovingAverage</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.callbacks.ModelTracking" title="hat.callbacks.ModelTracking"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelTracking</span></code></a></p></td>
+<td><p>Make model training and prediction trackable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.callbacks.ExponentialDecayLrUpdater" title="hat.callbacks.ExponentialDecayLrUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExponentialDecayLrUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.callbacks.OneCycleLrUpdater" title="hat.callbacks.OneCycleLrUpdater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OneCycleLrUpdater</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-hat.callbacks">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-hat.callbacks" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="hat.callbacks.CallbackMixin">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">CallbackMixin</code><a class="headerlink" href="#hat.callbacks.CallbackMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback interface class.</p>
+<dl class="py method">
+<dt id="hat.callbacks.CallbackMixin.on_batch_begin">
+<code class="sig-name descname">on_batch_begin</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.CallbackMixin.on_batch_begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>There may be multiple batches in a multitask training step.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.callbacks.CallbackMixin.on_batch_end">
+<code class="sig-name descname">on_batch_end</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.CallbackMixin.on_batch_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>There may be multiple batches in a multitask training step.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.Checkpoint">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">Checkpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">save_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">name_prefix</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">save_interval</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">interval_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">save_on_train_end</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">test_model</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">test_inputs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>tuple<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">deploy_model</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>torch.nn.modules.module.Module<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">deploy_inputs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>Tuple<span class="p">, </span>Dict<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">allow_anno_miss</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">strict_match</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">monitor_metric_key</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">best_refer_metric</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>dict<span class="p">, </span>hat.metrics.metric.EvalMetric<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">task_sampler</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">save_hash</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">save_pt</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.Checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checkpoint Callback is used for saving model after training
+and resume model before training as the same times.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save_dir</strong> – Directory to save checkpoints.</p></li>
+<li><p><strong>name_prefix</strong> – Checkpoint name prefix.</p></li>
+<li><p><strong>save_interval</strong> – Save checkpoint every <cite>save_interval</cite> epoch or step.</p></li>
+<li><p><strong>interval_by</strong> – Set <cite>save_interval</cite> unit to step or epoch.
+Default is epoch.</p></li>
+<li><p><strong>save_on_train_end</strong> – Whether save checkpoint when <cite>on_loop_end</cite> is
+triggered.</p></li>
+<li><p><strong>test_model</strong> – Test model that initialized with current train model.
+It will be trace and the checkpoints are ‘test_model.pt’ and
+‘test_model-best.pt’ (if mode is not None).</p></li>
+<li><p><strong>test_inputs</strong> – Example inputs for tracing test_model.</p></li>
+<li><p><strong>deploy_model</strong> – Model that initialized with current train model and
+then used to export pt file. It will be traced and the checkpoints
+are <cite>deploy_model.pt</cite> and <cite>deploy_model-best.pt</cite>.</p></li>
+<li><p><strong>deploy_inputs</strong> – Example inputs for tracing deploy_model.</p></li>
+<li><p><strong>allow_anno_miss</strong> – Whether allow output tensors of test_model missing
+annotation attr.
+When test_model not enable, no-op. Default True.</p></li>
+<li><p><strong>strict_match</strong> – Whether to strictly enforce that the keys in
+<cite>model.state_dict()</cite> (train model) match the keys in
+<cite>test_model.state_dict()</cite>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><strong>mode</strong> – State of monitor for saving model.</p></li>
+<li><p><strong>monitor_metric_key</strong> – Monitor metric for saving best checkpoint.</p></li>
+<li><p><strong>best_refer_metric</strong> – Metric that evaluate which epoch is the best.</p></li>
+<li><p><strong>save_hash</strong> – Whether to save the hash value to the name of the
+Checkpoint file. Default is True.</p></li>
+<li><p><strong>save_pt</strong> – Whether to save and trace pt.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.CosLrUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">CosLrUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_steps</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">stop_lr</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">warmup_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'step'</span></em>, <em class="sig-param"><span class="n">warmup_len</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">warmup_mode</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'linear'</span></em>, <em class="sig-param"><span class="n">warmup_begin_lr</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">warmup_lr_ratio</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">step_log_interval</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.CosLrUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lr Updater Callback for adjusting lr with warmup and cos decay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_steps</strong> – the formal training steps you want set. If it is None,
+max_steps = num_epochs * self.step_per_epoch - self.warmup_steps</p></li>
+<li><p><strong>stop_lr</strong> – the lr of last epoch/step.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.callbacks.CosLrUpdater.get_lr">
+<code class="sig-name descname">get_lr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">begin_lr</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">num_update</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.CosLrUpdater.get_lr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate formal training lr for each step or epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>begin_lr</strong> – Beginning lr of formal training, commonly equal to
+optimizer’s initial lr.</p></li>
+<li><p><strong>num_update</strong> – Current num of lr updates.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="hat.callbacks.CosLrUpdater.on_loop_begin">
+<code class="sig-name descname">on_loop_begin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer</span></em>, <em class="sig-param"><span class="n">data_loader</span></em>, <em class="sig-param"><span class="n">num_epochs</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.CosLrUpdater.on_loop_begin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare some vars for lr updater.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.ExponentialDecayLrUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">ExponentialDecayLrUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_learning_rate</span></em>, <em class="sig-param"><span class="n">decay_length</span></em>, <em class="sig-param"><span class="n">decay_factor</span></em>, <em class="sig-param"><span class="n">staircase</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.ExponentialDecayLrUpdater" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.ExponentialMovingAverage">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">ExponentialMovingAverage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">decay</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.9999</span></em>, <em class="sig-param"><span class="n">decay_base</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">2000</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.ExponentialMovingAverage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.FreezeBNStatistics">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">FreezeBNStatistics</code><a class="headerlink" href="#hat.callbacks.FreezeBNStatistics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.MetricUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">MetricUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">metric_update_func</span><span class="p">:</span> <span class="n">Callable</span></em>, <em class="sig-param"><span class="n">metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Sequence<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">filter_condition</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Callable<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">step_log_freq</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">reset_metrics_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">epoch_log_freq</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">log_prefix</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.MetricUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callback used to reset, update, logging metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_update_func</strong> – Function with <cite>metrics</cite>, <cite>batch</cite> and <cite>model_outs</cite>
+as inputs, filter out labels, predictions then update corresponding
+metric.</p></li>
+<li><p><strong>metrics</strong> – Metric configs or metric instances, for multi-task.</p></li>
+<li><p><strong>filter_condition</strong> – Function to filter current task metric inputs
+on batch end, including <cite>model_outs</cite> and <cite>batch</cite>. Useful in
+multitask training.</p></li>
+<li><p><strong>step_log_freq</strong> – Logging every <cite>step_log_freq</cite> steps. If &lt; 1, disable
+step log output.</p></li>
+<li><p><strong>reset_metrics_by</strong> – When are metrics reset during training, can be
+either one of ‘step’, ‘log’ and ‘epoch’.</p></li>
+<li><p><strong>epoch_log_freq</strong> – Logging every <cite>epoch_log_freq</cite> epochs. This argument
+works only when reset_metric_by == ‘epoch’.</p></li>
+<li><p><strong>log_prefix</strong> – Logging info prefix.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.callbacks.MetricUpdater.on_batch_end">
+<code class="sig-name descname">on_batch_end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">model_outs</span></em>, <em class="sig-param"><span class="n">train_metrics</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.MetricUpdater.on_batch_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>There may be multiple batches in a multitask training step.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.ModelTracking">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">ModelTracking</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">job_type</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'train'</span></em>, <em class="sig-param"><span class="n">update_freq</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">model_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">model_version</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.ModelTracking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make model training and prediction trackable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>job_type</strong> (<em>str</em>) – to track a train or a prediction job.</p></li>
+<li><p><strong>update_freq</strong> (<em>int</em>) – the step update frequency. bigger than 0.</p></li>
+<li><p><strong>model_name</strong> (<em>str</em>) – the model name.</p></li>
+<li><p><strong>model_version</strong> (<em>str</em>) – the model version which track infos link to.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.OneCycleLrUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">OneCycleLrUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lr_max</span></em>, <em class="sig-param"><span class="n">moms</span></em>, <em class="sig-param"><span class="n">div_factor</span></em>, <em class="sig-param"><span class="n">pct_start</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.OneCycleLrUpdater" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.PolyLrUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">PolyLrUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_update</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">update_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'step'</span></em>, <em class="sig-param"><span class="n">power</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">final_lr</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">warmup_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'step'</span></em>, <em class="sig-param"><span class="n">warmup_mode</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'linear'</span></em>, <em class="sig-param"><span class="n">warmup_len</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">warmup_begin_lr</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">warmup_lr_ratio</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">step_log_interval</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.PolyLrUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reduce the learning rate according to a polynomial of given power.</p>
+<p>Calculate the new learning rate, after warmup by:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">num_update</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">warmup_steps</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">max_update</span><span class="p">:</span>
+    <span class="n">new_lr</span> <span class="o">=</span> <span class="n">final_lr</span> <span class="o">+</span> <span class="p">(</span><span class="n">begin_lr</span> <span class="o">-</span> <span class="n">final_lr</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span>
+    <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">num_update</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">warmup_steps</span><span class="p">)</span> <span class="o">/</span> <span class="n">max_update</span>
+    <span class="p">)</span> <span class="o">^</span> <span class="n">power</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">new_lr</span> <span class="o">=</span> <span class="n">final_lr</span><span class="o">.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_update</strong> – <p>Times of lr update among formal training. Used to calculate
+formal training lr.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>max_update should not includes wamup steps or epochs, they can
+be specific independently by warmup_len.</p>
+</div>
+</p></li>
+<li><p><strong>update_by</strong> – Among formal training, update lr on ‘step’ begin or on
+‘epoch’ begin.
+If equal to ‘step’, update lr according to ‘global_step_id’.
+If equal to ‘epoch’, update lr according to ‘epoch_id’.
+Default ‘step’.</p></li>
+<li><p><strong>power</strong> – Power of the decay term as a function of the current number of
+updates.</p></li>
+<li><p><strong>final_lr</strong> – Final learning rate after all steps.</p></li>
+<li><p><strong>warmup_by</strong> – Among warmup training, update lr on ‘step’ begin or on
+‘epoch’ begin, similar to <cite>update_by</cite>.
+Default ‘step’.</p></li>
+<li><p><strong>warmup_len</strong> – Num of warmup steps or epochs.
+If <cite>warmup_by==’step’</cite>, it means warmup steps.
+If <cite>warmup_by==’epoch’</cite>, it means warmup epochs.</p></li>
+<li><p><strong>warmup_mode</strong> – Type of warmup used. It can be ‘constant’, ‘linear’ now.</p></li>
+<li><p><strong>warmup_begin_lr</strong> – Beginning lr used to calculated warmup lr.
+If warmup_mode is ‘constant’, no-op.</p></li>
+<li><p><strong>warmup_lr_ratio</strong> – Used to calculate warmup ending lr though two steps:
+(1) Achieve begging lr (<cite>init_lr</cite>) of formal training from
+optimizer.
+(2) warmup_end_lr = init_lr * warmup_lr_ratio.</p></li>
+<li><p><strong>step_log_interval</strong> – lr logging interval on step begin, only work when
+warmup_by == ‘step’.
+If warmup_by == ‘epoch’, logging lr on each epoch begin.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.callbacks.PolyLrUpdater.get_lr">
+<code class="sig-name descname">get_lr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">begin_lr</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">num_update</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.PolyLrUpdater.get_lr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate new lr after warmup according to a polynomial.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>begin_lr</strong> – Beginning lr of formal training, commonly equal to
+optimizer’s initial lr.</p></li>
+<li><p><strong>num_update</strong> – Current num of lr updates.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.StatsMonitor">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">StatsMonitor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log_freq</span><span class="o">=</span><span class="default_value">200</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.StatsMonitor" title="Permalink to this definition">¶</a></dt>
+<dd><p>StatsMonitor Callback is used for some monitors of training
+including epoch time, batch time and so on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>log_freq</strong> – Freq of monitor whether to output to log.</p></li>
+<li><p><strong>batch_size</strong> – manually set ‘batchsize’ to deal with the fact that
+the batchsize of the dataloader is not practical</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.StepDecayLrUpdater">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">StepDecayLrUpdater</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">update_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">warmup_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">warmup_len</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">warmup_mode</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'linear'</span></em>, <em class="sig-param"><span class="n">warmup_begin_lr</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">warmup_lr_ratio</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>float<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">step_log_interval</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">lr_decay_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>list<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lr_decay_factor</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.StepDecayLrUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lr Updater Callback for adjusting lr with warmup and decay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr_decay_id</strong> (<em>List</em><em>(</em><em>int</em><em>)</em>) – The epoch(step) list for lr decay. It means
+the epoch(step) id you want to decay after warmup.</p></li>
+<li><p><strong>lr_decay_factor</strong> (<em>float</em>) – Factor for lr decay.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.callbacks.StepDecayLrUpdater.get_lr">
+<code class="sig-name descname">get_lr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">begin_lr</span><span class="p">:</span> <span class="n">float</span></em>, <em class="sig-param"><span class="n">num_update</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.StepDecayLrUpdater.get_lr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate new lr after warmup according to the decay epoch
+list <cite>lr_decay_id</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>begin_lr</strong> – Beginning lr of formal training, commonly equal to
+optimizer’s initial lr.</p></li>
+<li><p><strong>num_update</strong> – Current epochs or steps of lr updates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>learning rate</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>lr</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.TensorBoard">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">TensorBoard</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.TensorBoard" title="Permalink to this definition">¶</a></dt>
+<dd><p>TensorBoard Callback is used for recording somethings durning training,
+such as loss, image and other visualization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>save_dir</strong> (<em>str</em>) – Directory to save tensorboard.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – Whether overwriting existed save_dir.</p></li>
+<li><p><strong>loss_name_reg</strong> (<em>str</em>) – Specific loss pattern.</p></li>
+<li><p><strong>update_freq</strong> (<em>int</em>) – Freq of tensorboard whether to output to file.</p></li>
+<li><p><strong>update_by</strong> – Set <cite>update_freq</cite> unit to step or epoch.
+Default is step.</p></li>
+<li><p><strong>tb_update_funcs</strong> (<em>list</em><em>(</em><em>callable</em><em>)</em>) – list of function with
+<cite>writer</cite>, <cite>model_outs</cite>, <cite>step_id</cite> as input and then
+update tensorboard.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.callbacks.TensorBoard.on_batch_end">
+<code class="sig-name descname">on_batch_end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model_outs</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">global_step_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.TensorBoard.on_batch_end" title="Permalink to this definition">¶</a></dt>
+<dd><p>There may be multiple batches in a multitask training step.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.callbacks.Validation">
+<em class="property">class </em><code class="sig-prename descclassname">hat.callbacks.</code><code class="sig-name descname">Validation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_loader</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">batch_processor</span><span class="p">:</span> <span class="n">Callable</span></em>, <em class="sig-param"><span class="n">callbacks</span><span class="p">:</span> <span class="n">Sequence<span class="p">[</span>Union<span class="p">[</span>dict<span class="p">, </span>hat.callbacks.callbacks.CallbackMixin<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">val_interval</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">interval_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">val_model</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Dict<span class="p">, </span>torch.nn.modules.module.Module<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">model_convert_pipeline</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>Dict<span class="p">, </span>List<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">init_with_train_model</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">strict_match</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">val_on_train_end</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log_interval</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">10</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.callbacks.Validation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Callbacks of validation.</p>
+<p>Validation Callback does the following:
+(1) use train model to forward batches from validation data loader.
+(2) use callbacks like <cite>MetricUpdater</cite> to record validation results.
+You are suppose to think about two questions then provide     below arguments:
+(1) Whether use train <cite>model</cite> as val model or provide one by <cite>val_model</cite>?
+(2) whether init val model with train model or not (you can init it by
+yourself)?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_loader</strong> – Validation data loader.</p></li>
+<li><p><strong>batch_processor</strong> – Validation batch processor (not need_grad_update).</p></li>
+<li><p><strong>callbacks</strong> – Callbacks you want to run when doing validation, commonly
+it should contain callbacks like <cite>MetricUpdater</cite>, which is used to
+reset, update, logging validation metrics.
+If is empty list, no-op.</p></li>
+<li><p><strong>val_interval</strong> – Validation interval.</p></li>
+<li><p><strong>interval_by</strong> – Set <cite>val_interval</cite> unit to step or epoch.
+Default is epoch.</p></li>
+<li><p><strong>val_model</strong> – Model used for validation.
+If None, use train model as val model.</p></li>
+<li><p><strong>model_convert_pipeline</strong> – Define the process of model convert.
+e.g. convert float model to qat model, convert qat model
+to quantize model.</p></li>
+<li><p><strong>init_with_train_model</strong> – Whether init val model with train model.
+If val_model is None, no-op.</p></li>
+<li><p><strong>strict_match</strong> – Whether to strictly enforce that the keys in
+<cite>model.state_dict()</cite> (train model) match the keys in
+<cite>val_model.state_dict()</cite>. Default: <code class="docutils literal notranslate"><span class="pre">False</span></code></p></li>
+<li><p><strong>val_on_train_end</strong> – Whether do validation when <cite>on_loop_end</cite> is
+triggered. Default is True.</p></li>
+<li><p><strong>profiler</strong> – To profile individual steps during validation and
+assist in identifying bottlenecks.</p></li>
+<li><p><strong>log_interval</strong> – Logging output frequency.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="engine.html" class="btn btn-neutral float-right" title="hat.engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="data.html" class="btn btn-neutral float-left" title="hat.data" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

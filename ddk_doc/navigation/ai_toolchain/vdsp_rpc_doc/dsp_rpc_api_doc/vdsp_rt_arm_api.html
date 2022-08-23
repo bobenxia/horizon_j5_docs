@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. ARM芯片API &mdash; 图像数字信号处理器运行时API手册  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="2. DSP数字信号处理器API" href="vdsp_rt_dsp_api.html" />
+    <link rel="prev" title="图像数字信号处理器运行时API手册" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> 图像数字信号处理器运行时API手册
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. ARM芯片API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">1.1. 数据类型与数据结构</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hb-dsp-initialize-rpc-ctrl-param">1.1.1. <code class="docutils literal notranslate"><span class="pre">HB_DSP_INITIALIZE_RPC_CTRL_PARAM</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hbdsprpccmd">1.1.2. <code class="docutils literal notranslate"><span class="pre">hbDSPRpcCmd</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hbdsprpcpriority">1.1.3. <code class="docutils literal notranslate"><span class="pre">hbDspRpcPriority</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hbdsprpcctrlparam">1.1.4. <code class="docutils literal notranslate"><span class="pre">hbDSPRpcCtrlParam</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hbdsptask-t">1.1.5. <code class="docutils literal notranslate"><span class="pre">hbDSPTask_t</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#api">1.2. API接口</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hbdsprpc">1.2.1. <code class="docutils literal notranslate"><span class="pre">hbDSPRpc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hbdspwaittaskdone">1.2.2. <code class="docutils literal notranslate"><span class="pre">hbDSPWaitTaskDone</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hbdspreleasetask">1.2.3. <code class="docutils literal notranslate"><span class="pre">hbDSPReleaseTask</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">1.3. 错误码</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vdsp_rt_dsp_api.html">2. DSP数字信号处理器API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">图像数字信号处理器运行时API手册</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>ARM芯片API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/vdsp_rt_arm_api.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="armapi">
+<h1><span class="section-number">1. </span>ARM芯片API<a class="headerlink" href="#armapi" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2><span class="section-number">1.1. </span>数据类型与数据结构<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<section id="hb-dsp-initialize-rpc-ctrl-param">
+<h3><span class="section-number">1.1.1. </span><code class="docutils literal notranslate"><span class="pre">HB_DSP_INITIALIZE_RPC_CTRL_PARAM</span></code><a class="headerlink" href="#hb-dsp-initialize-rpc-ctrl-param" title="永久链接至标题"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#define HB_DSP_INITIALIZE_RPC_CTRL_PARAM(param)  \</span>
+<span class="cp">  {                                              \</span>
+<span class="cp">    (param)-&gt;dspCoreId = HB_DSP_CORE_ANY;        \</span>
+<span class="cp">    (param)-&gt;rpcCmd = HB_DSP_RPC_CMD_BUTT;       \</span>
+<span class="cp">    (param)-&gt;priority = 0;                       \</span>
+<span class="cp">  }</span>
+</pre></div>
+</div>
+<p>初始化控制参数。</p>
+</section>
+<section id="hbdsprpccmd">
+<h3><span class="section-number">1.1.2. </span><code class="docutils literal notranslate"><span class="pre">hbDSPRpcCmd</span></code><a class="headerlink" href="#hbdsprpccmd" title="永久链接至标题"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span> <span class="n">HB_DSP_RPC_CMD_SOFTMAX</span> <span class="o">=</span> <span class="mh">0x1</span><span class="p">,</span> <span class="n">HB_DSP_RPC_CMD_BUTT</span> <span class="o">=</span> <span class="mh">0xff</span> <span class="p">}</span> <span class="n">hbDSPRpcCmd</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>DSP RPC 命令。</p>
+<ul>
+<li><p>成员</p>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 42%" />
+<col style="width: 58%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>成员名称</strong></p></td>
+<td><p><strong>描述</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HB_DSP_RPC_CMD_SOFTMAX</span></code></p></td>
+<td><p>DSP SoftMax命令。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HB_DSP_RPC_CMD_BUTT</span></code></p></td>
+<td><p>DSP 最大命令编码，获取注册命令信息。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</section>
+<section id="hbdsprpcpriority">
+<h3><span class="section-number">1.1.3. </span><code class="docutils literal notranslate"><span class="pre">hbDspRpcPriority</span></code><a class="headerlink" href="#hbdsprpcpriority" title="永久链接至标题"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">enum</span> <span class="p">{</span> <span class="n">HB_DSP_RPC_PRIORITY_LOWEST</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">HB_DSP_RPC_PRIORITY_HIGHEST</span> <span class="o">=</span> <span class="mi">255</span> <span class="p">}</span> <span class="n">hbDspRpcPriority</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>DSP RPC 任务优先级。</p>
+<ul>
+<li><p>成员</p>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 60%" />
+<col style="width: 40%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>成员名称</strong></p></td>
+<td><p><strong>描述</strong></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HB_DSP_RPC_PRIORITY_LOWEST</span></code></p></td>
+<td><p>DSP RPC最低优先级。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HB_DSP_RPC_PRIORITY_HIGHEST</span></code></p></td>
+<td><p>DSP RPC最高优先级。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</section>
+<section id="hbdsprpcctrlparam">
+<h3><span class="section-number">1.1.4. </span><code class="docutils literal notranslate"><span class="pre">hbDSPRpcCtrlParam</span></code><a class="headerlink" href="#hbdsprpcctrlparam" title="永久链接至标题"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="k">struct</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">dspCoreId</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">rpcCmd</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">priority</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">reserved1</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">reserved2</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">reserved3</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">reserved4</span><span class="p">;</span>
+<span class="p">}</span> <span class="n">hbDSPRpcCtrlParam</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>DSP RPC 控制参数。</p>
+<ul>
+<li><p>成员</p>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 71%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>成员名称</strong></p></th>
+<th class="head"><p><strong>描述</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dspCoreId</span></code></p></td>
+<td><p>DSP核ID；0为任意核，1为核0，2为核1。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rpcCmd</span></code></p></td>
+<td><p>DSP任务命令。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">priority</span></code></p></td>
+<td><p>任务优先级。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reserved1</span></code></p></td>
+<td><p>保留字段1。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Reserved2</span></code></p></td>
+<td><p>保留字段2。</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Reserved3</span></code></p></td>
+<td><p>保留字段3。</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Reserved4</span></code></p></td>
+<td><p>保留字段4。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</section>
+<section id="hbdsptask-t">
+<h3><span class="section-number">1.1.5. </span><code class="docutils literal notranslate"><span class="pre">hbDSPTask_t</span></code><a class="headerlink" href="#hbdsptask-t" title="永久链接至标题"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span> <span class="kt">void</span> <span class="o">*</span><span class="n">hbDSPTask_t</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>DSP任务指针。</p>
+</section>
+</section>
+<section id="api">
+<h2><span class="section-number">1.2. </span>API接口<a class="headerlink" href="#api" title="永久链接至标题"></a></h2>
+<section id="hbdsprpc">
+<h3><span class="section-number">1.2.1. </span><code class="docutils literal notranslate"><span class="pre">hbDSPRpc</span></code><a class="headerlink" href="#hbdsprpc" title="永久链接至标题"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">hbDSPRpc</span><span class="p">(</span><span class="n">hbDSPTask_t</span> <span class="o">*</span><span class="n">task</span><span class="p">,</span> <span class="n">hbSysMem</span> <span class="o">*</span><span class="n">input</span><span class="p">,</span> <span class="n">hbSysMem</span> <span class="o">*</span><span class="n">output</span><span class="p">,</span> <span class="n">hbDSPRpcCtrlParam</span> <span class="o">*</span><span class="n">rpcCtrlParam</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>向DSP提交一个rpc任务。</p>
+<ul class="simple">
+<li><p>参数</p>
+<ul>
+<li><p>[out]     <code class="docutils literal notranslate"><span class="pre">task</span></code>          任务句柄， <code class="docutils literal notranslate"><span class="pre">hbDSPWaitTaskDone</span></code> 接口用它等待指定任务结束。</p></li>
+<li><p>[in]      <code class="docutils literal notranslate"><span class="pre">input</span></code>         表示任务的输入内存。</p></li>
+<li><p>[in/out]  <code class="docutils literal notranslate"><span class="pre">output</span></code>        表示任务的输出内存。</p></li>
+<li><p>[in]      <code class="docutils literal notranslate"><span class="pre">rpcCtrlParam</span></code>  任务控制参数，可以为任务指定运行核，可以指定任务优先级。</p></li>
+</ul>
+</li>
+<li><p>返回值</p>
+<ul>
+<li><p>返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 则表示API成功执行，否则执行失败。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="hbdspwaittaskdone">
+<h3><span class="section-number">1.2.2. </span><code class="docutils literal notranslate"><span class="pre">hbDSPWaitTaskDone</span></code><a class="headerlink" href="#hbdspwaittaskdone" title="永久链接至标题"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">hbDSPWaitTaskDone</span><span class="p">(</span><span class="n">hbDSPTask_t</span> <span class="n">task</span><span class="p">,</span> <span class="kt">int</span> <span class="n">timeout</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>等待任务运行结束。</p>
+<ul class="simple">
+<li><p>参数</p>
+<ul>
+<li><p>[in] <code class="docutils literal notranslate"><span class="pre">task</span></code>     任务句柄。</p></li>
+<li><p>[in] <code class="docutils literal notranslate"><span class="pre">timeout</span></code>  任务超时时间, 单位是ms。</p></li>
+</ul>
+</li>
+<li><p>返回值</p>
+<ul>
+<li><p>返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 则表示API成功执行，否则执行失败。</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">timeout</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> 表示等待时间；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">timeout</span> <span class="pre">&lt;=</span> <span class="pre">0</span></code> 表示一直等待，直到任务完成。</p></li>
+</ol>
+</div>
+</section>
+<section id="hbdspreleasetask">
+<h3><span class="section-number">1.2.3. </span><code class="docutils literal notranslate"><span class="pre">hbDSPReleaseTask</span></code><a class="headerlink" href="#hbdspreleasetask" title="永久链接至标题"></a></h3>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span> <span class="nf">hbDSPReleaseTask</span><span class="p">(</span><span class="n">hbDSPTask_t</span> <span class="n">task</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>释放task handle，需要在 <code class="docutils literal notranslate"><span class="pre">hbDSPWaitTaskDone</span></code> 之后调用。</p>
+<ul class="simple">
+<li><p>参数</p>
+<ul>
+<li><p>[in] <code class="docutils literal notranslate"><span class="pre">task</span></code>  task handle。</p></li>
+</ul>
+</li>
+<li><p>返回值</p>
+<ul>
+<li><p>返回 <code class="docutils literal notranslate"><span class="pre">0</span></code> 则表示API成功执行，否则执行失败。</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<h2><span class="section-number">1.3. </span>错误码<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">HB_DSP_OK</span> <span class="o">=</span> <span class="mi">0</span>                         <span class="c1">// 执行成功</span>
+<span class="n">HB_DSP_ERR_INVALID_ARGUMENT</span><span class="p">,</span>          <span class="c1">// 非法参数</span>
+<span class="n">HB_DSP_ERR_MEM_ALLOC_FAIL</span><span class="p">,</span>            <span class="c1">// 内存申请失败</span>
+<span class="n">HB_DSP_ERR_TASK_TIME_OUT</span><span class="p">,</span>             <span class="c1">// 任务超时</span>
+<span class="n">HB_DSP_ERR_TASK_RUN_FAIL</span>              <span class="c1">// 任务失败</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="图像数字信号处理器运行时API手册" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="vdsp_rt_dsp_api.html" class="btn btn-neutral float-right" title="2. DSP数字信号处理器API" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

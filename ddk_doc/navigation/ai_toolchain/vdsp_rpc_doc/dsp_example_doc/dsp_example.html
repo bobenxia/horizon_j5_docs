@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. 前言 &mdash; DSP Example  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="DSP示例包使用说明" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> DSP Example
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id2">2. 交付物说明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.1. 示例代码包</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id4">3. 环境构建</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id5">3.1. 开发板准备</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">3.2. 编译</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#arm">3.2.1. arm侧编译</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dsp">3.2.2. dsp侧编译</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#xtensa-develop-tools">3.2.2.1. 安装Xtensa Develop Tools</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vp6-core-configuration">3.2.2.2. 安装 VP6 Core Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">3.2.2.3. 配置环境变量</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id8">4. 示例使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id9">4.1. DSP侧</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">4.2. ARM侧</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DSP Example</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>前言</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dsp_example.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>前言<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>DSP示例包展示了如何在j5上使用dsp进行任务处理。示例是采用自定义dsp softmax算子进行mobilenetv1的推理，主要分为arm和dsp两部分，其中arm侧负责准备数据然后发起rpc调用，dsp侧负责接收arm侧发来的任务，完成任务计算，将结果发送给arm。</p>
+<p>开发者可以体验并基于该示例进行应用开发，降低开发门槛。</p>
+</section>
+<section id="id2">
+<h1><span class="section-number">2. </span>交付物说明<a class="headerlink" href="#id2" title="永久链接至标题"></a></h1>
+<p>​交付物主要包括以下内容：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>名称</p></td>
+<td><p>内容</p></td>
+</tr>
+<tr class="row-even"><td><p>vdsp_rpc_sample</p></td>
+<td><p>包含示例源代码和运行脚本。</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id3">
+<h2><span class="section-number">2.1. </span>示例代码包<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>​示例包结构如下所示：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+---vdsp_rpc_sample
+├── arm                                          <span class="c1"># arm侧</span>
+│   ├── deps                                     <span class="c1"># 示例依赖库</span>
+│   ├── mobilenetv1_with_custom_dsp_softmax
+│   │   ├── custom_dsp_softmax.cpp               <span class="c1"># arm侧自定义算子实现</span>
+│   │   ├── custom_dsp_softmax.h
+│   │   ├── main.cpp                             <span class="c1"># main函数</span>
+│   │   └── CMakeLists.txt
+│   ├── script                                   <span class="c1"># 示例运行脚本</span>
+│   ├── util
+│   ├── build.sh
+│   └── CMakeLists.txt
+│
+├── dsp                                          <span class="c1"># dsp侧</span>
+│   ├── deps                                     <span class="c1"># 示例依赖库</span>
+│   ├── softmax                                  <span class="c1"># dsp侧softmax算子实现</span>
+│   ├── main.cc
+│   ├── build.sh
+│   └── CMakeLists.txt
+└── README.md
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>arm</strong>：arm侧示例，主要负责模型推理并发起rpc调用，完成模型推理并获得分类结果。</p></li>
+<li><p><strong>dsp</strong>：dsp侧示例，主要负责接收arm侧发来的任务，完成softmax计算，将结果发送给arm。</p></li>
+</ul>
+</section>
+</section>
+<section id="id4">
+<h1><span class="section-number">3. </span>环境构建<a class="headerlink" href="#id4" title="永久链接至标题"></a></h1>
+<section id="id5">
+<h2><span class="section-number">3.1. </span>开发板准备<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>拿到开发板后，按照刷机说明升级系统镜像到示例包推荐的系统镜像版本。</p></li>
+<li><p>确保本地开发机和开发板可以远程连接。</p></li>
+</ol>
+</section>
+<section id="id6">
+<h2><span class="section-number">3.2. </span>编译<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<section id="arm">
+<h3><span class="section-number">3.2.1. </span>arm侧编译<a class="headerlink" href="#arm" title="永久链接至标题"></a></h3>
+<p>​编译需要当前环境安装好交叉编译工具gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu。
+设置环境变量 <code class="docutils literal notranslate"><span class="pre">LINARO_GCC_ROOT</span></code> 为交叉编译工具的实际安装位置：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">LINARO_GCC_ROOT</span><span class="o">=</span>/opt/gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu
+</pre></div>
+</div>
+<p>然后执行 <strong>vdsp_rpc_sample/arm</strong> 目录下的build.sh脚本即可一键编译真机环境下的可执行程序，可执行程序和对应依赖会自动复制到 <strong>vdsp_rpc_sample/arm/script</strong> 目录下。</p>
+</section>
+<section id="dsp">
+<h3><span class="section-number">3.2.2. </span>dsp侧编译<a class="headerlink" href="#dsp" title="永久链接至标题"></a></h3>
+<p>可从地平线获取 <code class="docutils literal notranslate"><span class="pre">Xplorer-8.0.13-linux-x64-installer.bin</span></code> 和 <code class="docutils literal notranslate"><span class="pre">vdsp_vp6_RI4_linux.tgz</span></code> 安装包。</p>
+<section id="xtensa-develop-tools">
+<h4><span class="section-number">3.2.2.1. </span>安装Xtensa Develop Tools<a class="headerlink" href="#xtensa-develop-tools" title="永久链接至标题"></a></h4>
+<p>这里我们默认把它安装在/opt/xtensa目录下（没有root权限可以通过–prefix自行指定其它目录，后续需要将/opt/xtensa替换为该目录）</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>chmod <span class="m">777</span> Xplorer-8.0.13-linux-x64-installer.bin
+./Xplorer-8.0.13-linux-x64-installer.bin <span class="se">\</span>
+  --mode unattended <span class="se">\</span>
+  --prefix /opt/xtensa
+</pre></div>
+</div>
+</section>
+<section id="vp6-core-configuration">
+<h4><span class="section-number">3.2.2.2. </span>安装 VP6 Core Configuration<a class="headerlink" href="#vp6-core-configuration" title="永久链接至标题"></a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>tar -zxvf vdsp_vp6_RI4_linux.tgz <span class="se">\</span>
+  <span class="o">&amp;&amp;</span> mv RI-2020.4-linux/vdsp_vp6_RI4/ /opt/xtensa/XtDevTools/install/builds/RI-2020.4-linux/ <span class="se">\</span>
+  <span class="o">&amp;&amp;</span> rm -rf RI-2020.4-linux
+/opt/xtensa/XtDevTools/install/builds/RI-2020.4-linux/vdsp_vp6_RI4/install <span class="se">\</span>
+  --xtensa-tools /opt/xtensa/XtDevTools/install/tools/RI-2020.4-linux/XtensaTools/
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h4><span class="section-number">3.2.2.3. </span>配置环境变量<a class="headerlink" href="#id7" title="永久链接至标题"></a></h4>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">XTENSA_CORE</span><span class="o">=</span>vdsp_vp6_RI4 <span class="c1"># set default core</span>
+<span class="nb">export</span> <span class="nv">LM_LICENSE_FILE</span><span class="o">=</span><span class="m">5280</span>@10.9.9.21:5280:10.9.9.22:5280@10.9.9.23  <span class="c1"># set license server</span>
+<span class="nb">export</span> <span class="nv">XTENSA_ROOT</span><span class="o">=</span>/opt/xtensa/XtDevTools/install/tools/RI-2020.4-linux/XtensaTools/
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$XTENSA_ROOT</span>/bin
+</pre></div>
+</div>
+<p>LM_LICENSE_FILE环境变量需要根据实际情况进行设置；</p>
+<p>然后执行 <strong>vdsp_rpc_sample/dsp</strong> 目录下的build.sh脚本即可一键编译dsp镜像到 <strong>vdsp_rpc_sample/dsp/output_image</strong> 目录下。</p>
+</section>
+</section>
+</section>
+</section>
+<section id="id8">
+<h1><span class="section-number">4. </span>示例使用<a class="headerlink" href="#id8" title="永久链接至标题"></a></h1>
+<section id="id9">
+<h2><span class="section-number">4.1. </span>DSP侧<a class="headerlink" href="#id9" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>准备一块j5开发板, 设置dsp镜像名称，可以先通过以下命令确认镜像名称是否需要重设：</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>cat /sys/class/remoteproc/remoteproc1/firmware
+cat /sys/class/remoteproc/remoteproc2/firmware
+</pre></div>
+</div>
+<p>若镜像名称不是vdsp0和vdsp1，则重新设置dsp镜像名称，命令为：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> vdsp0 &gt; /sys/class/remoteproc/remoteproc1/firmware
+<span class="nb">echo</span> vdsp1 &gt; /sys/class/remoteproc/remoteproc2/firmware
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>停止dsp运行，停止命令为:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> stop &gt; /sys/class/remoteproc/remoteproc1/state <span class="o">(</span>停止vdsp0<span class="o">)</span>
+<span class="nb">echo</span> stop &gt; /sys/class/remoteproc/remoteproc2/state <span class="o">(</span>停止vdsp1<span class="o">)</span>
+</pre></div>
+</div>
+<p>停止成功后，将dsp目录下编译出来的两个镜像vdsp0和vdsp1拷贝到j5开发板上替换掉 <strong>/system/lib/firmware/</strong> 目录下的vdsp0和vdsp1.</p>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>1.若dsp核处于stop状态下，执行上述命令会报错，但可以忽略；</p>
+<p>2.加密板子需要更换目录的权限之后才能够替换镜像.</p>
+</div>
+<ul class="simple">
+<li><p>重新启动dsp镜像，命令为：</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> start &gt; /sys/class/remoteproc/remoteproc1/state <span class="o">(</span>启动vdsp0<span class="o">)</span>
+<span class="nb">echo</span> start &gt; /sys/class/remoteproc/remoteproc2/state <span class="o">(</span>启动vdsp1<span class="o">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>在替换新的dsp镜像前一定要先卸载正在运行的dsp镜像；替换完镜像后最好重新启动系统。</p>
+</div>
+</section>
+<section id="id10">
+<h2><span class="section-number">4.2. </span>ARM侧<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<p>将 <strong>vdsp_rpc_sample/arm/script</strong> 目录拷贝到j5开发版上，然后运行run_custom_op.sh，会执行一次mobilentv1的推理任务, 输出top5的分类:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>root@j5dvb:/userdata/qiuping.chen/arm/script# sh run_custom_op.sh
+./bin/run_custom_op --model_file<span class="o">=</span>./model/mobilenetv1_224x224_nv12.bin --image_file<span class="o">=</span>./test_data/zebra_cls.jpg --image_height<span class="o">=</span><span class="m">224</span> --image_width<span class="o">=</span><span class="m">224</span> --top_k<span class="o">=</span><span class="m">5</span>
+I0000 <span class="m">00</span>:00:00.000000  <span class="m">3331</span> vlog_is_on.cc:197<span class="o">]</span> RAW: Set VLOG level <span class="k">for</span> <span class="s2">&quot;*&quot;</span> to <span class="m">3</span>
+I0324 <span class="m">19</span>:46:54.442885  <span class="m">3331</span> main.cpp:136<span class="o">]</span> hbDNNRegisterLayerCreator success
+<span class="o">[</span>BPU_PLAT<span class="o">]</span>BPU Platform Version<span class="o">(</span><span class="m">1</span>.3.2<span class="o">)</span>!
+<span class="o">[</span>HBRT<span class="o">]</span> <span class="nb">set</span> log level as <span class="m">0</span>. <span class="nv">version</span> <span class="o">=</span> <span class="m">3</span>.13.26
+<span class="o">[</span>DNN<span class="o">]</span> Runtime <span class="nv">version</span> <span class="o">=</span> <span class="m">1</span>.8.1_<span class="o">(</span><span class="m">3</span>.13.26 HBRT<span class="o">)</span>
+<span class="o">[</span>HorizonRT<span class="o">]</span> The model builder <span class="nv">version</span> <span class="o">=</span> <span class="m">1</span>.6.1
+I0324 <span class="m">19</span>:46:54.682241  <span class="m">3331</span> main.cpp:151<span class="o">]</span> hbDNNGetModelNameList success
+I0324 <span class="m">19</span>:46:54.682328  <span class="m">3331</span> main.cpp:158<span class="o">]</span> hbDNNGetModelHandle success
+I0324 <span class="m">19</span>:46:54.713505  <span class="m">3331</span> main.cpp:167<span class="o">]</span> <span class="nb">read</span> image to nv12 success
+I0324 <span class="m">19</span>:46:54.713773  <span class="m">3331</span> main.cpp:177<span class="o">]</span> prepare nv12 tensor success
+I0324 <span class="m">19</span>:46:54.713901  <span class="m">3331</span> main.cpp:187<span class="o">]</span> prepare tensor success
+I0324 <span class="m">19</span>:46:54.714118  <span class="m">3331</span> main.cpp:197<span class="o">]</span> hbDNNInfer success
+I0324 <span class="m">19</span>:46:54.744346  <span class="m">3331</span> main.cpp:202<span class="o">]</span> task <span class="k">done</span>
+I0324 <span class="m">19</span>:46:54.744494  <span class="m">3331</span> main.cpp:207<span class="o">]</span> task post process success
+I0324 <span class="m">19</span>:46:54.744617  <span class="m">3331</span> main.cpp:213<span class="o">]</span> TOP <span class="m">0</span> result id: <span class="m">340</span>
+I0324 <span class="m">19</span>:46:54.744681  <span class="m">3331</span> main.cpp:213<span class="o">]</span> TOP <span class="m">1</span> result id: <span class="m">292</span>
+I0324 <span class="m">19</span>:46:54.744714  <span class="m">3331</span> main.cpp:213<span class="o">]</span> TOP <span class="m">2</span> result id: <span class="m">282</span>
+I0324 <span class="m">19</span>:46:54.744740  <span class="m">3331</span> main.cpp:213<span class="o">]</span> TOP <span class="m">3</span> result id: <span class="m">83</span>
+I0324 <span class="m">19</span>:46:54.744765  <span class="m">3331</span> main.cpp:213<span class="o">]</span> TOP <span class="m">4</span> result id: <span class="m">288</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="DSP示例包使用说明" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

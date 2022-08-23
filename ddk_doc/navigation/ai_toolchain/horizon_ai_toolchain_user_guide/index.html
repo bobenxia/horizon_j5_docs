@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>地平线J5 AI芯片工具链用户手册 &mdash; Horizon J5 AI Toolchain User Guide  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="1. 产品介绍" href="product_introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> Horizon J5 AI Toolchain User Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本手册目录结构:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="product_introduction.html">1. 产品介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env_prepare.html">2. 环境部署</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution.html">3. PTQ浮点定点模型转换方案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application_development.html">4. runtime应用开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">5. DSP开发文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Horizon J5 AI Toolchain User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>地平线J5 AI芯片工具链用户手册</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="j5-ai">
+<h1>地平线J5 AI芯片工具链用户手册<a class="headerlink" href="#j5-ai" title="永久链接至标题"></a></h1>
+<p>J5 AI芯片工具链是基于地平线征程5代芯片研发的AI算法解决方案。
+它包含： <strong>模型算法处理</strong> 和 <strong>嵌入式模型预测库</strong> 两大重要组件。
+模型算法处理提供PTQ浮点定点模型转换方案，
+支持将基于TensorFlow、PyTorch或Caffe等公开框架得到的浮点模型直接转换为定点模型。
+使用方案得到的定点模型配合模型编译工具处理后就可以在地平线芯片上执行。
+嵌入式模型预测库提供利用定点模型完成推理的系列支持接口。
+更多有关芯片工具链的细节，请继续阅读下一章内容。</p>
+<p>为了让开发者快速上手体验模型训练/转换、部署、验证、推理等关键步骤，芯片工具链的各组件还提供 <strong>示例包</strong>
+以及配合示例包使用的Docker镜像和模型发布物。
+这些示例包将各工具核心业务逻辑和关键配置参数封装成脚本；模型发布物内置了丰富的算法模型；Docker镜像预置了使用示例包所需的开发环境。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>根据开发者使用芯片工具链的步骤，我们建议您这样使用J5 AI芯片工具链提供的文档：</p>
+<ul>
+<li><p>首选阅读《J5 AI芯片工具链用户手册》（即本手册），全面了解PTQ浮点定点模型转换方案和嵌入式模型预测库等核心模块的实现原理、环境搭建、开发步骤、使用经验和常见问题等内容。
+在从模型处理到部署的过程中，您将需要多次阅读第1，3，4章内容，直至完成芯片工具链使用。</p></li>
+<li><p>在选择阅读了以上的用户手册之后，如果您选择使用PTQ模型转换方案处理模型，则需要阅读
+<a class="reference external" href="../horizon_model_convert_sample/index.html">《PTQ模型转换示例包手册》</a> 和
+<a class="reference external" href="../supported_op_list_and_restrictions/supported_op_list_and_restrictions_release.xlsx">《supported_op_list_and_restrictions》</a>
+算子列表，以便在Docker环境中，使用PTQ模型转换示例包，完成模型转换 + 编译过程，得到能够部署到J5开发板上的定点模型。
+在这一过程中，您也将学会使用PTQ方案完成模型转换和编译，进而搭建自己的业务pipeline。</p></li>
+<li><p>在使用PTQ方案得到J5平台支持的模型之后，就要将模型部署到开发板上并进行Runtime应用开发了。在此过程中，</p>
+<ul class="simple">
+<li><p><a class="reference external" href="../basic_sample/index.html">《基础示例包使用说明》</a> 帮助开发者使用Runtime应用开发基础示例包了解嵌入式API使用、自定义算子推理、多模批量推理等功能。</p></li>
+<li><p><a class="reference external" href="../ai_benchmark/index.html">《ai_benchmark使用说明》</a> 帮助开发者使用 <strong>ai_benchmark</strong> 示例包中的示例脚本对上板模型进行性能和精度评测。</p></li>
+<li><p><a class="reference external" href="../bpu_sdk_api_doc/index.html">《bpu_sdk_api_doc》</a> 介绍应用开发中需要使用的数据的类型、结构、排布、对齐规则、API接口、错误码和配置信息。</p></li>
+</ul>
+<p>在完成模型上板部署后，您将在嵌入式应用开发过程中多次查阅此文档。</p>
+</li>
+<li><p>最后，当您对芯片工具链各模块有一定了解后，将继续阅读
+<a class="reference external" href="../j5_ai_toolchain_tool_guide/index.html">《J5 AI芯片工具链工具手册》</a> 在开发过程中查阅各工具的使用方法。</p></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">本手册目录结构:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="product_introduction.html">1. 产品介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="product_introduction.html#id2">1.1. 工具链概览</a></li>
+<li class="toctree-l2"><a class="reference internal" href="product_introduction.html#id3">1.2. 工具链使用流程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="env_prepare.html">2. 环境部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="env_prepare.html#dev-machine">2.1. 开发机部署</a></li>
+<li class="toctree-l2"><a class="reference internal" href="env_prepare.html#id5">2.2. 开发板部署</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution.html">3. PTQ浮点定点模型转换方案</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/general_description.html">3.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html">3.2. 模型转换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/custom_op.html">3.3. 自定义算子开发</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application_development.html">4. runtime应用开发</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application_development.html#id1">4.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_development.html#id2">4.2. 工程创建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_development.html#id3">4.3. 工程实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_development.html#compile-and-run2">4.4. 工程编译和运行</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_development.html#id5">4.5. 多模型控制策略</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_development.html#id7">4.6. 应用调优建议</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">5. DSP开发文档</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dsp.html#id1">5.1. DSP简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dsp.html#linux">5.2. Linux开发环境安装</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dsp.html#id5">5.3. 开发流程</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">6. 附录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="appendix.html#benchmark">6.1. 模型性能Benchmark</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appendix.html#norm-type">6.2. norm_type 配置说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appendix.html#transformer">6.3. transformer说明</a></li>
+<li class="toctree-l2"><a class="reference internal" href="appendix.html#id6">6.4. 常见故障处理</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="product_introduction.html" class="btn btn-neutral float-right" title="1. 产品介绍" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

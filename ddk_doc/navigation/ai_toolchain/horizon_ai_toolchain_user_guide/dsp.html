@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5. DSP开发文档 &mdash; Horizon J5 AI Toolchain User Guide  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="6. 附录" href="appendix.html" />
+    <link rel="prev" title="4. runtime应用开发" href="application_development.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Horizon J5 AI Toolchain User Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本手册目录结构:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="product_introduction.html">1. 产品介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env_prepare.html">2. 环境部署</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution.html">3. PTQ浮点定点模型转换方案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application_development.html">4. runtime应用开发</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. DSP开发文档</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">5.1. DSP简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux">5.2. Linux开发环境安装</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">5.2.1. 开发工具介绍</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">5.2.2. 安装DSP工具链以及配置核</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">5.2.3. DSP开发参考资料</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">5.3. 开发流程</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id6">5.3.1. 整体框架</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev-custom-operator">5.3.2. 自定义算子</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dsp-softmax">5.3.3. DSP softmax算子开发</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#softmax">5.3.3.1. softmax分析</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">5.3.3.2. DSP softmax实现</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id9">5.3.3.3. DSP算子性能分析及优化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dsp-sim">5.3.3.4. DSP SIM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dev-dpxdsp">5.3.3.5. 地平线工具链实测DSP性能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pingpong-dma">5.3.3.6. PINGPONG DMA</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">5.3.4. 模型运行</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Horizon J5 AI Toolchain User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">5. </span>DSP开发文档</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dsp">
+<h1><span class="section-number">5. </span>DSP开发文档<a class="headerlink" href="#dsp" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2><span class="section-number">5.1. </span>DSP简介<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<p>地平线J5芯片中包含两个DSP核，时钟频率为648MHz，使用的是Cadence公司的Tensilica Vision P6 DSP IP。</p>
+<p>Vision P6 DSP专用于支持计算机视觉或图像处理等算法，超长指令字（VLIW）与单指令多数据流（SIMD）可以很大程度提升计算的速度。Vision P6 DSP采用5路VLIW架构，每条指令最多可以包含两个64字节加载或一个64字节加载和一个64字节存储；SIMD支持512bit的操作，如：64路8位整型，32路16位整型等。更多关于Vision P6 DSP的信息，可参见Cadence的Vision P6 用户手册。</p>
+<p>DSP拥有强大的计算能力，在使用得当的情况下，将一些不能用BPU加速且ARM低效的计算部署到DSP上可以大大提高模型的推理性能。</p>
+</section>
+<section id="linux">
+<h2><span class="section-number">5.2. </span>Linux开发环境安装<a class="headerlink" href="#linux" title="永久链接至标题"></a></h2>
+<section id="id2">
+<h3><span class="section-number">5.2.1. </span>开发工具介绍<a class="headerlink" href="#id2" title="永久链接至标题"></a></h3>
+<p>Xtensa Xplorer是Cadence为客户提供的针对其DSP进行软件开发的一个集成开发环境，具有软件开发(software development)、编译(compile)、调试(debugging)、仿真(simulation)、性能分析(profiling)、硬件跟踪(hardware trace)等功能。本开发文档中将只介绍Linux开发环境的安装，Windows开发环境的安装使用可参考Cadence提供的官方文档。</p>
+</section>
+<section id="id3">
+<h3><span class="section-number">5.2.2. </span>安装DSP工具链以及配置核<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p>您可以从地平线获取DSP开发包，开发包中包含Xplorer-8.0.13-linux-x64-installer.bin和vdsp_vp6_RI4_linux.tgz安装包。</p>
+<ol class="arabic simple">
+<li><p>安装 <strong>Xtensa Develop Tools</strong></p></li>
+</ol>
+<p>这里我们默认将Xtensa Develop Tools安装在 <code class="docutils literal notranslate"><span class="pre">/opt/xtensa</span></code> 目录下，您也可以自行指定其他目录。若安装在 <code class="docutils literal notranslate"><span class="pre">/opt/xtensa</span></code> 目录则需要root权限。执行如下命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vdsp_tools</span><span class="o">/</span><span class="n">Xplorer</span><span class="o">-</span><span class="mf">8.0.13</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="o">-</span><span class="n">installer</span><span class="o">.</span><span class="n">bin</span> \
+   <span class="o">--</span><span class="n">mode</span> <span class="n">unattended</span> \
+   <span class="o">--</span><span class="n">prefix</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">xtensa</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>安装 <strong>VP6 Core Configuration</strong></p></li>
+</ol>
+<p>将vdsp_vp6_RI4_linux.tgz安装包解压，解压后将其放在Xtensa Develop Tools安装目录下指定位置（如： <code class="docutils literal notranslate"><span class="pre">/opt/xtensa/XtDevTools/install/builds/RI-2020.4-linux/</span></code> ），放到指定位置后进行安装。安装需要执行如下命令：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">zxvf</span> <span class="n">vdsp_builds</span><span class="o">/</span><span class="n">vdsp_vp6_RI4_linux</span><span class="o">.</span><span class="n">tgz</span> \
+   <span class="o">&amp;&amp;</span> <span class="n">mv</span> <span class="n">RI</span><span class="o">-</span><span class="mf">2020.4</span><span class="o">-</span><span class="n">linux</span><span class="o">/</span><span class="n">vdsp_vp6_RI4</span><span class="o">/</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">xtensa</span><span class="o">/</span><span class="n">XtDevTools</span><span class="o">/</span><span class="n">install</span><span class="o">/</span><span class="n">builds</span><span class="o">/</span><span class="n">RI</span><span class="o">-</span><span class="mf">2020.4</span><span class="o">-</span><span class="n">linux</span><span class="o">/</span> \
+   <span class="o">&amp;&amp;</span> <span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="n">RI</span><span class="o">-</span><span class="mf">2020.4</span><span class="o">-</span><span class="n">linux</span>
+
+ <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">xtensa</span><span class="o">/</span><span class="n">XtDevTools</span><span class="o">/</span><span class="n">install</span><span class="o">/</span><span class="n">builds</span><span class="o">/</span><span class="n">RI</span><span class="o">-</span><span class="mf">2020.4</span><span class="o">-</span><span class="n">linux</span><span class="o">/</span><span class="n">vdsp_vp6_RI4</span><span class="o">/</span><span class="n">install</span> \
+   <span class="o">--</span><span class="n">xtensa</span><span class="o">-</span><span class="n">tools</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">xtensa</span><span class="o">/</span><span class="n">XtDevTools</span><span class="o">/</span><span class="n">install</span><span class="o">/</span><span class="n">tools</span><span class="o">/</span><span class="n">RI</span><span class="o">-</span><span class="mf">2020.4</span><span class="o">-</span><span class="n">linux</span><span class="o">/</span><span class="n">XtensaTools</span><span class="o">/</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>配置环境变量</p></li>
+</ol>
+<p>为保证Xtensa Develop Tools的正常使用，您需要设置以下环境变量：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># set license server
+export LM_LICENSE_FILE=port@serverip
+# set default core
+export XTENSA_CORE=vdsp_vp6_RI4
+export XTENSA_ROOT=/opt/xtensa/XtDevTools/install/tools/RI-2020.4-linux/XtensaTools/
+export PATH=$PATH:$XTENSA_ROOT/bin
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>需要正确设置license之后才可以使用Xtensa Develop Tools，例如提供license的port为27001，serverip为192.168.1.6，则设置 <code class="docutils literal notranslate"><span class="pre">LM_LICENSE_FILE=27001&#64;192.168.1.6</span></code> 。</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Xtensa Develop Tools</strong> 测试</p></li>
+</ol>
+<p>执行如下两个命令，如果此两命令可以正常执行，则表明linux开发环境安装成功：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xt</span><span class="o">-</span><span class="n">xcc</span> <span class="o">--</span><span class="n">help</span>  <span class="c1"># cross compiler</span>
+<span class="n">xt</span><span class="o">-</span><span class="n">run</span> <span class="o">--</span><span class="n">help</span>  <span class="c1"># simluator</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3><span class="section-number">5.2.3. </span>DSP开发参考资料<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>为了更好地进行DSP开发，我们建议您参考以下文档，以下所列文档均可联系地平线商务获取：</p>
+<table class="colwidths-given docutils align-left">
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 48%" />
+<col style="width: 48%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>编号</p></th>
+<th class="head"><p>文档名称及描述</p></th>
+<th class="head"><p>文档目录</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>VP6 DSP 介绍文档</p></td>
+<td><p>vdsp_docs/RI.4_docs/visionp6_ug.pdf</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>Dev Toolkit 使用介绍文档</p></td>
+<td><p>vdsp_docs/RI.4_docs/sw_dev_toolkit_ug.pdf</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>XCC Compiler 使用介绍文档</p></td>
+<td><p>vdsp_docs/RI.4_docs/xtensa_xcc_compiler_ug.pdf</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>SwP_VisionP6_5.1.0 示例说明文档，位于示例工程Doc目录</p></td>
+<td><p>SW_Package_VisionP6_UserGuide.pdf</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Xi Library 文档，位于XI_Library_7.14.2.xws 工程 Doc目录</p></td>
+<td><p>XI_Library_UserGuide.pdf</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Profiler 使用说明文档</p></td>
+<td><p>vdsp_docs/RI.4_docs/gun_profiler_ug.pdf</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>地平线图像数字信号处理器运行时API手册</p></td>
+<td><p><a class="reference external" href="../vdsp_rpc_doc/dsp_rpc_api_doc/index.html">../vdsp_rpc_doc/dsp_rpc_api_doc/index.html</a></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">5.3. </span>开发流程<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>在推理模型的过程中，可以将一些不能用BPU加速且ARM低效的计算部署在DSP上从而提高推理性能。在地平线提供的dsp sample中，即是将softmax算子部署在DSP上进行运算，您可以在OE包中的 <cite>ddk/samples/vdsp_rpc_sample/</cite> 处获取示例源码进行同步阅读理解。</p>
+<section id="id6">
+<h3><span class="section-number">5.3.1. </span>整体框架<a class="headerlink" href="#id6" title="永久链接至标题"></a></h3>
+<p>模型中将Softmax算子部署在DSP上进行计算的框架图如下图所示：</p>
+<img alt="_images/dsp_frame.png" class="align-center" src="_images/dsp_frame.png" />
+<p>DSP与ARM是相对独立的两个系统，两者通过RPC进行交互。为简化RPC的使用，地平线为您提供了相应的接口，具体使用方式详见 <a class="reference external" href="../vdsp_rpc_doc/dsp_rpc_api_doc/index.html">《地平线图像数字信号处理器运行时API手册》</a>。</p>
+<p>ARM端主要负责模型推理过程中计算资源的分配，当需要使用到DSP资源进行计算时，ARM侧调用RPC接口进行DSP计算，整个模型运行过程如下：</p>
+<ol class="arabic simple">
+<li><p>调用地平线Runtime接口开始推理模型；</p></li>
+<li><p>用户自定义算子调用RPC，随后API将Softmax算子部署在DSP上进行计算；模型推理时ARM侧调用自定义算子完成DSP远程调用；</p></li>
+<li><p>DSP schedule接收到RPC指令后进行调度，调用DSP Softmax op进行运算；</p></li>
+<li><p>运算结束后告知ARM任务执行情况；</p></li>
+<li><p>将模型继续推理直至结束；</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>在这个过程中有两个环节比较重要：</p>
+<ol class="arabic simple">
+<li><p>自定义算子实现：对应地平线dsp sample中的arm/mobilenetv1_with_custom_dsp_softmax/custom_dsp_softmax.cpp部分。</p></li>
+<li><p>DSP softmax op开发：对应地平线dsp sample中的dsp/softmax部分。</p></li>
+</ol>
+</div>
+</section>
+<section id="dev-custom-operator">
+<span id="id7"></span><h3><span class="section-number">5.3.2. </span>自定义算子<a class="headerlink" href="#dev-custom-operator" title="永久链接至标题"></a></h3>
+<p>在Runtime Basic sample示例中，我们已经对自定义算子的部分进行了介绍，用户可通过自定义算子调用RPC API向DSP提交任务。在示例中，我们自定义DSP Softmax算子并重新注册，使模型在推理到Softmax算子时调用该自定义算子。</p>
+<p>DSPSoftmax::Forward实现指令如下：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">DSPSoftmax::Forward</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">NDArray</span><span class="w"> </span><span class="o">*&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">bottomBlobs</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">NDArray</span><span class="w"> </span><span class="o">*&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">topBlobs</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="k">const</span><span class="w"> </span><span class="n">hbDNNInferCtrlParam</span><span class="w"> </span><span class="o">*</span><span class="n">inferCtrlParam</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// 获取算子输入输出</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">NDArray</span><span class="w"> </span><span class="o">*</span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bottomBlobs</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="n">NDArray</span><span class="w"> </span><span class="o">*</span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">topBlobs</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">axis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">-&gt;</span><span class="n">CanonicalAxis</span><span class="p">(</span><span class="n">axis_</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1U</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0U</span><span class="p">;</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">axis</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">index</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">N</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="n">data</span><span class="o">-&gt;</span><span class="n">Shape</span><span class="p">()[</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">-&gt;</span><span class="n">Size</span><span class="p">()</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">TShape</span><span class="w"> </span><span class="n">s2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">TShape</span><span class="p">{</span><span class="n">N</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">data_tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">-&gt;</span><span class="n">Reshape</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">out_tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="o">-&gt;</span><span class="n">Reshape</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">hbSysMem</span><span class="w"> </span><span class="n">input_mem</span><span class="p">,</span><span class="w"> </span><span class="n">output_mem</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">data_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">hbSysAllocMem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">input_mem</span><span class="p">,</span><span class="w"> </span><span class="n">data_size</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">hbSysAllocMem</span><span class="p">(</span><span class="o">&amp;</span><span class="n">output_mem</span><span class="p">,</span><span class="w"> </span><span class="n">data_size</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">hbDSPRpcCtrlParam</span><span class="w"> </span><span class="n">param</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">param</span><span class="p">.</span><span class="n">rpcCmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x42</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">param</span><span class="p">.</span><span class="n">priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">param</span><span class="p">.</span><span class="n">dspCoreId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0U</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">out_tmp</span><span class="p">.</span><span class="n">Shape</span><span class="p">()[</span><span class="mi">0U</span><span class="p">];</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">memcpy</span><span class="p">(</span><span class="n">input_mem</span><span class="p">.</span><span class="n">virAddr</span><span class="p">,</span><span class="w"> </span><span class="n">data_tmp</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">RawData</span><span class="p">(),</span><span class="w"> </span><span class="n">data_size</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">hbDSPTask_t</span><span class="w"> </span><span class="n">task</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">hbDSPRpc</span><span class="p">(</span><span class="o">&amp;</span><span class="n">task</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">input_mem</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">output_mem</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">param</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">hbDSPWaitTaskDone</span><span class="p">(</span><span class="n">task</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">hbDSPReleaseTask</span><span class="p">(</span><span class="n">task</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">memcpy</span><span class="p">(</span><span class="n">out_tmp</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">RawData</span><span class="p">(),</span><span class="w"> </span><span class="n">output_mem</span><span class="p">.</span><span class="n">virAddr</span><span class="p">,</span><span class="w"> </span><span class="n">data_size</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">hbDSPRpcCtrlParam.</span> <span class="pre">rpcCmd=0x42</span></code> 中，0x42为DSP侧Softmax算子的编号（DSP侧Softmax算子编号的注册过程详见： <a class="reference internal" href="#dev-dpxdsp"><span class="std std-ref">地平线工具链实测DSP性能</span></a> ）。</p>
+<p>由于DSP侧的输入输出需要连续的内存，而CPU算子的输入输出内存存在不连续的可能，因此需要利用hbSysAllocMem接口申请一段连续内存并进行数据拷贝。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>设计好DSPSoftmax自定义算子之后使用hbDNNRegisterLayerCreator接口注册替换原有的Softmax算子即可。</p>
+</div>
+</section>
+<section id="dsp-softmax">
+<h3><span class="section-number">5.3.3. </span>DSP softmax算子开发<a class="headerlink" href="#dsp-softmax" title="永久链接至标题"></a></h3>
+<p>本章节主要以DSP softmax算子开发为例为您介绍DSP侧算子开发的流程。</p>
+<section id="softmax">
+<h4><span class="section-number">5.3.3.1. </span>softmax分析<a class="headerlink" href="#softmax" title="永久链接至标题"></a></h4>
+<p>softmax算子可以拆分为以下四个基础计算：</p>
+<ol class="arabic simple">
+<li><p>计算输入元素中的最大值max；</p></li>
+<li><p>计算并更新输入的每个元素： <code class="docutils literal notranslate"><span class="pre">input</span> <span class="pre">=</span> <span class="pre">exp(input</span> <span class="pre">-</span> <span class="pre">max)</span></code> ;</p></li>
+<li><p>计算更新后input的和sum；</p></li>
+<li><p>计算 <code class="docutils literal notranslate"><span class="pre">output</span> <span class="pre">=</span> <span class="pre">input</span> <span class="pre">/</span> <span class="pre">sum</span></code> 。</p></li>
+</ol>
+</section>
+<section id="id8">
+<h4><span class="section-number">5.3.3.2. </span>DSP softmax实现<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
+<p>本章节将对如何实现上一节中提到的四个基础运算从而实现DSP Softmax算子进行介绍。</p>
+<p>Cadence实现了一些基础数学运算，方便用户进行开发。您可以从Cadence的基础示例中获取源码，也可从地平线直接获取编译好的依赖库dsp_math。在依赖库dsp_math中，可找到softmax算子前两个基础运算，您可以直接使用。</p>
+<p>而对于未实现的求和及除法运算，则需要开发人员自行实现。实现的方式方法将会影响算子的性能，因此，开发人员需要了解DSP特性并使用好这些特性（VLIW、SIMD）。在进行开发时，可参照Cadence本身已实现的基础运算。</p>
+<p>实现vecsum指令如下：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">float32_t</span><span class="w"> </span><span class="nf">vecsum</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">float32_t</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="o">*</span><span class="k">restrict</span><span class="w"> </span><span class="n">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">valign</span><span class="w"> </span><span class="n">al_px</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="n">vecsum0</span><span class="p">,</span><span class="w"> </span><span class="n">vecsum1</span><span class="p">,</span><span class="w"> </span><span class="n">vecx0</span><span class="p">,</span><span class="w"> </span><span class="n">vecx1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">vboolN_2</span><span class="w"> </span><span class="n">b_sum0</span><span class="p">,</span><span class="w"> </span><span class="n">b_sum1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">N_tail</span><span class="p">,</span><span class="w"> </span><span class="n">Nb_tail</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">float32_t</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">ASSERT</span><span class="p">(</span><span class="n">x</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0.f</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">px</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">al_px</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_LAN_2XF32_PP</span><span class="p">(</span><span class="n">px</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">vecsum0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vecsum1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.f</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">IVP_LAN_2XF32_IP</span><span class="p">(</span><span class="n">vecx0</span><span class="p">,</span><span class="w"> </span><span class="n">al_px</span><span class="p">,</span><span class="w"> </span><span class="n">px</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">IVP_LAN_2XF32_IP</span><span class="p">(</span><span class="n">vecx1</span><span class="p">,</span><span class="w"> </span><span class="n">al_px</span><span class="p">,</span><span class="w"> </span><span class="n">px</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">vecsum0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_ADDN_2XF32</span><span class="p">(</span><span class="n">vecx0</span><span class="p">,</span><span class="w"> </span><span class="n">vecsum0</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">vecsum1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_ADDN_2XF32</span><span class="p">(</span><span class="n">vecx1</span><span class="p">,</span><span class="w"> </span><span class="n">vecsum1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">N_tail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">IVP_N_2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">Nb_tail</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">N_tail</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">float32_t</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">b_sum0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_LTRSN_2</span><span class="p">(</span><span class="n">N_tail</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">b_sum1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_LTRSN_2</span><span class="p">(</span><span class="n">N_tail</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">IVP_N_2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">IVP_LAVN_2XF32_XP</span><span class="p">(</span><span class="n">vecx0</span><span class="p">,</span><span class="w"> </span><span class="n">al_px</span><span class="p">,</span><span class="w"> </span><span class="n">px</span><span class="p">,</span><span class="w"> </span><span class="n">Nb_tail</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">IVP_LAVN_2XF32_XP</span><span class="p">(</span><span class="n">vecx1</span><span class="p">,</span><span class="w"> </span><span class="n">al_px</span><span class="p">,</span><span class="w"> </span><span class="n">px</span><span class="p">,</span><span class="w"> </span><span class="n">Nb_tail</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">IVP_N_2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">float32_t</span><span class="p">));</span><span class="w"></span>
+<span class="w">  </span><span class="n">IVP_ADDN_2XF32T</span><span class="p">(</span><span class="n">vecsum0</span><span class="p">,</span><span class="w"> </span><span class="n">vecx0</span><span class="p">,</span><span class="w"> </span><span class="n">vecsum0</span><span class="p">,</span><span class="w"> </span><span class="n">b_sum0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">IVP_ADDN_2XF32T</span><span class="p">(</span><span class="n">vecsum1</span><span class="p">,</span><span class="w"> </span><span class="n">vecx1</span><span class="p">,</span><span class="w"> </span><span class="n">vecsum1</span><span class="p">,</span><span class="w"> </span><span class="n">b_sum1</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">vecsum0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_ADDN_2XF32</span><span class="p">(</span><span class="n">vecsum0</span><span class="p">,</span><span class="w"> </span><span class="n">vecsum1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_RADDN_2XF32</span><span class="p">(</span><span class="n">vecsum0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>除法运算可变为乘法运算，且实现乘法运算比较容易且性能较好。实现vecmul指令如下：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="n">float32_t</span><span class="w"> </span><span class="nf">vecmul</span><span class="p">(</span><span class="n">float32_t</span><span class="o">*</span><span class="w"> </span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">float32_t</span><span class="w"> </span><span class="o">*</span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">float32_t</span><span class="w"> </span><span class="n">x2</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="p">){</span><span class="w"></span>
+<span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;use vecmul fc!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="o">*</span><span class="k">restrict</span><span class="w"> </span><span class="n">px</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="o">*</span><span class="k">restrict</span><span class="w"> </span><span class="n">pz</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">valign</span><span class="w"> </span><span class="n">al_px</span><span class="p">,</span><span class="w"> </span><span class="n">al_pz</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">ASSERT</span><span class="p">(</span><span class="n">x1</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">ASSERT</span><span class="p">(</span><span class="n">z</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mf">0.f</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">px</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">x1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">pz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w">      </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">z</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="n">px2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x2</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">al_px</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_LAN_2XF32_PP</span><span class="p">(</span><span class="n">px</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">al_pz</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_ZALIGN</span><span class="p">();</span><span class="w"></span>
+
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">modN</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">modN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">N</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mi">15</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">float32_t</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">xb_vecN_2xf32</span><span class="w"> </span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">out</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">&lt;</span><span class="n">N</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">n</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">IVP_LAN_2XF32_IP</span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">al_px</span><span class="p">,</span><span class="w"> </span><span class="n">px</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_MULN_2XF32</span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">px2</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">IVP_SAN_2XF32_IP</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">al_pz</span><span class="p">,</span><span class="w"> </span><span class="n">pz</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="n">IVP_LAN_2XF32_IP</span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">al_px</span><span class="p">,</span><span class="w"> </span><span class="n">px</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IVP_MULN_2XF32</span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">px2</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">IVP_SAVN_2XF32_XP</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="w"> </span><span class="n">al_pz</span><span class="p">,</span><span class="w"> </span><span class="n">pz</span><span class="p">,</span><span class="w"> </span><span class="n">modN</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">IVP_SAPOSN_2XF32_FP</span><span class="p">(</span><span class="n">al_pz</span><span class="p">,</span><span class="w"> </span><span class="n">pz</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>至此，可实现DSP侧Softmax算子hb_dsp_softmax。</p>
+</section>
+<section id="id9">
+<h4><span class="section-number">5.3.3.3. </span>DSP算子性能分析及优化<a class="headerlink" href="#id9" title="永久链接至标题"></a></h4>
+<p>在进行DSP算子性能分析及优化前，您需要明确知悉以下四点内容：</p>
+<ol class="arabic simple">
+<li><p>DSP的两块DRAM（DRAM0和DRAM1）为TCM内存，存储在TCM中的数据读取较快，因此，算子相关的数据、代码应该存储在TCM中进行计算。</p></li>
+<li><p>算子的输入和输出内存是在DDR上，DDR和TCM之间可通过DMA进行数据搬运，而DMA传输需要时间，因此，常用PINGPONG DMA来减少由于数据搬运而产生的等待时间。</p></li>
+<li><p>LSP：链接支持包。其中在memmap.xmm文件中可以看到每个段所处的内存地址，可通过调整LSP或对依赖库和目标文件重置段信息两种方式对代码和数据在内存中的位置进行调整。详细信息见Xtensa Linker Support Packages (LSPs) Reference Manual（lsp_rm.pdf）。</p></li>
+<li><p>printf会十分耗时，统计性能的时候请将printf放在合适的位置。</p></li>
+</ol>
+<p>DSP算子性能可以从以下三部分进行分析优化：</p>
+<ol class="arabic simple">
+<li><p>DSP SIM：DSP工具链提供了仿真功能，可通过仿真获取算子运行的时钟周期从而估计出实际运行时间。开发人员可优先通过SIM信息来查看算子性能是否达到要求，是否需要对算子进一步进行优化。</p></li>
+<li><p>使用地平线DSP工具链上板来实测性能。</p></li>
+<li><p>使用PINGPONG DMA完成大数据搬运。</p></li>
+</ol>
+</section>
+<section id="dsp-sim">
+<h4><span class="section-number">5.3.3.4. </span>DSP SIM<a class="headerlink" href="#dsp-sim" title="永久链接至标题"></a></h4>
+<p>在 <code class="docutils literal notranslate"><span class="pre">&lt;xtensa/tie/xt_timer.h&gt;</span></code> 头文件中，我们提供了 <code class="docutils literal notranslate"><span class="pre">XT_RSR_CCOUNT()</span></code> 函数获取当前的周期计数，从而通过差值可以获得算子运行的时钟周期。时钟周期cycle * 1.5可估计出该算子需要运行的时间（ns）。示例代码如下：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#define HB_ALIGN(x) __attribute__((aligned(x)))</span>
+<span class="cp">#define HB_ALIGN64 HB_ALIGN(64)</span>
+
+<span class="cp">#define _HB_LOCAL_DRAM0_ __attribute__((section(&quot;.dram0.data&quot;)))</span>
+<span class="cp">#define _HB_LOCAL_DRAM1_ __attribute__((section(&quot;.dram1.data&quot;)))</span>
+<span class="cp">#define _HB_LOCAL_IRAM_ __attribute__((section(&quot;.iram0.text&quot;)))</span>
+
+<span class="cp">#define HB_DSP_TIME_STAMP(cyc_cnt) (cyc_cnt) = XT_RSR_CCOUNT()</span>
+
+<span class="cp">#define KB(n) (n &lt;&lt; 10)</span>
+<span class="cp">#define INPUT_N KB(8)</span>
+<span class="kt">float</span><span class="w"> </span><span class="n">HB_ALIGN64</span><span class="w"> </span><span class="n">data_ivp</span><span class="p">[</span><span class="n">INPUT_N</span><span class="p">]</span><span class="w"> </span><span class="n">_HB_LOCAL_DRAM0_</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="n">HB_ALIGN64</span><span class="w"> </span><span class="n">output_ivp</span><span class="p">[</span><span class="n">INPUT_N</span><span class="p">]</span><span class="w"> </span><span class="n">_HB_LOCAL_DRAM0_</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">start</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">data_ivp</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">float</span><span class="o">*</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="o">*</span><span class="p">)</span><span class="n">output_ivp</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">KB</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">){</span><span class="w"></span>
+<span class="w">      </span><span class="n">HB_DSP_TIME_STAMP</span><span class="p">(</span><span class="n">start</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">hb_dsp_softmax</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">output</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">HB_DSP_TIME_STAMP</span><span class="p">(</span><span class="n">end</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;*******Test for softmax, data size: %d,  DSP cycle count: %d, nanosecond:%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">          </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">diff</span><span class="p">,</span><span class="w"> </span><span class="n">diff</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1.5</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="n">size</span><span class="w"> </span><span class="o">*=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>其中， <cite>hb_dsp_softmax</cite> 为DSP侧实现的softmax算子。</p>
+<p>在上述示例中，需尽量保证所有的计算数据都在TCM中，提高性能。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ol class="arabic simple">
+<li><p>输入和输出均直接申请在TCM（DRAM）中，但因DRAM内存大小有限，只能测试小数据量的性能；若需测试大数据量，请用DMA进行数据搬运。</p></li>
+<li><p>算子的实现中，可能使用一些全局或者局部变量，要想进一步提高算子性能，需要对LSP进行修改，将 <cite>.rodata</cite> 、 <cite>.data</cite> 、 <cite>.bss</cite> 字段以及STACK放到DRAM上。对LSP进行修改之后可能会导致内存不够，此种情况下不可直接修改LSP，需要修改相应目标文件段的位置，详情见Xtensa Linker Support Packages (LSPs) Reference Manual（lsp_rm.pdf）。</p></li>
+</ol>
+</div>
+</section>
+<section id="dev-dpxdsp">
+<span id="id10"></span><h4><span class="section-number">5.3.3.5. </span>地平线工具链实测DSP性能<a class="headerlink" href="#dev-dpxdsp" title="永久链接至标题"></a></h4>
+<p>地平线提供了DSP工具链，方便用户将实现好的算子注册到DSP调度系统中，具体可参见 <a class="reference external" href="../vdsp_rpc_doc/dsp_rpc_api_doc/index.html">《地平线图像数字信号处理器运行时API手册》</a>。</p>
+<p>DSPmain函数实现指令如下：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;hb_dsp.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;xtensa/xos.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/time.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;softmax/softmax_dsp.h&quot;</span><span class="cp"></span>
+
+<span class="cp">#define DSP_FREQ (648000000)</span>
+<span class="cp">#define TICK_CYCLES (xos_get_clock_freq()/100)</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">ret</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;--------DSP WELCOME START---------</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Set clock frequency before calling xos_start().</span>
+<span class="w">    </span><span class="n">xos_set_clock_freq</span><span class="p">(</span><span class="n">DSP_FREQ</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// use timer0 as systemtimer; 10ms a tick;</span>
+<span class="w">    </span><span class="n">xos_start_system_timer</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">TICK_CYCLES</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// env init</span>
+<span class="w">  </span><span class="n">hb_dsp_env_init</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// register op</span>
+<span class="w">  </span><span class="n">hb_dsp_register_fn</span><span class="p">(</span><span class="mh">0x42</span><span class="p">,</span><span class="w"> </span><span class="n">dsp_softmax</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// start dsp shedule</span>
+<span class="w">  </span><span class="n">hb_dsp_start</span><span class="p">();</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// Should never get here</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>其中，用户只需要关心 <code class="docutils literal notranslate"><span class="pre">hb_dsp_register_fn</span></code> 部分，其余部分均为模板数据，不可进行更改。0x42为DSP侧softmax算子的编号。</p>
+<p>dsp_softmax为算子执行入口，示例代码如下：</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">phyAddr</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">virAddr</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">memSize</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">hbMem</span><span class="p">;</span><span class="w"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">dsp_softmax</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">tm</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">hbMem</span><span class="w"> </span><span class="o">*</span><span class="n">input_msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">hbMem</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">input</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">hbMem</span><span class="w"> </span><span class="o">*</span><span class="n">output_msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">hbMem</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">output</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">input_msg</span><span class="o">-&gt;</span><span class="n">virAddr</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="n">dst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="o">*</span><span class="p">)(</span><span class="n">output_msg</span><span class="o">-&gt;</span><span class="n">virAddr</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">hb_dsp_softmax</span><span class="p">(</span><span class="n">src</span><span class="p">,</span><span class="w"> </span><span class="n">input_msg</span><span class="o">-&gt;</span><span class="n">memSize</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">dst</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>input与output的virAddr中存储的是 <a class="reference internal" href="#dev-custom-operator"><span class="std std-ref">自定义算子</span></a> 内提及的hbDSPRpc函数中传入的input_mem.virAddr中的数据，该数据存储在DDR中。由于示例中算子直接使用输入输出会导致运行时间变长，因此需要使用DMA功能将数据搬运至TCM，在数据量比较大的时候需要用到PINGPONG DMA。TCM内存可以通过tm进行申请。</p>
+</section>
+<section id="pingpong-dma">
+<h4><span class="section-number">5.3.3.6. </span>PINGPONG DMA<a class="headerlink" href="#pingpong-dma" title="永久链接至标题"></a></h4>
+<p>在进行DMA数据传输时，如果只有一个buffer接收数据，那么就只能是”DMA传输-&gt;处理数据-&gt;DMA传输-&gt;处理数据”串行处理。而如果有两个buffer接收数据（一个称为ping buffer，一个称为pong buffer），就可以在处理ping buffer时，DMA传输pong buffer，理想的情况是当处理完ping buffer的数据时，pong buffer的数据已通过DMA传输完成，紧接着可以处理pong buffer的数据，这样就大大提高了传输处理效率。</p>
+<p>开发人员可以阅读 Xtensa System Software Reference Manual（sys_sw_rm.pdf）的第七章熟悉DMA相关知识，利用原始接口完成pingpong DMA。</p>
+<p>Pingpong DMA的示例如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#define TILE_SIZE (KB(8))
+IDMA_BUFFER_DEFINE(task_in1, IDMA_1D_DESC, 1);
+IDMA_BUFFER_DEFINE(task_in2, IDMA_1D_DESC, 1);
+IDMA_BUFFER_DEFINE(task_out1, IDMA_1D_DESC, 1);
+IDMA_BUFFER_DEFINE(task_out2, IDMA_1D_DESC, 1);
+
+int dsp_softmax(void *input, void *output, void *tm) {
+  hbMem *input_msg = (hbMem *)input;
+  hbMem *output_msg = (hbMem *)output;
+  float *src = (float *)(input_msg-&gt;virAddr);
+  float *dst = (float *)(output_msg-&gt;virAddr);
+  uint32_t length = input_msg-&gt;memSize / sizeof(float);
+
+  xvTileManager* tile_magager = (xvTileManager*)tm;
+  void* ivp_input_0 = xvAllocateBuffer(tile_magager,  TILE_SIZE * sizeof(float), XV_MEM_BANK_COLOR_0, 64);
+  void* ivp_output_0 = xvAllocateBuffer(tile_magager,  TILE_SIZE * sizeof(float), XV_MEM_BANK_COLOR_0, 64);
+  void* ivp_input_1 = xvAllocateBuffer(tile_magager,  TILE_SIZE * sizeof(float), XV_MEM_BANK_COLOR_1, 64);
+  void* ivp_output_1 = xvAllocateBuffer(tile_magager,  TILE_SIZE * sizeof(float), XV_MEM_BANK_COLOR_1, 64);
+  void* input_idma[] = {ivp_input_0, ivp_input_1};
+  void* output_idma[] = {ivp_output_0, ivp_output_1};
+
+  // tile
+  idma_buffer_t* task_in[] = {task_in1, task_in2};
+  idma_buffer_t* task_out[] = {task_out1, task_out2};
+  int size[] = {0, 0};
+  int32_t input_index = 0;
+  int32_t output_index = 0;
+  int32_t input_size = XT_MIN(TILE_SIZE, length);
+  size[0] = input_size;
+  idma_copy_task(task_in1, ivp_input_0, src, input_size * sizeof(float), 0, NULL, NULL);
+  input_index += input_size;
+
+  if(input_index &lt; length){
+    input_size = XT_MIN(TILE_SIZE, length - input_index);
+    size[1] = input_size;
+    idma_copy_task(task_in2, ivp_input_1, src + input_index, input_size * sizeof(float), 0, NULL, NULL);
+    input_index += input_size;
+  }
+  struct timeval start, end;
+  gettimeofday(&amp;start, 0);
+  int pingpongflag = 0;
+  for(int32_t i = 0; i &lt; length; i += TILE_SIZE){
+    while (idma_task_status(task_in[pingpongflag]) &gt; 0) {}
+    while (idma_task_status(task_out[pingpongflag]) &gt; 0) {}
+    hb_dsp_softmax((float*)input_idma[pingpongflag], size[pingpongflag], (float*)output_idma[pingpongflag]);
+    idma_copy_task(task_out[pingpongflag], dst + output_index, output_idma[pingpongflag], size[pingpongflag] * sizeof(float), 0, NULL, NULL);
+    output_index += size[pingpongflag];
+    if(input_index &lt; length){
+      input_size = XT_MIN(TILE_SIZE, length - input_index);
+      size[pingpongflag] = input_size;
+      idma_copy_task(task_in[pingpongflag], input_idma[pingpongflag], src + input_index, size[pingpongflag] * sizeof(float), 0, NULL, NULL);
+      input_index += input_size;
+    }
+    pingpongflag ^= 0x1;
+  }
+  while (idma_task_status(task_out[pingpongflag ^ 0x01]) &gt; 0) {}
+  gettimeofday(&amp;end, 0);
+  printf(&quot;softmax time(us): %u \n&quot;, (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec));
+
+  xvFreeBuffer(tile_magager, ivp_input_0);
+  xvFreeBuffer(tile_magager, ivp_output_0);
+  xvFreeBuffer(tile_magager, ivp_input_1);
+  xvFreeBuffer(tile_magager, ivp_output_1);
+
+  return 0；
+}
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id12">
+<h3><span class="section-number">5.3.4. </span>模型运行<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<p>本章节主要介绍地平线dsp sample的上板运行，用户可分别进入到arm和dsp目录下执行build.sh脚本。执行后，dsp目录下获得output_image文件夹，包含编译好的dsp镜像vdsp0和vdsp1。arm/script文件夹下的内容被更新。编译好后，准备上板运行，步骤如下：</p>
+<ol class="arabic simple">
+<li><p>准备一块J5开发板，将系统自带的dsp镜像卸载掉，卸载命令为：</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">stop</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">remoteproc</span><span class="o">/</span><span class="n">remoteproc1</span><span class="o">/</span><span class="n">state</span> <span class="p">(</span><span class="n">卸载vdsp0</span><span class="p">)</span>
+<span class="n">echo</span> <span class="n">stop</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">remoteproc</span><span class="o">/</span><span class="n">remoteproc2</span><span class="o">/</span><span class="n">state</span> <span class="p">(</span><span class="n">卸载vdsp1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>卸载成功后，将dsp目录下编译出来的两个镜像vdsp0和vdsp1拷贝到j5开发板上替换掉 <code class="docutils literal notranslate"><span class="pre">/system/lib/firmware/</span></code> 目录下的vdsp0和vdsp1并重新启动dsp服务，命令如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">remoteproc</span><span class="o">/</span><span class="n">remoteproc1</span><span class="o">/</span><span class="n">state</span> <span class="p">(</span><span class="n">启动vdsp0</span><span class="p">)</span>
+<span class="n">echo</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">remoteproc</span><span class="o">/</span><span class="n">remoteproc2</span><span class="o">/</span><span class="n">state</span> <span class="p">(</span><span class="n">启动vdsp1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在替换新的dsp镜像之前必须卸载正在运行的dsp镜像；在替换完镜像之后，建议您重新启动系统；若启动失败，执行以下命令查看dsp镜像名称是否正确：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">remoteproc</span><span class="o">/</span><span class="n">remoteproc1</span><span class="o">/</span><span class="n">firmware</span>
+<span class="n">cat</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">remoteproc</span><span class="o">/</span><span class="n">remoteproc2</span><span class="o">/</span><span class="n">firmware</span>
+</pre></div>
+</div>
+<p>若不是vdsp0和vdsp1，则执行以下命令之后再重新启动dsp服务：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">echo</span> <span class="n">vdsp0</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">remoteproc</span><span class="o">/</span><span class="n">remoteproc1</span><span class="o">/</span><span class="n">firmware</span>
+<span class="n">echo</span> <span class="n">vdsp1</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">remoteproc</span><span class="o">/</span><span class="n">remoteproc2</span><span class="o">/</span><span class="n">firmware</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>将arm目录下的script文件夹拷贝到J5开发板任意位置，执行以下命令获取模型分类结果：</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sh run_custom_op.sh
+
+# result
+I0000 00:00:00.000000  1278 vlog_is_on.cc:197] RAW: Set VLOG level for &quot;*&quot; to 3
+I0218 10:46:12.416987  1278 main.cpp:136] hbDNNRegisterLayerCreator success
+[HBRT] set log level as 0. version = 3.13.12
+[BPU_PLAT]BPU Platform Version(1.3.2)!
+[DNN] Runtime version = 1.2.2_(3.13.12 HBRT)
+[HorizonRT] The model builder version = 1.3.51
+I0218 10:46:12.556186  1278 main.cpp:151] hbDNNGetModelNameList success
+I0218 10:46:12.556257  1278 main.cpp:158] hbDNNGetModelHandle success
+I0218 10:46:12.583695  1278 main.cpp:167] read image to nv12 success
+I0218 10:46:12.583897  1278 main.cpp:177] prepare nv12 tensor success
+I0218 10:46:12.584012  1278 main.cpp:187] prepare tensor success
+I0218 10:46:12.585067  1278 main.cpp:197] hbDNNInfer success
+I0218 10:46:12.599071  1278 main.cpp:202] task done
+I0218 10:46:12.599215  1278 main.cpp:207] task post process success
+I0218 10:46:12.599272  1278 main.cpp:213] TOP 0 result id: 340
+I0218 10:46:12.599294  1278 main.cpp:213] TOP 1 result id: 292
+I0218 10:46:12.599310  1278 main.cpp:213] TOP 2 result id: 83
+I0218 10:46:12.599326  1278 main.cpp:213] TOP 3 result id: 282
+I0218 10:46:12.599367  1278 main.cpp:213] TOP 4 result id: 293
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="application_development.html" class="btn btn-neutral float-left" title="4. runtime应用开发" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="appendix.html" class="btn btn-neutral float-right" title="6. 附录" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

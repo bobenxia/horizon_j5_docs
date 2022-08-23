@@ -1,0 +1,33 @@
+.. Copyright (c) 2020 Horizon Robotics.All Rights Reserved.
+   The material in this file is confidential and contains trade secrets
+   of Horizon Robotics Inc. This is proprietary information owned by
+   Horizon Robotics Inc. No part of this work may be disclosed,
+   reproduced, copied, transmitted, or used in any way for any purpose,
+   without the express written permission of Horizon Robotics Inc.
+
+.. J5 HB Mapper Tools Guide documentation master file, created by
+   sphinx-quickstart on Fri Aug 20 16:57:52 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+J5 AI芯片工具链工具手册
+=============================================================
+
+本手册旨在说明地平线J5 AI芯片工具链所提供工具的使用方法。
+这些工具包括：
+
+- QAT量化感知训练方案的HAT算法包工具（开发机环境）；
+- PTQ浮点定点模型转换方案的 ``hb_mapper`` 工具（开发机环境）；
+- 嵌入式Runtime开发工具 ``hrt_model_exec`` 和 ``hrt_bin_dump`` （开发板环境）。
+  
+.. toctree::
+   :maxdepth: 2
+   :numbered:
+   :caption: Contents:
+
+   ptq_tools
+   runtime_tools
+.. qat_tools
+
+
+   

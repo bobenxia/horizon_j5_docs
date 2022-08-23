@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PTQ模型转换示例手册 &mdash; Horizon Model Convert Sample  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="1. 发布物介绍" href="general_description.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> Horizon Model Convert Sample
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本文档目录结构：</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="general_description.html">1. 发布物介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm_sample.html">2. 算法模型示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc_sample.html">3. 其他示例</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Horizon Model Convert Sample</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>PTQ模型转换示例手册</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ptq">
+<h1>PTQ模型转换示例手册<a class="headerlink" href="#ptq" title="永久链接至标题"></a></h1>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<ol class="arabic simple">
+<li><p>我们推荐您在使用本手册之前，先阅读《地平线J5 AI芯片工具链用户手册》的
+<a class="reference external" href="../horizon_ai_toolchain_user_guide/product_introduction.html">产品介绍</a> 和
+<a class="reference external" href="../horizon_ai_toolchain_user_guide/ptq_solution.html">PTQ浮点定点模型转换方案</a> 部分，
+以便对PTQ浮点定点模型转换方案（以下简称为 <strong>PTQ方案</strong>）有一个比较充分地了解。</p></li>
+<li><p>如果您在进行自定义模型转换时需要了解PTQ浮点定点模型转换方案工具的使用，
+请阅读： <a class="reference external" href="../j5_ai_toolchain_tool_guide/index.html">《J5工具说明手册》</a> 。</p></li>
+<li><p>在使用手册完成PTQ示例包的模型转换工作之后，请继续使用 <a class="reference external" href="../ai_benchmark/index.html">《AI_Benchmark手册》</a> 和
+<a class="reference external" href="../bpu_sdk_api_doc/index.html">《BPU_SDK_API_DOC》</a> 进行嵌入式开发工作，将模型部署上板。</p></li>
+</ol>
+</div>
+<p>PTQ示例包帮助开发者快速体验并上手PTQ浮点定点模型转换方案。
+开发者使用PTQ示例包不仅能够体验将32位浮点（FLOAT32）精度的示例模型转换为可以在地平线J5平台上运行的8位定点整数(INT8)精度的bin模型，
+还能够了解如何使用PTQ方案提供的工具，并且基于示例脚本设计自定义模型转换业务逻辑脚本。</p>
+<p>本手册旨在指导开发者使用地平线J5 AI芯片工具链的 <strong>PTQ模型转换示例包</strong> （以下简称为 <strong>PTQ示例包</strong>）。
+您可以在地平线J5天工开物发布物（即：horizon_j5_open_explorer）中获取PTQ示例包： <code class="docutils literal notranslate"><span class="pre">ddk/samples/ai_toolchain/horizon_model_convert_sample</span></code>。</p>
+<p>下一章内容将为您介绍PTQ示例包的发布物内容。</p>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">本文档目录结构：</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="general_description.html">1. 发布物介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="general_description.html#horizon-model-convert-sample">1.1. 模型量化示例包 <code class="docutils literal notranslate"><span class="pre">horizon_model_convert_sample</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="general_description.html#model-zoo">1.2. 模型发布物 <code class="docutils literal notranslate"><span class="pre">model_zoo</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm_sample.html">2. 算法模型示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="algorithm_sample.html#where-to-find">2.1. where to find</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm_sample.html#id2">2.2. 如何准备数据集</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm_sample.html#id3">2.3. 如何准备模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm_sample.html#id5">2.4. 算法模型示例的使用示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="algorithm_sample.html#id10">2.5. 常见问题</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="misc_sample.html">3. 其他示例</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="misc_sample.html#id2">3.1. 如何使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc_sample.html#id3">3.2. 杂项示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="misc_sample.html#op">3.3. 用户自定义OP示例</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="general_description.html" class="btn btn-neutral float-right" title="1. 发布物介绍" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

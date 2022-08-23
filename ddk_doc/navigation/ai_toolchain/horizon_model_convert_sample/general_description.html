@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. 发布物介绍 &mdash; Horizon Model Convert Sample  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="2. 算法模型示例" href="algorithm_sample.html" />
+    <link rel="prev" title="PTQ模型转换示例手册" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Horizon Model Convert Sample
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本文档目录结构：</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 发布物介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#horizon-model-convert-sample">1.1. 模型量化示例包 <code class="docutils literal notranslate"><span class="pre">horizon_model_convert_sample</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-zoo">1.2. 模型发布物 <code class="docutils literal notranslate"><span class="pre">model_zoo</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="algorithm_sample.html">2. 算法模型示例</a></li>
+<li class="toctree-l1"><a class="reference internal" href="misc_sample.html">3. 其他示例</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Horizon Model Convert Sample</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>发布物介绍</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>发布物介绍<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<section id="horizon-model-convert-sample">
+<h2><span class="section-number">1.1. </span>模型量化示例包 <code class="docutils literal notranslate"><span class="pre">horizon_model_convert_sample</span></code><a class="headerlink" href="#horizon-model-convert-sample" title="永久链接至标题"></a></h2>
+<p>模型转换示例包的目录结构如下所示:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>├── 01_common                              <span class="c1"># 此路径包含PTQ示例包通用脚本和数据</span>
+<span class="p">|</span>   ├── calibration_data
+<span class="p">|</span>   ├── data -&gt; /data/horizon_j5/data/     <span class="c1"># 用于放置公共数据集的软链接</span>
+<span class="p">|</span>   ├── model_zoo -&gt; ../../../model_zoo    <span class="c1"># 用于放置模型发布物的软链接</span>
+<span class="p">|</span>   ├── python
+<span class="p">|</span>   ├── README.md
+<span class="p">|</span>   ├── test_data
+<span class="p">|</span>   └── tools
+├── 02_preq_examples
+<span class="p">|</span>   ├── 01_fcos_efficientnetb0
+<span class="p">|</span>   ├── 02_fcos_efficientnetb2
+<span class="p">|</span>   ├── 03_fcos_efficientnetb3
+<span class="p">|</span>   ├── det_evaluate.py
+<span class="p">|</span>   ├── det_inference.py
+<span class="p">|</span>   ├── seg_evaluate.py
+<span class="p">|</span>   └── seg_inference.py
+├── 03_classification                      <span class="c1"># 算法模型示例</span>
+<span class="p">|</span>   ├── 01_mobilenet
+<span class="p">|</span>   ├── 02_googlenet
+<span class="p">|</span>   ├── 03_resnet18
+<span class="p">|</span>   ├── 05_efficientnet_lite0_onnx
+<span class="p">|</span>   ├── 06_efficientnet_lite1_onnx
+<span class="p">|</span>   ├── 07_efficientnet_lite2_onnx
+<span class="p">|</span>   ├── 08_efficientnet_lite3_onnx
+<span class="p">|</span>   ├── 09_efficientnet_lite4_onnx
+<span class="p">|</span>   ├── 10_vargconvnet
+<span class="p">|</span>   ├── 11_efficientnasnet_m
+<span class="p">|</span>   ├── 12_efficientnasnet_s
+<span class="p">|</span>   ├── cls_evaluate.py
+<span class="p">|</span>   └── cls_inference.py
+├── 04_detection
+<span class="p">|</span>   ├── 01_yolov2_darknet19
+<span class="p">|</span>   ├── 02_yolov3_darknet53
+<span class="p">|</span>   ├── 03_yolov5x
+<span class="p">|</span>   ├── 04_ssd_mobilenetv1
+<span class="p">|</span>   ├── 05_efficientdetd0
+<span class="p">|</span>   ├── 06_centernet_resnet101
+<span class="p">|</span>   ├── 07_fcos_efficientnetb0
+<span class="p">|</span>   ├── 08_yolov4
+<span class="p">|</span>   ├── 09_yolov3_vargdarknet
+<span class="p">|</span>   ├── 10_fcos_resnet50
+<span class="p">|</span>   ├── 11_fcos_resnext101
+<span class="p">|</span>   ├── det_evaluate.py
+<span class="p">|</span>   └── det_inference.py
+├── 05_miscellaneous
+<span class="p">|</span>   ├── 01_lenet_gray
+<span class="p">|</span>   ├── 02_resnet50_feature
+<span class="p">|</span>   ├── 03_vector_diff
+<span class="p">|</span>   ├── 07_model_verifier
+<span class="p">|</span>   ├── 08_model_info
+<span class="p">|</span>   ├── 09_mobilenet_bgr
+<span class="p">|</span>   ├── 11_mobilenet_yuv444
+<span class="p">|</span>   └── mis_inference.py
+├── 06_custom_op
+<span class="p">|</span>   └── mapper
+├── 07_segmentation
+<span class="p">|</span>   ├── 01_unet_mobilenet
+<span class="p">|</span>   ├── 02_deeplabv3plus_efficientnetb0
+<span class="p">|</span>   ├── 03_fastscnn_efficientnetb0
+<span class="p">|</span>   ├── 04_deeplabv3plus_dilation1248
+<span class="p">|</span>   ├── 05_deeplabv3plus_efficientnetm1
+<span class="p">|</span>   ├── 06_deeplabv3plus_efficientnetm2
+<span class="p">|</span>   ├── seg_evaluate.py
+<span class="p">|</span>   └── seg_inference.py
+├── data_preprocess.py
+└── version.txt
+</pre></div>
+</div>
+<p>示例包中包含的主要内容：</p>
+<p id="algo-sample-doc-ref"><a class="reference internal" href="algorithm_sample.html"><span class="doc">算法模型示例</span></a></p>
+<p>算法模型示例的主要目标是指导用户：</p>
+<ul class="simple">
+<li><p>快速体验模型转换的流程</p></li>
+<li><p>快速评测模型转换的精度</p></li>
+<li><p>体验转换的效果</p></li>
+</ul>
+<p><a class="reference internal" href="misc_sample.html"><span class="doc">杂项示例</span></a></p>
+<blockquote>
+<div><p>miscellaneous，杂项示例，指导用户使用地平线芯片工具链提供的一些其他内容。
+比如：如何使用地平线模型转换工具，使rgb数据训练的模型能在runtime运行时接受yuv数据。</p>
+<p><cite>03_vector_diff</cite> 指导用户如何使用 <code class="docutils literal notranslate"><span class="pre">vec_diff</span></code> 工具来定位问题的一个示例。</p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>这部分示例会不定期更新，为用户常见的问题提供示例解答。</p>
+</div>
+</section>
+<section id="model-zoo">
+<h2><span class="section-number">1.2. </span>模型发布物 <code class="docutils literal notranslate"><span class="pre">model_zoo</span></code><a class="headerlink" href="#model-zoo" title="永久链接至标题"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">model_zoo</span></code> 包含两个路径： <code class="docutils literal notranslate"><span class="pre">mapper</span></code> 和 <code class="docutils literal notranslate"><span class="pre">runtime</span></code>。
+其中 <code class="docutils literal notranslate"><span class="pre">mapper</span></code> 路径下包含了PTQ和QAT方案进行模型转换时要使用的模型（ONNX或Caffe格式的浮点模型），
+其中fcos_efficientnetb0、fcos_efficientnetb2和fcos_efficientnetb3为QAT模型，其余为PTQ模型；
+<code class="docutils literal notranslate"><span class="pre">runtime</span></code> 路径下包含了嵌入式运行时开发要使用的bin模型。</p>
+<p>以下仅展示PTQ和QAT示例要使用的模型发布物：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>├── classification
+│   ├── efficientnasnet
+│   │   ├── efficientnasnet-m.onnx
+│   │   ├── efficientnasnet.onnx
+│   │   └── efficientnasnet-s.onnx
+│   ├── efficientnet_lite_onnx
+│   │   ├── efficientnet_lite0_fp32.onnx
+│   │   ├── efficientnet_lite1_fp32.onnx
+│   │   ├── efficientnet_lite2_fp32.onnx
+│   │   ├── efficientnet_lite3_fp32.onnx
+│   │   └── efficientnet_lite4_fp32.onnx
+│   ├── googlenet
+│   │   └── googlenet.onnx
+│   ├── mobilenet
+│   │   ├── mobilenet.caffemodel
+│   │   ├── mobilenet_deploy.prototxt
+│   │   ├── mobilenet_v2.caffemodel
+│   │   └── mobilenet_v2_deploy.prototxt
+│   ├── mobilenet_onnx
+│   │   └── mobilenetv2.onnx
+│   ├── resnet18
+│   │   ├── resnet18.caffemodel
+│   │   └── resnet18_deploy.prototxt
+│   ├── resnet50
+│   │   ├── resnet_50.caffemodel
+│   │   └── resnet_50_deploy.prototxt
+│   ├── se_resnet_gray_onnx
+│   │   └── se_resnet_gray.onnx
+│   └── vargnet
+│       └── vargconvnet.onnx
+├── custom_op
+│   ├── googlenet_cop.onnx
+│   ├── resnet_50.caffemodel
+│   └── resnet_50_deploy_cpu.prototxt
+├── detection
+│   ├── centernet
+│   │   ├── centernet_resnet101_coco.onnx
+│   │   └── centernet_resnet50.onnx
+│   ├── efficientdetd0
+│   │   └── efficientdet_nhwc.onnx
+│   ├── fcos_efficientnetb0
+│   │   ├── fcos_effb0.onnx
+│   │   └── fcos.onnx
+│   ├── fcos_efficientnetb3
+│   │   └── fcos_effb3.onnx
+│   ├── fcos_resnet50
+│   │   └── fcos_resnet50.onnx
+│   ├── fcos_resnext101
+│   │   └── fcos_resnext101.onnx
+│   ├── ssd_mobilenetv1
+│   │   ├── mobilenet_iter_73000.caffemodel
+│   │   └── MobileNetSSD_deploy.prototxt
+│   ├── yolov2_darknet19
+│   │   ├── README.md
+│   │   ├── yolov2.caffemodel
+│   │   └── yolov2_transposed.prototxt
+│   ├── yolov3_darknet53
+│   │   ├── README.md
+│   │   ├── yolov3.caffemodel
+│   │   └── yolov3_transposed.prototxt
+│   ├── yolov3_vargdarknet
+│   │   └── yolov3_vargdarknet53.onnx
+│   ├── yolov4
+│   │   └── yolov4_efficientnetb0.onnx
+│   └── yolov5_onnx_optimized
+│       ├── YOLOv5l.onnx
+│       ├── YOLOv5m.onnx
+│       ├── YOLOv5s.onnx
+│       └── YOLOv5x.onnx
+├── other
+│   ├── fcos_efficientnetb0
+│   │   └── fcos_efficientnetb0_qat.onnx
+│   ├── lenet
+│   │   ├── lenet_iter_100000.caffemodel
+│   │   └── lenet_train_test.prototxt
+│   ├── mobilenetv2_three_inputs
+│   │   ├── mobilenetv2_three_inputs.caffemodel
+│   │   └── mobilenetv2_three_inputs.prototxt
+│   ├── multi_type
+│   │   └── original_float_model.onnx
+│   ├── resizer_model
+│   │   └── resizer_model.onnx
+│   └── resnet50_feature
+│       ├── resnet50_feature.caffemodel
+│       ├── resnet50_feature_deploy.prototxt
+│       ├── resnet50_pre.caffemodel
+│       └── resnet50_pre.prototxt
+├── preq_examples
+│   └── fcos_efficientnet
+│       ├── fcos_effb0_qat.onnx
+│       ├── fcos_effb2_qat.onnx
+│       └── fcos_effb3_qat.onnx
+└── segmentation
+    ├── deeplabv3plus_efficientnetb0
+    │   ├── deeplabv3_cityscapes_dila1248_permute.onnx
+    │   └── deeplabv3plus_efficientnetb0.onnx
+    ├── deeplabv3plus_efficientnetm
+    │   ├── deeplabv3plus_efficientnetm1.onnx
+    │   └── deeplabv3plus_efficientnetm2.onnx
+    ├── fastscnn_efficientnetb0
+    │   └── fastscnn_efficientnetb0.onnx
+    ├── mobilenet_unet
+    │   └── tf_unet_trained.onnx
+    └── unet_mobilenet
+        └── tf_unet_trained.onnx
+</pre></div>
+</div>
+<p>下一小节内容将为您介绍算法模型示例相关的内容。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="PTQ模型转换示例手册" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="algorithm_sample.html" class="btn btn-neutral float-right" title="2. 算法模型示例" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

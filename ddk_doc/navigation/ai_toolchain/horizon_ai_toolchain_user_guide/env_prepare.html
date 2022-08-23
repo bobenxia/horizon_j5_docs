@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2. 环境部署 &mdash; Horizon J5 AI Toolchain User Guide  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="3. PTQ浮点定点模型转换方案" href="ptq_solution.html" />
+    <link rel="prev" title="1. 产品介绍" href="product_introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Horizon J5 AI Toolchain User Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本手册目录结构:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="product_introduction.html">1. 产品介绍</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. 环境部署</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dev-machine">2.1. 开发机部署</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2.1.1. 开发机准备</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker">2.1.2. 使用Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2.1.3. 手工安装环境</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">2.2. 开发板部署</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dev-board">2.2.1. 开发板准备</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2.2.2. 补充文件准备</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution.html">3. PTQ浮点定点模型转换方案</a></li>
+<li class="toctree-l1"><a class="reference internal" href="application_development.html">4. runtime应用开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">5. DSP开发文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Horizon J5 AI Toolchain User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">2. </span>环境部署</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">2. </span>环境部署<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>本节介绍使用工具链的必要环境准备工作，包含 <a class="reference internal" href="#dev-machine"><span class="std std-ref">开发机部署</span></a> 和 <a class="reference internal" href="#dev-board"><span class="std std-ref">开发板部署</span></a> 两个部分。</p>
+<section id="dev-machine">
+<span id="id2"></span><h2><span class="section-number">2.1. </span>开发机部署<a class="headerlink" href="#dev-machine" title="永久链接至标题"></a></h2>
+<p>对于开发机的环境部署，地平线支持使用Docker和手工安装两种方式，您只需要选择其中一种即可。</p>
+<div class="admonition hint">
+<p class="admonition-title">提示</p>
+<p>地平线强烈建议您使用Docker方式，以避免在安装过程中出现问题。</p>
+</div>
+<section id="id3">
+<h3><span class="section-number">2.1.1. </span>开发机准备<a class="headerlink" href="#id3" title="永久链接至标题"></a></h3>
+<p>为了顺利地使用工具链，地平线建议您选择的开发机应满足以下要求：</p>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 28%" />
+<col style="width: 72%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>硬件/操作系统</p></th>
+<th class="head"><p>要求</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>CPU I3以上或者同级别E3/E5的处理器</p></td>
+</tr>
+<tr class="row-odd"><td><p>内存</p></td>
+<td><p>16G或以上级别</p></td>
+</tr>
+<tr class="row-even"><td><p>GPU</p></td>
+<td><p>CUDA11、驱动版本Linux:&gt;= 450.80.02*</p>
+<p>适配显卡包括但不限于：</p>
+<p>1)GeForce RTX 3090</p>
+<p>2)GeForce RTX 2080 Ti</p>
+<p>3)NVIDIA TITAN V</p>
+<p>4)Tesla V100S-PCIE-32GB</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>系统</p></td>
+<td><p>CentOS 7、Ubuntu 18.04</p></td>
+</tr>
+</tbody>
+</table>
+<p>更多关于CUDA与显卡的兼容性问题请参考 <a class="reference external" href="https://docs.nvidia.com/deploy/cuda-compatibility/">NVIDIA官网信息</a> 。</p>
+<p>此外，嵌入式开发需要安装交叉编译工具，请从 /ddk/tools 目录下获取：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ddk/tools
+├── gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu.tar.xz
+</pre></div>
+</div>
+<p>并将其解压到开发机的 <cite>/opt</cite> 目录下。</p>
+<p>另外您需要在环境中新增一个变量 <code class="docutils literal notranslate"><span class="pre">LINARO_GCC_ROOT</span></code>，值为交叉编译器的完整路径，参考如下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">LINARO_GCC_ROOT</span><span class="o">=</span>/opt/gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>环境变量 <code class="docutils literal notranslate"><span class="pre">LINARO_GCC_ROOT</span></code> 的设置路径需要与交叉编译工具解压的目录相同，否则会导致失败。</p>
+</div>
+<p>对于host端（x86）依赖的库，比如isl,gmp,mpc,mpfr等，在lib/x86_64-linux-gnu下，如果编译报错，
+请在编译工程中通过LD_LIBRARY_PATH来指定。</p>
+<p>如果编译过程中出现glibc库版本冲突的问题，例如：xxx&#64;GLIBC_xxx的未定义符号的错误，
+请在编译工程中通过-rpath-link来指定到工具链的aarch64-linux-gnu/lib路径下, 同时在编译工程中加上-lxxx, 例如：-lpthread。</p>
+<p>另外需要特别注意的是下图框起来的记录源文件的变量SRCS，最好放在${LIBS}链接库的前面，不然也会报未定义的符号。</p>
+<blockquote>
+<div><img alt="_images/gcc_SRCS.png" class="align-center" src="_images/gcc_SRCS.png" />
+</div></blockquote>
+</section>
+<section id="docker">
+<h3><span class="section-number">2.1.2. </span>使用Docker<a class="headerlink" href="#docker" title="永久链接至标题"></a></h3>
+<p>为了帮助您快速使用工具链提供的模型处理方案，地平线提供了包含完整开发环境的Docker镜像，大大简化了环境部署过程。</p>
+<p>在阅读此部分内容前，我们希望您的开发机中已经预装好了Docker的基础环境。
+地平线要求的Docker基础环境信息如下：</p>
+<ul class="simple">
+<li><p>Docker（&gt;=1.12 建议安装18.03.0-ce）, 安装手册 <a class="reference external" href="https://docs.docker.com/install/">https://docs.docker.com/install/</a>。</p></li>
+<li><p>NVIDIA Docker（2.0.3），安装手册 <a class="reference external" href="https://github.com/nvidia/nvidia-docker/wiki">NVIDIA/nvidia-docker</a>。</p></li>
+</ul>
+<p>完成Docker环境安装后，需要将无root权限的用户添加到Docker用户组中。参考如下命令：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo groupadd docker
+sudo gpasswd -a <span class="si">${</span><span class="nv">USER</span><span class="si">}</span> docker
+sudo systemctl restart docker  <span class="c1"># Ubuntu</span>
+<span class="c1"># re-login</span>
+</pre></div>
+</div>
+<p>请从 <a class="reference external" href="https://hub.docker.com/r/openexplorer/ai_toolchain_centos_7_j5/tags">地平线天工开物cpu docker hub</a>
+获取最新的Docker镜像。
+镜像文件命名形式为 <code class="docutils literal notranslate"><span class="pre">openexplorer/ai_toolchain_centos_7_j5:{version}</span></code>。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>执行命令时将 <code class="docutils literal notranslate"><span class="pre">{version}</span></code> 替换为您获取到的版本号。</p>
+</div>
+<p>每个镜像文件在第一次使用前，需要拉取镜像，命令如下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull openexplorer/ai_toolchain_centos_7_j5:<span class="o">{</span>version<span class="o">}</span>
+</pre></div>
+</div>
+<p>下载天工开物发布包（下称OE包，OE即OpenExplorer的缩写）和评测数据集：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 下载OE包</span>
+wget ftp://vrftp.horizon.ai/Open_Explorer/<span class="o">{</span>version<span class="o">}</span>/horizon_j5_open_explorer_<span class="o">{</span>version<span class="o">}</span>_<span class="o">{</span>date<span class="o">}</span>.tar.gz
+<span class="c1"># 下载评测数据集，此处以cifar-10数据集为例</span>
+wget ftp://vrftp.horizon.ai/Open_Explorer/eval_dataset/cifar-10.tar.gz
+<span class="c1"># 解压OE包和评测数据集</span>
+tar -vxf horizon_j5_open_explorer_<span class="o">{</span>version<span class="o">}</span>_<span class="o">{</span>date<span class="o">}</span>.tar.gz
+tar -vxf cifar-10.tar.gz
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ol class="arabic simple">
+<li><p>执行上述命令时，请将 <code class="docutils literal notranslate"><span class="pre">{version}</span></code> 和 <code class="docutils literal notranslate"><span class="pre">{date}</span></code> 替换为最新的版本，详情咨询地平线技术团队。</p></li>
+<li><p>评测数据集地址为： <code class="docutils literal notranslate"><span class="pre">vrftp.horizon.ai/Open_Explorer/eval_dataset</span></code>。目前包含以下数据集：</p></li>
+</ol>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/Open_Explorer/eval_dataset
+├── VOC.tar.gz
+├── imagenet.tar.gz
+├── coco.tar.gz
+├── cityscapes.tar.gz
+└── cifar-10.tar.gz
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 将目录切换至解压后的OE包</span>
+<span class="nb">cd</span> horizon_j5_open_explorer_<span class="o">{</span>version<span class="o">}</span>_<span class="o">{</span>date<span class="o">}</span>
+<span class="c1"># 创建data路径，并将上面解压缩后的评测数据集（此处仍以cifar-10为例）放到data路径下</span>
+mkdir data
+mv cifar-10/ data
+<span class="c1"># 运行该路径下的run_docker.sh脚本，并显式挂载解压后的cifar-10数据集</span>
+sh run_docker.sh data
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span></code> 为数据集文件目录，如果该目录不存在会导致加载问题，需要创建好后再运行命令。</p>
+</div>
+<p>至此，您就已经成功通过Docker镜像进入了完整的工具链开发环境。
+您可以键入 <code class="docutils literal notranslate"><span class="pre">hb_mapper</span></code> 命令验证下是否可以正常得到帮助信息，<code class="docutils literal notranslate"><span class="pre">hb_mapper</span></code> 是工具链的一个常用工具，
+在后文的模型转换部分对其有详细介绍。</p>
+</section>
+<section id="id4">
+<h3><span class="section-number">2.1.3. </span>手工安装环境<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
+<p>在执行手动安装前，我们希望您的操作环境满足如下软件环境要求：</p>
+<ul class="simple">
+<li><p>操作系统: CentOS7 或者 Ubuntu18.04</p></li>
+<li><p>Python3.6</p></li>
+<li><p>libpython3.6</p></li>
+<li><p>python3-devel</p></li>
+<li><p>python3-pip</p></li>
+<li><p>gcc&amp;c++: 5.4.0</p></li>
+<li><p>graphviz</p></li>
+</ul>
+<p><span class="red">确认满足以上条件后</span>，手工安装过程需要您完成 <strong>AI工具安装</strong> 。</p>
+<ol class="arabic simple">
+<li><p><strong>AI工具安装</strong></p></li>
+</ol>
+<blockquote>
+<div><p>AI工具安装涉及到系列内部工具安装，OE包中已经将安装过程打包为一个安装脚本。
+在发布包中进入到 <cite>ddk/package/host</cite>，执行以下命令启动安装：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash install_ai_toolchain.sh
+</pre></div>
+</div>
+<p>安装脚本会自动检查相应的环境，缺少相应依赖或配置会中断安装过程，并给出修正建议如下图。</p>
+<img alt="_images/ai_tool_installation.png" class="align-center" src="_images/ai_tool_installation.png" />
+<p>根据建议补充依赖后，重新执行install脚本即可。</p>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>如果修正建议指出是gcc/g++版本不符合要求，在安装完指定版本之后，您需要重新建立gcc和g++软链接为gcc-5.4.0和g++-5.4.0。</p>
+</div>
+<p>在顺利完成install脚本后，您可以键入 <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">show</span> <span class="pre">horizon_nn</span></code> and <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">show</span> <span class="pre">horizon_tc_ui</span></code> 命令验证下模型转换工具是否被正确安装。</p>
+</div></blockquote>
+</section>
+</section>
+<section id="id5">
+<h2><span class="section-number">2.2. </span>开发板部署<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>开发板部署需要您先准备好一块烧写好系统镜像的开发板，再将相关补充文件拷贝到开发板中即可。</p>
+<section id="dev-board">
+<span id="id6"></span><h3><span class="section-number">2.2.1. </span>开发板准备<a class="headerlink" href="#dev-board" title="永久链接至标题"></a></h3>
+<p>此阶段需要验证下开发板的可用性，将可用系统镜像烧写到开发板中。
+具体过程请参考 <a class="reference external" href="../../../../common_doc_cn/j5_dev_board_system_image.html">《地平线J5芯片开发手册》</a>。</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">2.2.2. </span>补充文件准备<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<p>工具链的部分补充工具未包含在系统镜像中，这些工具已经放置在OE包中，
+进入到 <cite>ddk/package/board</cite> 执行install脚本即可。
+执行命令如下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash install.sh <span class="si">${</span><span class="nv">board_ip</span><span class="si">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>其中，<code class="docutils literal notranslate"><span class="pre">${board_ip}</span></code> 是您为开发板设置的IP地址，请确保在开发机上可以访问该IP。
+成功安装后，重新启动开发板，在开发板上执行 <code class="docutils literal notranslate"><span class="pre">hrt_model_exec</span> <span class="pre">--help</span></code> 可以验证安装是否成功。</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="product_introduction.html" class="btn btn-neutral float-left" title="1. 产品介绍" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="ptq_solution.html" class="btn btn-neutral float-right" title="3. PTQ浮点定点模型转换方案" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

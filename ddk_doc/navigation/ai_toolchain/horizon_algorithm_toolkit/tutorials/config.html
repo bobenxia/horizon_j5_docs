@@ -1,0 +1,332 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>config 文件介绍 &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="通过命令行覆盖config参数" href="opts.html" />
+    <link rel="prev" title="注册机制" href="registry.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="registry.html">注册机制</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">config 文件介绍</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id1">全局关键字</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">如何配置</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/data.html">hat.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>config 文件介绍</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/tutorials/config.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="config">
+<h1>config 文件介绍<a class="headerlink" href="#config" title="Permalink to this headline">¶</a></h1>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">HAT</span></code> 算法包训练模型通常只需使用一条命令就可以了，即：<code class="docutils literal notranslate"><span class="pre">python3</span> <span class="pre">tools/train.py</span> <span class="pre">--step</span> <span class="pre">TRAINING_STEPS</span> <span class="pre">--config</span> <span class="pre">/PATH/TO/CONFIG</span></code>，其中 <code class="docutils literal notranslate"><span class="pre">/PATH/TO/CONFIG</span></code>
+就是模型训练对应的 <code class="docutils literal notranslate"><span class="pre">config</span></code> 文件，它负责定义了模型结构、数据集加载、以及整套的训练流程。<br />
+这篇教程通过介绍 <code class="docutils literal notranslate"><span class="pre">config</span></code> 文件中一些固定的全局的关键字，以及它们是如何配置的，让用户对 <code class="docutils literal notranslate"><span class="pre">config</span></code> 文件的内容以及作用有个大致的了解。</p>
+<div class="section" id="id1">
+<h2>全局关键字<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">training_step</span></code>: 模型训练的各个阶段，包括 <code class="docutils literal notranslate"><span class="pre">float</span></code>。</p>
+<p><code class="docutils literal notranslate"><span class="pre">device_ids</span></code>: 模型训练使用的 <code class="docutils literal notranslate"><span class="pre">gpu</span></code> 列表。</p>
+<p><code class="docutils literal notranslate"><span class="pre">cudnn_benchmark</span></code>: 是否打开cudnn benchmark。通常默认为 <code class="docutils literal notranslate"><span class="pre">True</span></code> 。</p>
+<p><code class="docutils literal notranslate"><span class="pre">seed</span></code>: 是否设置随机数种子。通常默认为 <code class="docutils literal notranslate"><span class="pre">None</span></code> 。</p>
+<p><code class="docutils literal notranslate"><span class="pre">log_rank_zero_only</span></code>: 简化多卡训练时的日志打印，只在第0卡上输出日志。通常默认为 <code class="docutils literal notranslate"><span class="pre">True</span></code> 。</p>
+<p><code class="docutils literal notranslate"><span class="pre">model</span></code>: 参与 <code class="docutils literal notranslate"><span class="pre">training</span></code> 过程中的模型结构。<code class="docutils literal notranslate"><span class="pre">type</span></code> 表示模型的类型，如 <code class="docutils literal notranslate"><span class="pre">Classifier</span></code>、<code class="docutils literal notranslate"><span class="pre">Segmentor</span></code>、<code class="docutils literal notranslate"><span class="pre">RetinaNet</span></code>等等，分别对应分类、分割、检测中的某一类模型。它会在使用过程中被 <code class="docutils literal notranslate"><span class="pre">build</span></code> 成具体的类，余下的参数都是用于初始化这个类。</p>
+<p><code class="docutils literal notranslate"><span class="pre">test_model</span></code>: 参与 <code class="docutils literal notranslate"><span class="pre">test</span></code> 过程的模型结构，主要用于模型编译。和 <code class="docutils literal notranslate"><span class="pre">model</span></code> 相比，大多数情况下只需要把损失函数以及后处理部分设置为 <code class="docutils literal notranslate"><span class="pre">None</span></code> 即可。</p>
+<p><code class="docutils literal notranslate"><span class="pre">test_inputs</span></code>: <code class="docutils literal notranslate"><span class="pre">test</span></code> 过程的模拟输入。不用关心具体的数值，只要保证格式满足输入要求即可。</p>
+<p><code class="docutils literal notranslate"><span class="pre">data_loader</span></code>: 训练阶段的数据集加载流程。它的 <code class="docutils literal notranslate"><span class="pre">type</span></code> 是一个具体的类 <code class="docutils literal notranslate"><span class="pre">torch.utils.data.DataLoader</span></code> ，余下的参数都是用于初始化这个类。相关参数的含义也可以参考 <code class="docutils literal notranslate"><span class="pre">pytorch</span></code> 官网提供的接口文档。这里 <code class="docutils literal notranslate"><span class="pre">dataset</span></code> 表示读取某个具体的数据集，例如<code class="docutils literal notranslate"><span class="pre">ImageNet</span></code>、<code class="docutils literal notranslate"><span class="pre">MSCOCO</span></code>、<code class="docutils literal notranslate"><span class="pre">VOC</span></code>等等，它的 <code class="docutils literal notranslate"><span class="pre">transforms</span></code> 表示在数据读取过程中添加的数据增强操作。</p>
+<p><code class="docutils literal notranslate"><span class="pre">val_data_loader</span></code>: 验证模型性能阶段的数据集加载流程。和 <code class="docutils literal notranslate"><span class="pre">data_loader</span></code> 不同的地方在于 <code class="docutils literal notranslate"><span class="pre">data_path</span></code> 不同，以及去掉了 <code class="docutils literal notranslate"><span class="pre">transforms</span></code> 的过程和 <code class="docutils literal notranslate"><span class="pre">sample</span></code> 的过程。</p>
+<p><code class="docutils literal notranslate"><span class="pre">batch_processor</span></code>: 模型在训练过程中每个迭代 <code class="docutils literal notranslate"><span class="pre">step</span></code> 进行的操作，包括前向计算、梯度回传、参数更新等等。如果包含 <code class="docutils literal notranslate"><span class="pre">batch_transforms</span></code> 参数，表示一些数据增强的操作是在 <code class="docutils literal notranslate"><span class="pre">gpu</span></code> 上进行的，这可以大大加快训练速度。</p>
+<p><code class="docutils literal notranslate"><span class="pre">val_batch_processor</span></code>: 模型在验证过程中每个迭代 <code class="docutils literal notranslate"><span class="pre">step</span></code> 进行的操作，只包含前向计算。</p>
+<p><code class="docutils literal notranslate"><span class="pre">metric_updater</span></code>: 模型训练过程中更新指标的方法，这个指标是用来验证训练的模型性能是否在提升。它通常是和 <code class="docutils literal notranslate"><span class="pre">float_trainer</span></code> 下面的 <code class="docutils literal notranslate"><span class="pre">train_metrics</span></code> 配合着使用。<code class="docutils literal notranslate"><span class="pre">train_metrics</span></code> 是具体的指标形式，<code class="docutils literal notranslate"><span class="pre">metric_updater</span></code> 只是提供一种更新方法。</p>
+<p><code class="docutils literal notranslate"><span class="pre">val_metric_updater</span></code>: 训练出来的模型在验证性能的过程中更新指标的方法，这个指标用来验证最终训练出来的模型性能到底如何。它通常是和 <code class="docutils literal notranslate"><span class="pre">float_trainer</span></code> 下面的 <code class="docutils literal notranslate"><span class="pre">val_metrics</span></code> 配合着使用，和 <code class="docutils literal notranslate"><span class="pre">metric_updater</span></code> 同理。</p>
+<p><code class="docutils literal notranslate"><span class="pre">float_trainer</span></code>: 浮点模型训练流程的配置。<code class="docutils literal notranslate"><span class="pre">type</span></code> 类型为 <code class="docutils literal notranslate"><span class="pre">distributed_data_parallel_trainer</span></code> 表示支持分布式训练，其余的参数分别定义了模型、数据集加载、优化器、训练 <code class="docutils literal notranslate"><span class="pre">epoch</span></code> 长度等等。其中 <code class="docutils literal notranslate"><span class="pre">callbacks</span></code> 表示训练过程中进行的一系列操作，比如模型保存、学习率更新、精度验证等等。</p>
+<p><code class="docutils literal notranslate"><span class="pre">float_solver</span></code>: 直接被 <code class="docutils literal notranslate"><span class="pre">tools/train.py</span></code> 文件调用的变量，核心主要是 <code class="docutils literal notranslate"><span class="pre">float_trainer</span></code> 。</p>
+<p>之所以称这些变量为全局关键字，是因为几乎每个 <code class="docutils literal notranslate"><span class="pre">config</span></code> 文件中都定义了以上这些变量，且对应的功能基本一致。因此通过对这篇文档的学习，用户可以大致理解任意一个 <code class="docutils literal notranslate"><span class="pre">config</span></code> 文件实现的功能。</p>
+</div>
+<div class="section" id="id2">
+<h2>如何配置<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>这里主要介绍数据类型为 <code class="docutils literal notranslate"><span class="pre">dict</span></code> 的全局关键字的配置。</p>
+<p>数据类型为 <code class="docutils literal notranslate"><span class="pre">dict</span></code> 的全局关键字可以为两种，包含 <code class="docutils literal notranslate"><span class="pre">type</span></code>的，例如 <code class="docutils literal notranslate"><span class="pre">model</span></code>、 <code class="docutils literal notranslate"><span class="pre">data_loader</span></code>、 <code class="docutils literal notranslate"><span class="pre">float_trainer</span></code>等，和不包含 <code class="docutils literal notranslate"><span class="pre">type</span></code>的，例如
+<code class="docutils literal notranslate"><span class="pre">float_solver</span></code>、<code class="docutils literal notranslate"><span class="pre">step2solver</span></code>等。</p>
+<p>它们的区别在于包含 <code class="docutils literal notranslate"><span class="pre">type</span></code> 的全局关键字本质可以看作是一个 <code class="docutils literal notranslate"><span class="pre">class</span></code>，它的 <code class="docutils literal notranslate"><span class="pre">type</span></code> 值可以是一个 <code class="docutils literal notranslate"><span class="pre">string</span></code> 变量，也可以是一个具体的
+<code class="docutils literal notranslate"><span class="pre">class</span></code>，如果是 <code class="docutils literal notranslate"><span class="pre">string</span></code>， 在程序运行中同样会被 <code class="docutils literal notranslate"><span class="pre">build</span></code> 成一个相应的 <code class="docutils literal notranslate"><span class="pre">class</span></code>。这个 <code class="docutils literal notranslate"><span class="pre">dict</span></code> 中除掉 <code class="docutils literal notranslate"><span class="pre">type</span></code> 之外的其它 <code class="docutils literal notranslate"><span class="pre">keys</span></code> 的值都用于初始化这个 <code class="docutils literal notranslate"><span class="pre">class</span></code>。和全局关键字属性类似，这些
+<code class="docutils literal notranslate"><span class="pre">keys</span></code> 的值可以是一个数值，也可以是一个包含 <code class="docutils literal notranslate"><span class="pre">type</span></code> 变量的 <code class="docutils literal notranslate"><span class="pre">dict</span></code>，例如 <code class="docutils literal notranslate"><span class="pre">data_loader</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">dataset</span></code> 属性，以及这个 <code class="docutils literal notranslate"><span class="pre">dataset</span></code> 下面的 <code class="docutils literal notranslate"><span class="pre">transforms</span></code> 属性。</p>
+<p>对于没有 <code class="docutils literal notranslate"><span class="pre">type</span></code> 变量的全局关键字来说，它就是一个普通类型的 <code class="docutils literal notranslate"><span class="pre">dict</span></code> 变量，代码在运行过程中会通过其 <code class="docutils literal notranslate"><span class="pre">keys</span></code> 获取对应的 <code class="docutils literal notranslate"><span class="pre">values</span></code>。</p>
+<p>.. note::</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  所有已经提供的config配置，可以保证正常运行和复现精度。如果因为环境配置和训练时间等原因，需要修改配置的话，那么相对的训练策略可能也需要更改。直接修改config中的个别配置有时候并不能得到想要的结果。
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="opts.html" class="btn btn-neutral float-right" title="通过命令行覆盖config参数" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="registry.html" class="btn btn-neutral float-left" title="注册机制" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

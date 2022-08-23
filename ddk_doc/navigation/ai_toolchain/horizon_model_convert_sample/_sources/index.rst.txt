@@ -1,0 +1,34 @@
+PTQ模型转换示例手册
+======================================================
+
+.. tip::
+
+  1. 我们推荐您在使用本手册之前，先阅读《地平线J5 AI芯片工具链用户手册》的
+     `产品介绍 <../horizon_ai_toolchain_user_guide/product_introduction.html>`_ 和 
+     `PTQ浮点定点模型转换方案 <../horizon_ai_toolchain_user_guide/ptq_solution.html>`_ 部分，
+     以便对PTQ浮点定点模型转换方案（以下简称为 **PTQ方案**）有一个比较充分地了解。
+
+  2. 如果您在进行自定义模型转换时需要了解PTQ浮点定点模型转换方案工具的使用，
+     请阅读： `《J5工具说明手册》 <../j5_ai_toolchain_tool_guide/index.html>`_ 。
+
+  3. 在使用手册完成PTQ示例包的模型转换工作之后，请继续使用 `《AI_Benchmark手册》 <../ai_benchmark/index.html>`_ 和 
+     `《BPU_SDK_API_DOC》 <../bpu_sdk_api_doc/index.html>`_ 进行嵌入式开发工作，将模型部署上板。
+
+PTQ示例包帮助开发者快速体验并上手PTQ浮点定点模型转换方案。
+开发者使用PTQ示例包不仅能够体验将32位浮点（FLOAT32）精度的示例模型转换为可以在地平线J5平台上运行的8位定点整数(INT8)精度的bin模型，
+还能够了解如何使用PTQ方案提供的工具，并且基于示例脚本设计自定义模型转换业务逻辑脚本。
+
+本手册旨在指导开发者使用地平线J5 AI芯片工具链的 **PTQ模型转换示例包** （以下简称为 **PTQ示例包**）。
+您可以在地平线J5天工开物发布物（即：horizon_j5_open_explorer）中获取PTQ示例包： ``ddk/samples/ai_toolchain/horizon_model_convert_sample``。
+
+下一章内容将为您介绍PTQ示例包的发布物内容。
+
+.. toctree::
+  :numbered:
+  :maxdepth: 2
+  :caption: 本文档目录结构：
+
+  general_description
+  algorithm_sample
+  misc_sample
+

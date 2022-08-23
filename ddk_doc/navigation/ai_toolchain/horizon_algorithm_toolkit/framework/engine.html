@@ -1,0 +1,299 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>执行引擎 &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="注册机制" href="../tutorials/registry.html" />
+    <link rel="prev" title="框架" href="framework.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="framework.html">框架</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">执行引擎</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#engine">Engine的执行流程</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Engine结构</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/registry.html">注册机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/data.html">hat.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/engine.html">hat.engine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference/visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>执行引擎</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/framework/engine.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="tex2jax_ignore mathjax_ignore section" id="id1">
+<h1>执行引擎<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>在上一小节框架的介绍中，可以发现所有的<code class="docutils literal notranslate"><span class="pre">Data</span></code>，<code class="docutils literal notranslate"><span class="pre">Model</span></code>，<code class="docutils literal notranslate"><span class="pre">Callback</span></code>等子模块构建完成之后，最终都会统一放到<code class="docutils literal notranslate"><span class="pre">Engine</span></code>中来完成执行。因此<code class="docutils literal notranslate"><span class="pre">Engine</span></code>是整个<code class="docutils literal notranslate"><span class="pre">HAT</span></code>的执行引擎，其重要性不言而喻。</p>
+<p>在<code class="docutils literal notranslate"><span class="pre">HAT</span></code>中，<code class="docutils literal notranslate"><span class="pre">Engine</span></code>定义了训练和预测的整个<code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>。对于任何一个深度学习的项目，对给定的模型完成训练和预测的任务是必须要完成的事情。因此本小节主要介绍<code class="docutils literal notranslate"><span class="pre">HAT</span></code>中的<code class="docutils literal notranslate"><span class="pre">Engine</span></code>模块是如何实现的。</p>
+<div class="section" id="engine">
+<h2>Engine的执行流程<a class="headerlink" href="#engine" title="Permalink to this headline">¶</a></h2>
+<p><img alt="Engine流程图" src="../_images/loop.png" /></p>
+<p>整个<code class="docutils literal notranslate"><span class="pre">HAT</span></code>的Engine中，最基础的<code class="docutils literal notranslate"><span class="pre">PipeBase</span></code>定义了所有的<code class="docutils literal notranslate"><span class="pre">Callbacks</span></code>可操作的运行阶段，而<code class="docutils literal notranslate"><span class="pre">LoopBase</span></code>定义了所有<code class="docutils literal notranslate"><span class="pre">Engine</span></code>的基础执行流程。如上图所示，整个<code class="docutils literal notranslate"><span class="pre">Engine</span></code>的执行流程也就是由丰富的<code class="docutils literal notranslate"><span class="pre">Callbacks</span></code>和与模型相关的<code class="docutils literal notranslate"><span class="pre">Processor</span></code>处理两部分组成。</p>
+<p>所有<code class="docutils literal notranslate"><span class="pre">Callbacks</span></code>可操作的运行阶段，总共可以分为<code class="docutils literal notranslate"><span class="pre">on_loop_begin</span></code>，<code class="docutils literal notranslate"><span class="pre">on_epoch_begin</span></code>，<code class="docutils literal notranslate"><span class="pre">on_step_begin</span></code>，<code class="docutils literal notranslate"><span class="pre">on_batch_begin</span></code>，<code class="docutils literal notranslate"><span class="pre">on_batch_end</span></code>，<code class="docutils literal notranslate"><span class="pre">on_step_end</span></code>，<code class="docutils literal notranslate"><span class="pre">on_epoch_end</span></code>，<code class="docutils literal notranslate"><span class="pre">on_loop_end</span></code>八个阶段。八个阶段的执行顺序如上图所示，用户可以根据自己的需要，在不同的阶段使用不同的<code class="docutils literal notranslate"><span class="pre">Callback</span></code>，当然同一个<code class="docutils literal notranslate"><span class="pre">Callback</span></code>也可以用在不同的阶段。比如常见的<code class="docutils literal notranslate"><span class="pre">LrUpdater</span></code>可以在<code class="docutils literal notranslate"><span class="pre">on_epoch_begin</span></code>和<code class="docutils literal notranslate"><span class="pre">on_step_begin</span></code>这两个阶段使用，其他部分<code class="docutils literal notranslate"><span class="pre">Callback</span></code>的作用范围亦可如图所示。</p>
+<p><code class="docutils literal notranslate"><span class="pre">BatchProcessor</span></code>则负责当前<code class="docutils literal notranslate"><span class="pre">Batch</span></code>中数据和模型的运行方式，包含模型常见的基本操作，如<code class="docutils literal notranslate"><span class="pre">forward</span></code>和<code class="docutils literal notranslate"><span class="pre">backward</span></code>等。除此之外，还有部分<code class="docutils literal notranslate"><span class="pre">grad</span></code>的更新操作也会被定义在这里。需要说明的是，在一些复杂的任务训练过程中，<code class="docutils literal notranslate"><span class="pre">BatchProcessor</span></code>也要求能做到更多轮次的迭代和更加丰富的<code class="docutils literal notranslate"><span class="pre">grad</span></code>操作。</p>
+</div>
+<div class="section" id="id2">
+<h2>Engine结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><img alt="Engine继承图" src="../_images/engine.png" /></p>
+<p>以<code class="docutils literal notranslate"><span class="pre">LoopBase</span></code>为基础，可以派生出丰富的执行引擎，如上图的<code class="docutils literal notranslate"><span class="pre">Engine</span></code>关系图所示。</p>
+<p>按照功能划分，<code class="docutils literal notranslate"><span class="pre">LoopBase</span></code>可以派生出以训练为主的<code class="docutils literal notranslate"><span class="pre">Trainer</span></code>和以预测为主的<code class="docutils literal notranslate"><span class="pre">Predictor</span></code>。<code class="docutils literal notranslate"><span class="pre">Trainer</span></code>负责所有和训练相关的流程，一般的深度学习相关的训练都需要用到。<code class="docutils literal notranslate"><span class="pre">Predictor</span></code>负责和预测相关的流程，常用的使用场景如<code class="docutils literal notranslate"><span class="pre">Validation</span></code>等。</p>
+<p>按照执行方式的不同，训练方式可以派生出不同的<code class="docutils literal notranslate"><span class="pre">Trainer</span></code>，如以<code class="docutils literal notranslate"><span class="pre">torch.nn.parallel.DistributedDataParallel</span></code>为基础的<code class="docutils literal notranslate"><span class="pre">DistibutedDataParallelTrainer</span></code>，以<code class="docutils literal notranslate"><span class="pre">torch.nn.DataParallel</span></code>为基础的<code class="docutils literal notranslate"><span class="pre">DataParallelTrainer</span></code>等等。不同的执行方式也需要不同的启动方式，具体可以参考不同<code class="docutils literal notranslate"><span class="pre">Trainer</span></code>中的<code class="docutils literal notranslate"><span class="pre">launcher</span></code>。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../tutorials/registry.html" class="btn btn-neutral float-right" title="注册机制" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="framework.html" class="btn btn-neutral float-left" title="框架" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

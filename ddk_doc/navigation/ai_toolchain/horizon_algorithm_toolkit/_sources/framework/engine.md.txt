@@ -1,0 +1,25 @@
+# 执行引擎
+
+在上一小节框架的介绍中，可以发现所有的`Data`，`Model`，`Callback`等子模块构建完成之后，最终都会统一放到`Engine`中来完成执行。因此`Engine`是整个`HAT`的执行引擎，其重要性不言而喻。
+
+在`HAT`中，`Engine`定义了训练和预测的整个`Pipeline`。对于任何一个深度学习的项目，对给定的模型完成训练和预测的任务是必须要完成的事情。因此本小节主要介绍`HAT`中的`Engine`模块是如何实现的。
+
+## Engine的执行流程
+
+![Engine流程图](../_static/loop.png)
+
+整个`HAT`的Engine中，最基础的`PipeBase`定义了所有的`Callbacks`可操作的运行阶段，而`LoopBase`定义了所有`Engine`的基础执行流程。如上图所示，整个`Engine`的执行流程也就是由丰富的`Callbacks`和与模型相关的`Processor`处理两部分组成。
+
+所有`Callbacks`可操作的运行阶段，总共可以分为`on_loop_begin`，`on_epoch_begin`，`on_step_begin`，`on_batch_begin`，`on_batch_end`，`on_step_end`，`on_epoch_end`，`on_loop_end`八个阶段。八个阶段的执行顺序如上图所示，用户可以根据自己的需要，在不同的阶段使用不同的`Callback`，当然同一个`Callback`也可以用在不同的阶段。比如常见的`LrUpdater`可以在`on_epoch_begin`和`on_step_begin`这两个阶段使用，其他部分`Callback`的作用范围亦可如图所示。
+
+`BatchProcessor`则负责当前`Batch`中数据和模型的运行方式，包含模型常见的基本操作，如`forward`和`backward`等。除此之外，还有部分`grad`的更新操作也会被定义在这里。需要说明的是，在一些复杂的任务训练过程中，`BatchProcessor`也要求能做到更多轮次的迭代和更加丰富的`grad`操作。
+
+## Engine结构
+
+![Engine继承图](../_static/engine.png)
+
+以`LoopBase`为基础，可以派生出丰富的执行引擎，如上图的`Engine`关系图所示。
+
+按照功能划分，`LoopBase`可以派生出以训练为主的`Trainer`和以预测为主的`Predictor`。`Trainer`负责所有和训练相关的流程，一般的深度学习相关的训练都需要用到。`Predictor`负责和预测相关的流程，常用的使用场景如`Validation`等。
+
+按照执行方式的不同，训练方式可以派生出不同的`Trainer`，如以`torch.nn.parallel.DistributedDataParallel`为基础的`DistibutedDataParallelTrainer`，以`torch.nn.DataParallel`为基础的`DataParallelTrainer`等等。不同的执行方式也需要不同的启动方式，具体可以参考不同`Trainer`中的`launcher`。

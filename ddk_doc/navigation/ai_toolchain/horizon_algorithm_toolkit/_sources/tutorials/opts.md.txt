@@ -1,0 +1,54 @@
+# 通过命令行覆盖config参数
+
+HAT 支持通过命令行修改config 参数，使用方式，在 --opts 后面加上 (key, value) 键值对即可：
+
+```bash
+python tools/train.py --step float --config configs/classification/resnet18.py --opts "key1" "value1" "key2" "value2"
+```
+
+其中，key 是要修改的参数名，value 为想要传入的值。
+
+例如配置文件 config.py:
+
+```python
+task_name = "resnet_cls"
+num_classes=1000
+devices = [0, 1, 2, 3]
+data_shape = (3, 224, 224)
+model = dict(
+    backbone="resnet18",
+    num_classes=num_classes,
+)
+```
+
+> 注: 本文档中的示例仅为说明使用 --opts 时的不同类型参数的正确书写格式， 示例 config 中的参数、字段配置等，可能与项目中实际 config 略有不同。
+
+* key 可以支持多级参数的修改，比如下面命令:
+    ```bash
+    python tools/train.py --step float --config config.py --opts model.backbone "'resnet50'"
+    ```
+
+    上面这条命令，可以把 config 中 `model.backbone` 字段的值修改成`"resnet50"`
+
+* Value 可以是数值、字符串(str)、列表(list)、元组(tuple)形式，但不支持 dict 形式。
+
+    比如下面命令可以把 config 中 model.num_classes 字段的值修改成10
+
+    ```bash
+    python tools/train.py --step float --config config.py --opts num_classes 10
+    ```
+
+    但是由于解析机制的原因，在要传入 value 是 tuple 或 list 形式时，需要对 tuple 或 list 加上引号，例如:
+    ```bash
+    python tools/train.py --step float --config config.py --opts data_shape (3, 112, 112)  # 这样会解析失败
+    python tools/train.py --step float --config config.py --opts data_shape "(3, 112, 112)" # 这样是正确的
+
+    ```
+
+    如果要传入的 value 是 str 形式的，需要额外加上引号,例如:
+    ```bash
+    python tools/train.py --step float --config config.py --opts model.backbone resnet18 # 这样会解析不正确
+    python tools/train.py --step float --config config.py --opts model.backbone "resnet18" # 这样会解析不正确
+    python tools/train.py --step float --config config.py --opts model.backbone "'resnet18'" # 这样是正确的
+    ```
+

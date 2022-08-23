@@ -1,0 +1,725 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>hat.engine &mdash; HAT 1.5.5 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+        <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+        <script >mermaid.initialize({startOnLoad:true});</script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="hat.models" href="models.html" />
+    <link rel="prev" title="hat.callbacks" href="callbacks.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> HAT
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction/introduction.html">简介</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Framework</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../framework/framework.html">框架</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../framework/engine.html">执行引擎</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/registry.html">注册机制</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/config.html">config 文件介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/opts.html">通过命令行覆盖config参数</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials/calops.html">计算量工具</a></li>
+</ul>
+<p class="caption"><span class="caption-text">ModelZoo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../model_zoo/model_zoo.html">ModelZoo</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="data.html">hat.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="callbacks.html">hat.callbacks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">hat.engine</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#engine">Engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#processors">processors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-hat.engine">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">hat.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">hat.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visualize.html">hat.visualize</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/scripts.html">执行脚本</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/classification.html">VargConvNet分类模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fcos.html">FCOS检测模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/deeplab.html">Deeplab分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/fastscnn.html">Fastscnn分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/unet.html">Unet分割模型训练</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/community_qat.html">社区QAT</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">HAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>hat.engine</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api_reference/engine.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hat-engine">
+<h1>hat.engine<a class="headerlink" href="#hat-engine" title="Permalink to this headline">¶</a></h1>
+<p>Engine of the main train loop in HAT.</p>
+<div class="section" id="engine">
+<h2>Engine<a class="headerlink" href="#engine" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">build_launcher</span></code></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.engine.LoopBase" title="hat.engine.LoopBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoopBase</span></code></a></p></td>
+<td><p>LoopBase controls the data flow from <cite>data_loader</cite> to <cite>model</cite>, including model forward, loss backward and parameters update.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.engine.Predictor" title="hat.engine.Predictor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Predictor</span></code></a></p></td>
+<td><p>Predictor is a tool for predict.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.engine.CalibratorComm" title="hat.engine.CalibratorComm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CalibratorComm</span></code></a></p></td>
+<td><p>Calibrator is a tool for calibration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.engine.Trainer" title="hat.engine.Trainer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Trainer</span></code></a></p></td>
+<td><p>Trainer is a tool for train, which include all pipeline for training.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.engine.DistributedDataParallelTrainer" title="hat.engine.DistributedDataParallelTrainer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DistributedDataParallelTrainer</span></code></a></p></td>
+<td><p>DistributedDataParallelTrainer tool.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.engine.DataParallelTrainer" title="hat.engine.DataParallelTrainer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataParallelTrainer</span></code></a></p></td>
+<td><p>DataParallelTrainer is a tool function to new a <cite>Trainer</cite> instance.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="processors">
+<h3>processors<a class="headerlink" href="#processors" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.engine.processors.BatchProcessorMixin" title="hat.engine.processors.BatchProcessorMixin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchProcessorMixin</span></code></a></p></td>
+<td><p>Batch Processor Interface.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.engine.processors.BasicBatchProcessor" title="hat.engine.processors.BasicBatchProcessor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BasicBatchProcessor</span></code></a></p></td>
+<td><p>Processor dealing with <cite>(inputs, target)</cite> batch, and the model output is a <cite>(losses, preds)</cite> pair.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.engine.processors.MultiBatchProcessor" title="hat.engine.processors.MultiBatchProcessor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MultiBatchProcessor</span></code></a></p></td>
+<td><p>Processor can forward backward multiple batches within a training step (before <cite>optimizer.step()</cite>).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#hat.engine.processors.collect_loss_by_index" title="hat.engine.processors.collect_loss_by_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collect_loss_by_index</span></code></a></p></td>
+<td><p>Collect loss by specific indexes of loss Tensors in model outputs like: <cite>(losses, preds)</cite>, <cite>(…loss1, …loss2, …)</cite> and so on.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#hat.engine.processors.collect_loss_by_regex" title="hat.engine.processors.collect_loss_by_regex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collect_loss_by_regex</span></code></a></p></td>
+<td><p>Flatten model outputs into an OrderedDict, then using <cite>re</cite> regex to match the keys of loss Tensors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="module-hat.engine">
+<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-hat.engine" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="hat.engine.CalibratorComm">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.</code><code class="sig-name descname">CalibratorComm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">torch.nn.modules.module.Module</span></em>, <em class="sig-param"><span class="n">data_loader</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">batch_processor</span><span class="p">:</span> <span class="n">hat.engine.processors.processor.BatchProcessorMixin</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_steps</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callbacks</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Sequence<span class="p">[</span>Union<span class="p">[</span>dict<span class="p">, </span>hat.callbacks.callbacks.CallbackMixin<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">val_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log_interval</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.CalibratorComm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calibrator is a tool for calibration.</p>
+<p>The abundant callbacks in trainer is also supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – <cite>nn.Module</cite> instance.</p></li>
+<li><p><strong>data_loader</strong> – Validation data loader.</p></li>
+<li><p><strong>batch_processor</strong> – Batch processor config.</p></li>
+<li><p><strong>device</strong> – Int gpu id or None.</p></li>
+<li><p><strong>num_steps</strong> – Num of calibration steps, should be non-negative integer.</p></li>
+<li><p><strong>callbacks</strong> – Callbacks.</p></li>
+<li><p><strong>val_metrics</strong> – Metrics on validation data.</p></li>
+<li><p><strong>profiler</strong> – To profile individual steps during training and
+assist in identifying bottlenecks.</p></li>
+<li><p><strong>log_interval</strong> – Logging output frequency.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.engine.DataParallelTrainer">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.</code><code class="sig-name descname">DataParallelTrainer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">torch.nn.modules.module.Module</span></em>, <em class="sig-param"><span class="n">data_loader</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">optimizer</span><span class="p">:</span> <span class="n">torch.optim.optimizer.Optimizer</span></em>, <em class="sig-param"><span class="n">batch_processor</span><span class="p">:</span> <span class="n">hat.engine.processors.processor.BatchProcessorMixin</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>Sequence<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">stop_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_epoch</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">num_steps</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_step</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">callbacks</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Sequence<span class="p">[</span>Union<span class="p">[</span>dict<span class="p">, </span>hat.callbacks.callbacks.CallbackMixin<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">train_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">val_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.DataParallelTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>DataParallelTrainer is a tool function to new a <cite>Trainer</cite> instance.</p>
+<p>which training with <cite>DataParallel</cite> method, and running on multiple gpu
+devices.</p>
+<p>It can be launched by launch function below.</p>
+<p>By setting <cite>stop_by</cite>, you are able to stop training by counting epoch
+(default) or step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – Model config or a <cite>nn.Module</cite> instance.</p></li>
+<li><p><strong>data_loader</strong> – Training data loader config or a instantiated data loader.</p></li>
+<li><p><strong>optimizer</strong> – Optimizer config or a optimizer instance.</p></li>
+<li><p><strong>batch_processor</strong> – Batch processor config or a <cite>BatchProcessorMixin</cite>
+instance.</p></li>
+<li><p><strong>device</strong> – GPU ids.</p></li>
+<li><p><strong>stop_by</strong> – Stop training by counting epoch or step. If equal to
+‘epoch’, stop training when <cite>epoch_id == num_epochs - 1</cite>. If
+equal to ‘step’, stop training
+when <cite>global_step_id == num_steps - 1</cite>.
+Default ‘epoch’.</p></li>
+<li><p><strong>num_epochs</strong> – Num of training epochs, should be non-negative integer.
+If stop_by != ‘epoch’, no-op.
+Set 0 to skip training and run <cite>self.on_loop_begin/end</cite> only.</p></li>
+<li><p><strong>start_epoch</strong> – Training start epoch, should be non-negative integer.</p></li>
+<li><p><strong>num_steps</strong> – Num of training steps, should be non-negative integer.
+If stop_by != ‘step’, no-op.
+Set 0 to skip training and run <cite>self.on_loop_begin/end</cite> only.</p></li>
+<li><p><strong>start_step</strong> – Training start step, should be non-negative integer.</p></li>
+<li><p><strong>callbacks</strong> – Callback configs or instances.</p></li>
+<li><p><strong>train_metrics</strong> – Metrics on training data.</p></li>
+<li><p><strong>val_metrics</strong> – Metrics on validation data.</p></li>
+<li><p><strong>profiler</strong> – To profile individual steps during training and
+assist in identifying bottlenecks.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.engine.DistributedDataParallelTrainer">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.</code><code class="sig-name descname">DistributedDataParallelTrainer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">torch.nn.modules.module.Module</span></em>, <em class="sig-param"><span class="n">data_loader</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">optimizer</span><span class="p">:</span> <span class="n">torch.optim.optimizer.Optimizer</span></em>, <em class="sig-param"><span class="n">batch_processor</span><span class="p">:</span> <span class="n">hat.engine.processors.processor.BatchProcessorMixin</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">stop_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_epoch</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">num_steps</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_step</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">callbacks</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Sequence<span class="p">[</span>hat.callbacks.callbacks.CallbackMixin<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">sync_bn</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">sync_bn_by_host</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">train_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">val_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">task_sampler</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>hat.core.task_sampler.TaskSampler<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">convert_submodule_list</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">find_unused_parameters</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>bool<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.DistributedDataParallelTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>DistributedDataParallelTrainer tool.</p>
+<p>DistributedDataParallelTrainer is a tool function to new a <cite>Trainer</cite>
+instance, which training with <cite>DistributedDataParallel</cite> method,
+and running on one of the GPU devices.</p>
+<p>It can be launched by launch function below, which spawns multiple
+processes and each of it owns an independent Trainer.</p>
+<p>By setting <cite>stop_by</cite>, you are able to stop training by counting epoch
+(default) or step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – Model config or a <cite>nn.Module</cite> instance.</p></li>
+<li><p><strong>data_loader</strong> – Training data loader config or a instantiated data loader.</p></li>
+<li><p><strong>optimizer</strong> – Optimizer config or a optimizer instance.</p></li>
+<li><p><strong>batch_processor</strong> – Batch processor config or a <cite>BatchProcessorMixin</cite>
+instance.</p></li>
+<li><p><strong>device</strong> – GPU id.</p></li>
+<li><p><strong>stop_by</strong> – Stop training by counting epoch or step.
+If equal to ‘epoch’, stop training when
+<cite>epoch_id == num_epochs - 1</cite>.
+If equal to ‘step’, stop training when
+<cite>global_step_id == num_steps - 1</cite>.
+Default ‘epoch’.</p></li>
+<li><p><strong>num_epochs</strong> – Num of training epochs, should be non-negative integer.
+If stop_by != ‘epoch’, no-op.
+Set 0 to skip training and run <cite>self.on_loop_begin/end</cite> only.</p></li>
+<li><p><strong>start_epoch</strong> – Training start epoch, should be non-negative integer.</p></li>
+<li><p><strong>num_steps</strong> – Num of training steps, should be non-negative integer.
+If stop_by != ‘step’, no-op.
+Set 0 to skip training and run <cite>self.on_loop_begin/end</cite> only.</p></li>
+<li><p><strong>start_step</strong> – Training start step, should be non-negative integer.</p></li>
+<li><p><strong>callbacks</strong> – Callback configs or instances.</p></li>
+<li><p><strong>sync_bn</strong> – Whether to convert bn to sync_bn.</p></li>
+<li><p><strong>sync_bn_by_host</strong> – Whether sync bn within host node</p></li>
+<li><p><strong>train_metrics</strong> – Metrics on training data.</p></li>
+<li><p><strong>val_metrics</strong> – Metrics on validation data.</p></li>
+<li><p><strong>profiler</strong> – To profile individual steps during training and
+assist in identifying bottlenecks.</p></li>
+<li><p><strong>task_sampler</strong> – TaskSampler config for multitask training.</p></li>
+<li><p><strong>convert_submodule_list</strong> – List of submodule for converting DDP.</p></li>
+<li><p><strong>find_unused_parameters</strong> – Args of DistributedDataParallel module.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.engine.LoopBase">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.</code><code class="sig-name descname">LoopBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">torch.nn.modules.module.Module</span></em>, <em class="sig-param"><span class="n">data_loader</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">optimizer</span><span class="p">:</span> <span class="n">torch.optim.optimizer.Optimizer</span></em>, <em class="sig-param"><span class="n">batch_processor</span><span class="p">:</span> <span class="n">hat.engine.processors.processor.BatchProcessorMixin</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">model_convert_pipeline</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>Dict<span class="p">, </span>List<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resume_optimizer</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">resume_epoch_or_step</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">stop_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_epoch</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">num_steps</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_step</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">callbacks</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Sequence<span class="p">[</span>Union<span class="p">[</span>dict<span class="p">, </span>hat.callbacks.callbacks.CallbackMixin<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">train_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">val_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log_interval</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.LoopBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>LoopBase controls the data flow from <cite>data_loader</cite> to <cite>model</cite>, including
+model forward, loss backward and parameters update.</p>
+<p>It is hardware independent, run on cpu (device is None) or gpu (device is
+int gpu id).</p>
+<p>By setting <cite>stop_by</cite>, you are able to stop loop by counting epoch
+(default) or step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – Model config or a <cite>nn.Module</cite> instance.</p></li>
+<li><p><strong>data_loader</strong> – Training data loader config or a instantiated data loader.</p></li>
+<li><p><strong>optimizer</strong> – Optimizer config or a optimizer instance.</p></li>
+<li><p><strong>batch_processor</strong> – Batch processor config or a <cite>BatchProcessorMixin</cite>
+instance.</p></li>
+<li><p><strong>device</strong> – Int gpu id or None.
+If int, do <cite>model.cuda(device)</cite> and <cite>data.cuda(device)</cite>.
+If None, no-op.</p></li>
+<li><p><strong>model_convert_pipeline</strong> – Define the process of model convert.
+e.g. convert float model to qat model, convert qat model
+to quantize model.</p></li>
+<li><p><strong>resume_optimizer</strong> – whether load optimizer dict when resume checkpoint.</p></li>
+<li><p><strong>resume_epoch_or_step</strong> – whether need to resume epoch_or_step
+when resume checkpoint.</p></li>
+<li><p><strong>stop_by</strong> – Stop loop by counting epoch or step.
+If equal to ‘epoch’, stop loop when <cite>epoch_id == num_epochs - 1</cite>.
+If equal to ‘step’, stop loop when <cite>global_step_id == num_steps - 1</cite>.
+Default ‘epoch’.</p></li>
+<li><p><strong>num_epochs</strong> – Num of loop epochs, should be non-negative integer.
+If stop_by != ‘epoch’, no-op.
+Set 0 to skip loop epochs and run <cite>self.on_*_loop_begin/end</cite> only.</p></li>
+<li><p><strong>start_epoch</strong> – Training start epoch, should be non-negative integer.</p></li>
+<li><p><strong>num_steps</strong> – Num of loop steps, should be non-negative integer.
+If stop_by != ‘step’, no-op.
+Set 0 to skip loop steps and run <cite>self.on_*_loop_begin/end</cite> only.</p></li>
+<li><p><strong>start_step</strong> – Training start step, should be non-negative integer.</p></li>
+<li><p><strong>callbacks</strong> – Callback configs or instances.</p></li>
+<li><p><strong>train_metrics</strong> – Metrics on training data.</p></li>
+<li><p><strong>val_metrics</strong> – Metrics on validation data.</p></li>
+<li><p><strong>profiler</strong> – To profile individual steps during loop and
+assist in identifying bottlenecks.</p></li>
+<li><p><strong>log_interval</strong> – Logging output frequency.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.engine.LoopBase.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.LoopBase.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do model fitting on data from data_loader.</p>
+<p><cite>self.batch_processor</cite> responsible for model forward, loss backward and
+parameters update.</p>
+<p><cite>self.callbacks</cite> responsible for metric update, checkpoint, logging and
+so on.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.engine.Predictor">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.</code><code class="sig-name descname">Predictor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">torch.nn.modules.module.Module</span></em>, <em class="sig-param"><span class="n">data_loader</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">batch_processor</span><span class="p">:</span> <span class="n">hat.engine.processors.processor.BatchProcessorMixin</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">model_convert_pipeline</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>Dict<span class="p">, </span>List<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">callbacks</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Sequence<span class="p">[</span>Union<span class="p">[</span>dict<span class="p">, </span>hat.callbacks.callbacks.CallbackMixin<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log_interval</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">share_callbacks</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.Predictor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predictor is a tool for predict.</p>
+<p>The abundant callbacks in trainer is also supported.</p>
+<p>Predictor supports to launch multi-process on single gpu.
+Predictor supports multi dataloaders.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – <cite>nn.Module</cite> instance.</p></li>
+<li><p><strong>data_loader</strong> – Validation data loader.</p></li>
+<li><p><strong>batch_processor</strong> – Batch processor config.</p></li>
+<li><p><strong>model_convert_pipeline</strong> – Define the process of model convert.
+e.g. convert float model to qat model, convert qat model
+to quantize model.</p></li>
+<li><p><strong>callbacks</strong> – Callbacks.</p></li>
+<li><p><strong>metrics</strong> – Metrics on predict data.</p></li>
+<li><p><strong>profiler</strong> – To profile individual steps during predicting and
+assist in identifying bottlenecks.</p></li>
+<li><p><strong>log_interval</strong> – Logging output frequency.</p></li>
+<li><p><strong>share_callbacks</strong> – Whether to share callbacks on different dataloader.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="hat.engine.Predictor.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.Predictor.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do model fitting on data from data_loader.</p>
+<p><cite>self.batch_processor</cite> responsible for model forward, loss backward and
+parameters update.</p>
+<p><cite>self.callbacks</cite> responsible for metric update, checkpoint, logging and
+so on.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.engine.Trainer">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.</code><code class="sig-name descname">Trainer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model</span><span class="p">:</span> <span class="n">torch.nn.modules.module.Module</span></em>, <em class="sig-param"><span class="n">data_loader</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">optimizer</span><span class="p">:</span> <span class="n">torch.optim.optimizer.Optimizer</span></em>, <em class="sig-param"><span class="n">batch_processor</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">model_convert_pipeline</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>Dict<span class="p">, </span>List<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">resume_optimizer</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">resume_epoch_or_step</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">stop_by</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'epoch'</span></em>, <em class="sig-param"><span class="n">num_epochs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_epoch</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">num_steps</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start_step</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">callbacks</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Sequence<span class="p">[</span>Union<span class="p">[</span>dict<span class="p">, </span>hat.callbacks.callbacks.CallbackMixin<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">train_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">val_metrics</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">profiler</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">log_interval</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">val_model</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>torch.nn.modules.module.Module<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">deploy_model</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>torch.nn.modules.module.Module<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">deploy_inputs</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Dict<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">val_only</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">export_ckpt_only</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">step</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'float'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.Trainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trainer is a tool for train, which include all pipeline for training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – Model config or a <cite>nn.Module</cite> instance.</p></li>
+<li><p><strong>data_loader</strong> – Training data loader config or a instantiated data loader.</p></li>
+<li><p><strong>optimizer</strong> – Optimizer config or a optimizer instance.</p></li>
+<li><p><strong>batch_processor</strong> – Batch processor config or a <cite>BatchProcessorMixin</cite>
+instance.</p></li>
+<li><p><strong>device</strong> – Int gpu id or None.
+If int, do <cite>model.cuda(device)</cite> and <cite>data.cuda(device)</cite>.
+If None, no-op.</p></li>
+<li><p><strong>model_convert_pipeline</strong> – Define the process of model convert.
+e.g. convert float model to qat model, convert qat model
+to quantize model.</p></li>
+<li><p><strong>resume_optimizer</strong> – whether load optimizer dict when resume checkpoint.</p></li>
+<li><p><strong>resume_epoch_or_step</strong> – whether need to resume epoch_or_step
+when resume checkpoint.</p></li>
+<li><p><strong>stop_by</strong> – Stop training by counting epoch or step.
+If equal to ‘epoch’, stop training when <cite>epoch_id == num_epochs - 1</cite>.
+If equal to ‘step’, stop training when <cite>global_step_id == num_steps - 1</cite>.
+Default ‘epoch’.</p></li>
+<li><p><strong>num_epochs</strong> – Num of training epochs, should be non-negative integer.
+If stop_by != ‘epoch’, no-op.
+Set 0 to skip training and run <cite>self.on_loop_begin/end</cite> only.</p></li>
+<li><p><strong>start_epoch</strong> – Training start epoch, should be non-negative integer.</p></li>
+<li><p><strong>num_steps</strong> – Num of training steps, should be non-negative integer.
+If stop_by != ‘step’, no-op.
+Set 0 to skip training and run <cite>self.on_loop_begin/end</cite> only.</p></li>
+<li><p><strong>start_step</strong> – Training start step, should be non-negative integer.</p></li>
+<li><p><strong>callbacks</strong> – Callback configs or instances.</p></li>
+<li><p><strong>train_metrics</strong> – Metrics on training data.</p></li>
+<li><p><strong>val_metrics</strong> – Metrics on validation data.</p></li>
+<li><p><strong>profiler</strong> – To profile individual steps during training and
+assist in identifying bottlenecks.</p></li>
+<li><p><strong>log_interval</strong> – Logging output frequency.</p></li>
+<li><p><strong>val_model</strong> – Model for validation. Passed to Validation Callback as
+a parameter.</p></li>
+<li><p><strong>deploy_model</strong> – Model for tracing and export to pt file. Passed to
+Checkpoint Callback as a parameter.</p></li>
+<li><p><strong>deploy_inputs</strong> – Example inputs for tracing deploy_model. Passed to
+Checkpoint Callback as a parameter.</p></li>
+<li><p><strong>val_only</strong> – Whether skip training and do validation only (by running
+<cite>Validation.on_loop_end()</cite>)</p></li>
+<li><p><strong>export_ckpt_only</strong> – Whether skip training and export checkpoint only (
+by running <cite>Checkpoint.on_loop_end()</cite>)</p></li>
+<li><p><strong>step</strong> – Training step which can be one of <cite>float,
+float_freeze_bn, calibration, qat, int_infer</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-hat.engine.processors"></span><dl class="py class">
+<dt id="hat.engine.processors.BasicBatchProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.processors.</code><code class="sig-name descname">BasicBatchProcessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">need_grad_update</span><span class="p">:</span> <span class="n">bool</span></em>, <em class="sig-param"><span class="n">batch_transforms</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">loss_collector</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">enable_amp</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">enable_apex</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">grad_scaler</span><span class="p">:</span> <span class="n">torch.cuda.amp.grad_scaler.GradScaler</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.processors.BasicBatchProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processor dealing with <cite>(inputs, target)</cite> batch, and the model output is a
+<cite>(losses, preds)</cite> pair.</p>
+<p>It is suitable for training (need_grad_update) or validation
+(not need_grad_update).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>need_grad_update</strong> – Whether need gradient update, True for training,
+False for Validation.</p></li>
+<li><p><strong>batch_transforms</strong> – Config of batch transforms.</p></li>
+<li><p><strong>loss_collector</strong> – A callable object used to collect loss Tensors in model
+outputs.</p></li>
+<li><p><strong>enable_amp</strong> – Whether training with <cite>Automatic Mixed Precision</cite>.</p></li>
+<li><p><strong>enabel_apex</strong> – Whether training with <cite>Apex</cite>.</p></li>
+<li><p><strong>grad_scaler</strong> – An instance <code class="docutils literal notranslate"><span class="pre">scaler</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">GradScaler</span></code>
+helps perform the steps of gradient scaling conveniently.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.engine.processors.BatchProcessorMixin">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.processors.</code><code class="sig-name descname">BatchProcessorMixin</code><a class="headerlink" href="#hat.engine.processors.BatchProcessorMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch Processor Interface.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="hat.engine.processors.MultiBatchProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">hat.engine.processors.</code><code class="sig-name descname">MultiBatchProcessor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">need_grad_update</span><span class="p">:</span> <span class="n">bool</span></em>, <em class="sig-param"><span class="n">batch_transforms</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>List<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">loss_collector</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">enable_amp</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">enable_apex</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">delay_sync</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">grad_scaler</span><span class="p">:</span> <span class="n">torch.cuda.amp.grad_scaler.GradScaler</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#hat.engine.processors.MultiBatchProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processor can forward backward multiple batches within a training step (before <cite>optimizer.step()</cite>).</p>
+<p>It is useful for:</p>
+<p>(1) Training a multitask model on single task annotation samples, of which
+each task forward backward its batch sequentially within a multitask training step</p>
+<p>(2) Training on a memory shortage GPU and want to increase batch size,
+you are able to forward backward multiple batches within a training step</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Example multitask: vehicle, person and traffic light detection.
+Single task annotation means only annotate vehicle bounding boxes on an image with vehicle,
+person, and traffic light objects.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Multiple batches should be organized in tuple format, e.g.</p>
+<ul class="simple">
+<li><p><cite>batch = (batch1, batch2, …)</cite></p></li>
+</ul>
+<p>If not, it will be treated as a single batch, e.g.</p>
+<ul class="simple">
+<li><p><cite>batch = dict(inputs=xx, target=xx)</cite></p></li>
+<li><p><cite>batch = [inputs, target]</cite></p></li>
+</ul>
+<p>See code below for extra explanation.</p>
+</div>
+<p>It is much general in usage than <cite>BasicBatchProcessor</cite> , batch and model
+outputs can be in any format, but note that if batch is a tuple means it contains multiple batches.</p>
+<p>It is Hardware independent, run on cpu (device None) or gpu
+(device is gpu id).</p>
+<p>It is suitable for training (need_grad_update) and validation
+(not need_grad_update).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>need_grad_update</strong> – Whether need gradient update, True for training,
+False for Validation.</p></li>
+<li><p><strong>batch_transforms</strong> – Config of batch transforms.</p></li>
+<li><p><strong>loss_collector</strong> – A callable object used to collect loss Tensors in model
+outputs.</p></li>
+<li><p><strong>enable_amp</strong> – Whether training with <cite>Automatic Mixed Precision</cite>.</p></li>
+<li><p><strong>enabel_apex</strong> – Whether training with <cite>Apex</cite>.</p></li>
+<li><p><strong>delay_sync</strong> – Whther delay sync grad when train on DDP.
+Refer to: DDP.no_sync() API</p></li>
+<li><p><strong>grad_scaler</strong> – An instance <code class="docutils literal notranslate"><span class="pre">scaler</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">GradScaler</span></code>
+helps perform the steps of gradient scaling conveniently.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="hat.engine.processors.collect_loss_by_index">
+<code class="sig-prename descclassname">hat.engine.processors.</code><code class="sig-name descname">collect_loss_by_index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">indexes</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>int<span class="p">, </span>Sequence<span class="p">[</span>int<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Callable<a class="headerlink" href="#hat.engine.processors.collect_loss_by_index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect loss by specific indexes of loss Tensors in model outputs
+like: <cite>(losses, preds)</cite>, <cite>(…loss1, …loss2, …)</cite> and so on.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>indexes</strong> – Indexes of loss Tensors in model outputs.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A function with model outputs as input, return loss Tensors collected
+by indexes.</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model_outs</span> <span class="o">=</span> <span class="p">[</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)],</span>  <span class="c1"># losses</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">3.0</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)]</span>   <span class="c1"># preds</span>
+<span class="gp">... </span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">collect_loss_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="p">(</span><span class="n">model_outs</span><span class="p">)</span>
+<span class="go">[tensor(1.), tensor(2.)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="hat.engine.processors.collect_loss_by_regex">
+<code class="sig-prename descclassname">hat.engine.processors.</code><code class="sig-name descname">collect_loss_by_regex</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loss_name_pattern</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; Callable<a class="headerlink" href="#hat.engine.processors.collect_loss_by_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flatten model outputs into an OrderedDict, then using <cite>re</cite> regex to match
+the keys of loss Tensors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loss_name_pattern</strong> – <cite>re</cite> regex, e.g. ‘^.*loss.*’ .</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A function with model outputs as input, return loss Tensors matched by
+<cite>loss_name_pattern</cite>.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model_outs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">toy_loss_1</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">toy_predict</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">2.0</span><span class="p">),</span>
+<span class="gp">... </span>    <span class="n">toy_loss_2</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">3.0</span><span class="p">),</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span> <span class="o">=</span> <span class="n">collect_loss_by_regex</span><span class="p">(</span><span class="s1">&#39;^.*loss.*&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">collector</span><span class="p">(</span><span class="n">model_outs</span><span class="p">)</span>
+<span class="go">[tensor(1.), tensor(3.)]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="models.html" class="btn btn-neutral float-right" title="hat.models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="callbacks.html" class="btn btn-neutral float-left" title="hat.callbacks" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, HAT Developers.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

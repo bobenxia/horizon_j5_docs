@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1. 前言 &mdash; AI Benchmark  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="prev" title="AI-Benchmark使用说明" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> AI Benchmark
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. 前言</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id2">2. 发布物说明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.1. 示例包结构</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2.2. 示例模型</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">2.3. 公共数据集</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id6">3. 环境构建</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id7">3.1. 开发板准备</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">3.2. 编译</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id9">4. 示例使用</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id10">4.1. 评测示例</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">4.2. 性能评测</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">4.2.1. 使用说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">4.2.2. 命令行参数说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">4.2.3. 配置文件说明</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">4.3. 精度评测</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-preprocess">4.3.1. 数据预处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">4.3.2. 数据挂载</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">4.3.3. 模型推理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">4.3.4. 精度计算</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id20">5. 模型集成</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id21">5.1. 后处理文件添加</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">5.2. 增加模型运行脚本及配置文件</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id23">6. 辅助工具和常用操作</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id24">6.1. 日志</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id25">6.1.1. 示例日志</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dnn">6.1.2. <code class="docutils literal notranslate"><span class="pre">dnn</span></code> 日志</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id27">6.2. 算子耗时</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id28">6.2.1. 概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id29">6.2.2. 示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#dump">6.3. dump工具</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id30">6.4. 常用操作</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id31">6.4.1. 查看开发板镜像版本</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id32">6.4.2. 查看系统日志</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bpu">6.4.3. 查看BPU使用率</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AI Benchmark</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">1. </span>前言</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/ai-benchmark.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1><span class="section-number">1. </span>前言<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>​AI Benchmark示例包提供了Runtime应用开发常见分类、检测、分割和光流估计模型的性能和精度评测示例。
+其中性能评测示例包括单帧延迟评测和多线程评测示例，充分利用调用BPU双核的速度评测。
+示例包中预置了源码、可执行程序和评测脚本，开发者可以在地平线开发板上进行体验，并基于这些示例直接进行应用开发，降低开发门槛。</p>
+</section>
+<section id="id2">
+<h1><span class="section-number">2. </span>发布物说明<a class="headerlink" href="#id2" title="永久链接至标题"></a></h1>
+<p>​AI Benchmark示例包位于 <strong>horizon_j5_open_explorer</strong> 发布物的 <code class="docutils literal notranslate"><span class="pre">ddk/samples/ai_benchmark/</span></code> 路径下，主要包括以下内容：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 58%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>编号</strong></p></td>
+<td><p><strong>名称</strong></p></td>
+<td><p><strong>内容</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>code</p></td>
+<td><p>包含示例源代码和编译脚本。</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>j5</p></td>
+<td><p>示例包上板运行环境。</p></td>
+</tr>
+</tbody>
+</table>
+<section id="id3">
+<h2><span class="section-number">2.1. </span>示例包结构<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>​示例包结构如下所示：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ai_benchmark/code/                    <span class="c1"># 示例源码文件夹</span>
+├── build_ptq_j5.sh
+├── build_qat_j5.sh
+├── CMakeLists.txt
+├── deps_gcc9.3                       <span class="c1"># 第三方依赖库</span>
+│   └── aarch64
+├── include                           <span class="c1"># 源码头文件</span>
+│   ├── base
+│   ├── input
+│   ├── method
+│   ├── output
+│   ├── plugin
+│   └── utils
+├── README.md
+└── src                               <span class="c1"># 示例源码</span>
+    ├── input
+    ├── method
+    ├── output
+    ├── plugin
+    ├── simple_example.cc             <span class="c1"># 示例主程序</span>
+    └── utils
+
+ai_benchmark/j5                       <span class="c1"># 示例包运行环境</span>
+├── ptq                               <span class="c1"># PTQ方案模型示例</span>
+│   ├── data                          <span class="c1"># 模型精度评测数据集</span>
+│   ├── mini_data                     <span class="c1"># 模型性能评测数据集</span>
+│   │   ├── cifar10
+│   │   ├── cityscapes
+│   │   ├── coco
+│   │   ├── flyingchairs
+│   │   ├── imagenet
+│   │   └── voc
+│   ├── model                         <span class="c1"># PTQ方案nv12模型</span>
+│   ├── README.md
+│   ├── script                        <span class="c1"># 执行脚本</span>
+│   │   ├── aarch64                   <span class="c1"># 编译产生可执行文件及依赖库</span>
+│   │   ├── classification            <span class="c1"># 分类模型示例</span>
+│   │   │   ├── efficientnasnet_m
+│   │   │   ├── efficientnasnet_s
+│   │   │   ├── efficientnet_lite0
+│   │   │   ├── efficientnet_lite1
+│   │   │   ├── efficientnet_lite2
+│   │   │   ├── efficientnet_lite3
+│   │   │   ├── efficientnet_lite4
+│   │   │   ├── googlenet
+│   │   │   ├── mobilenetv1
+│   │   │   ├── mobilenetv2
+│   │   │   ├── resnet18
+│   │   │   └── vargconvnet
+│   │   ├── config                    <span class="c1"># 模型推理配置文件</span>
+│   │   │   └── model
+│   │   ├── detection                 <span class="c1"># 检测模型示例</span>
+│   │   │   ├── centernet_resnet101
+│   │   │   ├── ssd_mobilenetv1
+│   │   │   ├── yolov2_darknet19
+│   │   │   ├── yolov3_darknet53
+│   │   │   ├── yolov3_vargdarknet
+│   │   │   └── yolov5x
+│   │   ├── segmentation              <span class="c1"># 分割模型示例</span>
+│   │   │   ├── deeplabv3plus_efficientnetb0
+│   │   │   ├── deeplabv3plus_efficientnetm1
+│   │   │   ├── deeplabv3plus_efficientnetm2
+│   │   │   └── fastscnn_efficientnetb0
+│   │   ├── env.sh                    <span class="c1"># 基础环境脚本</span>
+│   │   └── README.md
+│   └── tools                         <span class="c1"># 精度评测工具</span>
+│       ├── python_tools
+│       └── README.md
+└── qat                               <span class="c1"># QAT方案模型示例</span>
+    ├── data                          <span class="c1"># 模型精度评测数据集</span>
+    ├── mini_data                     <span class="c1"># 模型性能评测数据集</span>
+    ├── model                         <span class="c1"># QAT方案nv12模型</span>
+    ├── README.md
+    ├── script                        <span class="c1"># 执行脚本</span>
+    │   ├── aarch64                   <span class="c1"># 编译产生可执行文件及依赖库</span>
+    │   ├── classification            <span class="c1"># 分类模型示例</span>
+    │   │   ├── mobilenetv1
+    │   │   ├── mobilenetv2
+    │   │   ├── resnet18
+    │   │   ├── resnet50
+    │   │   └── vargnetv2
+    │   ├── config                    <span class="c1"># 模型推理配置文件</span>
+    │   │   └── model
+    │   ├── detection                 <span class="c1"># 检测模型示例</span>
+    │   │   ├── fcos_efficientnetb0
+    │   │   ├── retinanet
+    │   │   └── yolov3_mobilenetv1
+    │   ├── opticalflow               <span class="c1"># 光流模型示例</span>
+    │   │   └── pwcnet_opticalflow
+    │   ├── segmentation              <span class="c1"># 分割模型示例</span>
+    │   │   └── mobilenet_unet
+    │   ├── env.sh                    <span class="c1"># 基础环境脚本</span>
+    │   └── README.md
+    └── tools                         <span class="c1"># 前处理及精度评测工具</span>
+        ├── eval_preprocess
+        ├── python_tools
+        └── README.md
+</pre></div>
+</div>
+<ul>
+<li><p><strong>code</strong>：该目录内是评测程序的源码，用来进行模型性能和精度评测。</p></li>
+<li><p><strong>j5</strong>：该目录内提供了已经编译好的应用程序，以及各种评测脚本，用来测试多种模型在地平线BPU上运行的性能和精度等。</p></li>
+<li><p>build_ptq_j5.sh：PTQ真机程序一键编译脚本。</p></li>
+<li><p>build_qat_j5.sh：QAT真机程序一键编译脚本。</p></li>
+<li><p><strong>deps_gcc9.3</strong>：示例代码所需要的依赖，主要如下所示:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>appsdk  gflags  glog  hobotlog  nlohmann  opencv  rapidjson
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h2><span class="section-number">2.2. </span>示例模型<a class="headerlink" href="#id4" title="永久链接至标题"></a></h2>
+<p>AI Benchmark示例包的模型发布物model_zoo位于 <code class="docutils literal notranslate"><span class="pre">horizon_j5_open_explorer</span></code> 发布物的
+<code class="docutils literal notranslate"><span class="pre">ddk/samples/ai_toolchain/model_zoo/runtime/</span></code> 路径下，
+里面包含常用的分类、检测、分割和光流预测模型，模型的命名规则为： <code class="docutils literal notranslate"><span class="pre">{model_name}_{backbone}_{input_size}_{input_type}</span></code>。
+model_zoo里的模型都是通过PTQ模型转换示例包（即： <code class="docutils literal notranslate"><span class="pre">ddk/samples/ai_toolchain/horizon_model_convert_sample/</span></code>）编译出来的。
+原始模型详细信息可以查看模PTQ模型转换示例包中各模型自路径下的README文档或阅读
+<a class="reference external" href="../horizon_model_convert_sample/index.html">《PTQ模型转换示例手册》文档</a> 了解更多。</p>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>PTQMODEL</p></th>
+<th class="head"><p>MODEL NAME</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>centernet_resnet101</p></td>
+<td><p>centernet_resnet101_512x512_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>deeplabv3plus_efficientnetb0</p></td>
+<td><p>deeplabv3plus_efficientnetb0_1024x2048_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>deeplabv3plus_efficientnetm1</p></td>
+<td><p>deeplabv3plus_efficientnetm1_1024x2048_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>deeplabv3plus_efficientnetm2</p></td>
+<td><p>deeplabv3plus_efficientnetm2_1024x2048_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnasnet_m</p></td>
+<td><p>efficientnasnet_m_300x300_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnasnet_s</p></td>
+<td><p>efficientnasnet_s_280x280_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_lite0</p></td>
+<td><p>efficientnet_lite0_224x224_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_lite1</p></td>
+<td><p>efficientnet_lite1_240x240_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_lite2</p></td>
+<td><p>efficientnet_lite2_260x260_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>efficientnet_lite3</p></td>
+<td><p>efficientnet_lite3_280x280_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>efficientnet_lite4</p></td>
+<td><p>efficientnet_lite4_300x300_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>fastscnn_efficientnetb0</p></td>
+<td><p>fastscnn_efficientnetb0_1024x2048_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>googlenet</p></td>
+<td><p>googlenet_224x224_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td rowspan="2"><p>mobilenetv1</p></td>
+<td><p>mobilenetv1_224x224_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>mobilenetv1_128x128_resizer_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>mobilenetv2</p></td>
+<td><p>mobilenetv2_224x224_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet18</p></td>
+<td><p>resnet18_224x224_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>ssd_mobilenetv1</p></td>
+<td><p>ssd_mobilenetv1_300x300_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>vargconvnet</p></td>
+<td><p>vargconvnet_224x224_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>yolov2_darknet19</p></td>
+<td><p>yolov2_darknet19_608x608_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>yolov3_darknet53</p></td>
+<td><p>yolov3_darknet53_416x416_nv12.bin</p></td>
+</tr>
+<tr class="row-odd"><td><p>yolov3_vargdarknet</p></td>
+<td><p>yolov3_vargdarknet_416x416_nv12.bin</p></td>
+</tr>
+<tr class="row-even"><td><p>yolov5x</p></td>
+<td><p>yolov5x_672x672_nv12.bin</p></td>
+</tr>
+</tbody>
+</table>
+<table class="docutils align-center">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>QATMODEL</p></th>
+<th class="head"><p>MODEL NAME</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>fcos_efficientnetb0</p></td>
+<td><p>fcos_efficientnetb0_mscoco/compile/model.hbm</p></td>
+</tr>
+<tr class="row-odd"><td><p>mobilenet_unet</p></td>
+<td><p>dwunet_seg/compile/model.hbm</p></td>
+</tr>
+<tr class="row-even"><td><p>mobilenetv1</p></td>
+<td><p>mobilenetv1_cls/compile/model.hbm</p></td>
+</tr>
+<tr class="row-odd"><td><p>mobilenetv2</p></td>
+<td><p>mobilenetv2_cls/compile/model.hbm</p></td>
+</tr>
+<tr class="row-even"><td><p>pwcnet_opticalflow</p></td>
+<td><p>pwcnet_opticalflow/compile/model.hbm</p></td>
+</tr>
+<tr class="row-odd"><td><p>resnet18</p></td>
+<td><p>resnet18_cls/compile/model.hbm</p></td>
+</tr>
+<tr class="row-even"><td><p>resnet50</p></td>
+<td><p>resnet50_cls/compile/model.hbm</p></td>
+</tr>
+<tr class="row-odd"><td><p>retinanet</p></td>
+<td><p>retinanet_vargnetv2_fpn_mscoco/compile/model.hbm</p></td>
+</tr>
+<tr class="row-even"><td><p>vargnetv2</p></td>
+<td><p>vargnetv2_cls/compile/model.hbm</p></td>
+</tr>
+<tr class="row-odd"><td><p>yolov3_mobilenetv1</p></td>
+<td><p>yolo_mobilenetv1_det/compile/model.hbm</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id5">
+<h2><span class="section-number">2.3. </span>公共数据集<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>示例中用到的数据集主要有VOC数据集、COCO数据集、ImageNet数据集、Cityscapes数据集和FlyingChairs数据集。
+获取方式如下：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>VOC：wget -c ftp://vrftp.horizon.ai/Open_Explorer/eval_dataset/VOC.tar.gz
+coco：wget -c ftp://vrftp.horizon.ai/Open_Explorer/eval_dataset/coco.tar.gz
+imagenet：wget -c ftp://vrftp.horizon.ai/Open_Explorer/eval_dataset/imagenet.tar.gz
+cityscapes：wget -c ftp://vrftp.horizon.ai/Open_Explorer/eval_dataset/cityscapes.tar.gz
+flyingchairs：wget -c ftp://vrftp.horizon.ai/Open_Explorer/eval_dataset/flyingchairs.tar.gz
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h1><span class="section-number">3. </span>环境构建<a class="headerlink" href="#id6" title="永久链接至标题"></a></h1>
+<section id="id7">
+<h2><span class="section-number">3.1. </span>开发板准备<a class="headerlink" href="#id7" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>拿到开发板后，按照刷机说明升级系统镜像到示例包推荐的系统镜像版本。</p></li>
+<li><p>确保本地开发机和开发板可以远程连接。</p></li>
+</ol>
+</section>
+<section id="id8">
+<h2><span class="section-number">3.2. </span>编译<a class="headerlink" href="#id8" title="永久链接至标题"></a></h2>
+<p>​编译需要当前环境安装好交叉编译工具gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu。
+然后执行 <strong>code</strong> 目录下的build_ptq_j5.sh脚本即可一键编译真机环境下的可执行程序，可执行
+程序和对应依赖会自动复制到 <strong>j5/ptq/script</strong> 目录下的 <strong>aarch64</strong> 目录下。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>需要注意build_ptq_j5.sh脚本里指定的交叉编译工具链的位置是 <strong>/opt</strong> 目录下，用户如果安装在其他位置，可以手动修改下build_ptq_j5.sh。</p>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">CC</span><span class="o">=</span>/opt/gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-gcc
+<span class="nb">export</span> <span class="nv">CXX</span><span class="o">=</span>/opt/gcc-ubuntu-9.3.0-2020.03-x86_64-aarch64-linux-gnu/bin/aarch64-linux-gnu-g++
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id9">
+<h1><span class="section-number">4. </span>示例使用<a class="headerlink" href="#id9" title="永久链接至标题"></a></h1>
+<section id="id10">
+<h2><span class="section-number">4.1. </span>评测示例<a class="headerlink" href="#id10" title="永久链接至标题"></a></h2>
+<p>​评测示例脚本主要在 <strong>script</strong> 和 <strong>tools</strong> 目录下。 <strong>script</strong> 是板上运行的评测脚本，包括常见分类、检测、分割和光流预测模型。每个模型下面有三个脚本，分别表示：</p>
+<ul class="simple">
+<li><p>fps.sh实现多线程fps统计（多线程调度，用户可以根据需求自由设置线程数）。</p></li>
+<li><p>latency.sh实现单帧延迟性能统计（一个线程，单帧）。</p></li>
+<li><p>accuracy.sh用于精度评测。</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>script:
+
+├── aarch64                     <span class="c1"># 编译产生的可执行文件及依赖库</span>
+│   ├── bin
+│   └── lib
+├── env.sh                      <span class="c1"># 基础配置</span>
+├── config                      <span class="c1"># image_name配置文件</span>
+│   └── model
+│       └── data_name_list
+└── detection                   <span class="c1"># 检测模型</span>
+    ├── fcos_efficientnetb0     <span class="c1"># 在此目录中还有其他模型, 仅以此模型目录为参考</span>
+    │   ├── accuracy.sh
+    │   ├── fps.sh
+    │   ├── latency.sh
+    │   ├── workflow_accuracy.json
+    │   ├── workflow_fps.json
+    │   ├── workflow_latency.json
+    ......
+</pre></div>
+</div>
+<p><strong>(PTQ)tools</strong> PTQ目录下精度评测需要的脚本。主要包括 <strong>python_tools</strong> 下的精度计算脚本。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>tools:
+
+python_tools
+  └── accuracy_tools
+      ├── cityscapes_metric.py
+      ├── cls_eval.py
+      ├── coco_metric.py
+      ├── config.py
+      ├── coco_det_eval.py
+      ├── parsing_eval.py
+      └── voc_det_eval.py
+      └── voc_metric.py
+</pre></div>
+</div>
+<p><strong>(QAT)tools</strong> QAT目录下精度评测需要的脚本。主要包括前处理脚本及精度计算脚本。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>tools:
+
+tools/
+  ├── eval_preprocess
+  │     ├── fcos_process.py
+  │     ├── imagenet.py
+  │     ├── pwcnet_process.py
+  │     ├── retinanet_process.py
+  │     └── voc.py
+  ├── python_tools
+  │     └── accuracy_tools
+  │         ├── cityscapes_metric.py
+  │         ├── cls_eval.py
+  │         ├── coco_metric.py
+  │         ├── config.py
+  │         ├── fcos_eval.py
+  │         ├── parsing_eval.py
+  │         ├── pwcnet_eval.py
+  │         └── retinanet_eval.py
+  │         └── voc_metric.py
+  │         └── yolov3_eval.py
+  └── README.md
+</pre></div>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>评测前需要执行以下命令，将 <strong>ptq</strong> （ <strong>qat</strong> ） 目录拷贝到开发板上，然后将 <strong>model_zoo/runtime</strong> 拷贝到 <strong>ptq/model</strong> （ <strong>qat/model</strong> ）目录下。</p>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>scp -r ddk/samples/ai_benchmark/j5/ptq root@192.168.1.1:/userdata/ptq/
+scp -r ddk/samples/ai_benchmark/j5/qat root@192.168.1.1:/userdata/qat/
+scp -r ddk/samples/ai_toolchain/model_zoo/runtime root@192.168.1.1:/userdata/ptq/model/
+</pre></div>
+</div>
+</section>
+<section id="id11">
+<h2><span class="section-number">4.2. </span>性能评测<a class="headerlink" href="#id11" title="永久链接至标题"></a></h2>
+<p>性能评测分为latency和fps两方面。</p>
+<section id="id12">
+<h3><span class="section-number">4.2.1. </span>使用说明<a class="headerlink" href="#id12" title="永久链接至标题"></a></h3>
+<p>latency:
+进入到需要评测的模型目录下 执行 <code class="docutils literal notranslate"><span class="pre">sh</span> <span class="pre">latency.sh</span></code> 即可测试出单帧延迟。如下图所示：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>I0419 <span class="m">02</span>:35:07.041095 <span class="m">39124</span> output_plugin.cc:80<span class="o">]</span>  Infer latency:  <span class="o">[</span>avg:  <span class="m">13</span>.124ms,  max:  <span class="m">13</span>.946ms,  min:  <span class="m">13</span>.048ms<span class="o">]</span>, Post process latency: <span class="o">[</span>avg:  <span class="m">3</span>.584ms,  max:  <span class="m">3</span>.650ms,  min:  <span class="m">3</span>.498ms<span class="o">]</span>.
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">infer</span></code> 表示模型推理耗时。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Post</span> <span class="pre">process</span></code> 表示后处理耗时。</p></li>
+</ul>
+</div>
+<p>fps:
+该功能采用多线程并发方式，旨在让模型可以在BPU上达到极致的性能。由于多线程并发及数据采样的原因，在程序启动阶段帧率值会较低，之后帧率会上升并逐渐趋于稳定，帧率的浮动范围控制在0.5%之内。
+进入到需要评测的模型目录下执行 <code class="docutils literal notranslate"><span class="pre">sh</span> <span class="pre">fps.sh</span></code> 即可测试出帧率。如下图所示：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>I0419 <span class="m">02</span>:35:00.044417 <span class="m">39094</span> output_plugin.cc:109<span class="o">]</span>  Throughput: <span class="m">1129</span>.39fps      <span class="c1"># 模型帧率</span>
+</pre></div>
+</div>
+</section>
+<section id="id13">
+<h3><span class="section-number">4.2.2. </span>命令行参数说明<a class="headerlink" href="#id13" title="永久链接至标题"></a></h3>
+<p>accuracy.sh脚本内容如下：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="ch">#!/bin/sh</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="nb">source</span> ../../env.sh                              <span class="c1"># 加载基础配置</span>
+<span class="linenos">4</span><span class="nb">export</span> <span class="nv">SHOW_FPS_LOG</span><span class="o">=</span><span class="m">1</span>                            <span class="c1"># 设置环境变量，打印fps级别log</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="si">${</span><span class="nv">app</span><span class="si">}</span> <span class="se">\ </span>                                        <span class="c1"># 可执行程序，在accuracy.sh脚本中定义</span>
+<span class="linenos">7</span>  --config_file<span class="o">=</span>workflow_accuracy.json <span class="se">\ </span>        <span class="c1"># 加载精度测试workflow配置文件</span>
+<span class="linenos">8</span>  --log_level<span class="o">=</span><span class="m">2</span>                                  <span class="c1"># 设置log等级</span>
+</pre></div>
+</div>
+<p>fps.sh脚本内容如下：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="nb">source</span> ../../env.sh
+<span class="nb">export</span> <span class="nv">SHOW_FPS_LOG</span><span class="o">=</span><span class="m">1</span>
+<span class="nb">export</span> <span class="nv">STAT_CYCLE</span><span class="o">=</span><span class="m">100</span>                             <span class="c1"># 设置环境变量，FPS 统计周期</span>
+
+<span class="si">${</span><span class="nv">app</span><span class="si">}</span> <span class="se">\</span>
+  --config_file<span class="o">=</span>workflow_fps.json <span class="se">\</span>
+  --log_level<span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+<p>latency.sh脚本内容如下：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+<span class="nb">source</span> ../../env.sh
+<span class="nb">export</span> <span class="nv">SHOW_LATENCY_LOG</span><span class="o">=</span><span class="m">1</span>                         <span class="c1"># 设置环境变量，打印 LATENCY 级别log</span>
+<span class="nb">export</span> <span class="nv">STAT_CYCLE</span><span class="o">=</span><span class="m">50</span>                              <span class="c1"># 设置环境变量，LATENCY 统计周期</span>
+
+<span class="si">${</span><span class="nv">app</span><span class="si">}</span> <span class="se">\</span>
+  --config_file<span class="o">=</span>workflow_latency.json <span class="se">\</span>
+  --log_level<span class="o">=</span><span class="m">1</span>
+</pre></div>
+</div>
+</section>
+<section id="id14">
+<h3><span class="section-number">4.2.3. </span>配置文件说明<a class="headerlink" href="#id14" title="永久链接至标题"></a></h3>
+<p>以centernet_resnet101模型为例，workflow_accuray.json 配置文件内容如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;input_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;input_type&quot;</span><span class="p">:</span> <span class="s2">&quot;preprocessed_image&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+    <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+    <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;image_list_file&quot;</span><span class="p">:</span> <span class="s2">&quot;../../../data/coco/coco.lst&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;need_pre_load&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+    <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="s2">&quot;need_loop&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+    <span class="s2">&quot;max_cache&quot;</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;output_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;output_type&quot;</span><span class="p">:</span> <span class="s2">&quot;eval&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;eval_enable&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;output_file&quot;</span><span class="p">:</span> <span class="s2">&quot;./eval.log&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;mask_output_file&quot;</span><span class="p">:</span> <span class="s2">&quot;./mask.log&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;workflow&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;method_type&quot;</span><span class="p">:</span> <span class="s2">&quot;InferMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unique_name&quot;</span><span class="p">:</span> <span class="s2">&quot;InferMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;method_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;core&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;model_file&quot;</span><span class="p">:</span> <span class="s2">&quot;../../../model/runtime/centernet_resnet101/centernet_resnet101_512x512_nv12.bin&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;thread_count&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+      <span class="s2">&quot;method_type&quot;</span><span class="p">:</span> <span class="s2">&quot;PTQCenternetPostProcessMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unique_name&quot;</span><span class="p">:</span> <span class="s2">&quot;PTQCenternetPostProcessMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;method_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;class_num&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+        <span class="s2">&quot;score_threshold&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="s2">&quot;topk&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s2">&quot;det_name_list&quot;</span><span class="p">:</span> <span class="s2">&quot;../../config/model/data_name_list/coco_classes.names&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>workflow_fps.json 配置文件内容如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;input_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;input_type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+    <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+    <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;image_list_file&quot;</span><span class="p">:</span> <span class="s2">&quot;../../../mini_data/coco/coco.lst&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;need_pre_load&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s2">&quot;need_loop&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;max_cache&quot;</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;output_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;output_type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;image_list_enable&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;image_output_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;./output_images&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;in_order&quot;</span><span class="p">:</span> <span class="n">false</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;workflow&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;method_type&quot;</span><span class="p">:</span> <span class="s2">&quot;InferMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unique_name&quot;</span><span class="p">:</span> <span class="s2">&quot;InferMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;method_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;core&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;model_file&quot;</span><span class="p">:</span> <span class="s2">&quot;../../../model/runtime/centernet_resnet101/centernet_resnet101_512x512_nv12.bin&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;thread_count&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+      <span class="s2">&quot;method_type&quot;</span><span class="p">:</span> <span class="s2">&quot;PTQCenternetPostProcessMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unique_name&quot;</span><span class="p">:</span> <span class="s2">&quot;PTQCenternetPostProcessMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;method_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;class_num&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+        <span class="s2">&quot;score_threshold&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+        <span class="s2">&quot;topk&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s2">&quot;det_name_list&quot;</span><span class="p">:</span> <span class="s2">&quot;../../config/model/data_name_list/coco_classes.names&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>workflow_latency.json 如下：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;input_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;input_type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;height&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+    <span class="s2">&quot;width&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">,</span>
+    <span class="s2">&quot;data_type&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;image_list_file&quot;</span><span class="p">:</span> <span class="s2">&quot;../../../mini_data/coco/coco.lst&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;need_pre_load&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s2">&quot;need_loop&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;max_cache&quot;</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;output_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;output_type&quot;</span><span class="p">:</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;image_list_enable&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="s2">&quot;image_output_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;./output_images&quot;</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;workflow&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;method_type&quot;</span><span class="p">:</span> <span class="s2">&quot;InferMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unique_name&quot;</span><span class="p">:</span> <span class="s2">&quot;InferMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;method_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;core&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;model_file&quot;</span><span class="p">:</span> <span class="s2">&quot;../../../model/runtime/centernet_resnet101/centernet_resnet101_512x512_nv12.bin&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;thread_count&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;method_type&quot;</span><span class="p">:</span> <span class="s2">&quot;PTQCenternetPostProcessMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;unique_name&quot;</span><span class="p">:</span> <span class="s2">&quot;PTQCenternetPostProcessMethod&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;method_config&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;class_num&quot;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span>
+        <span class="s2">&quot;score_threshold&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+        <span class="s2">&quot;topk&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="s2">&quot;det_name_list&quot;</span><span class="p">:</span> <span class="s2">&quot;../../config/model/data_name_list/coco_classes.names&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id15">
+<h2><span class="section-number">4.3. </span>精度评测<a class="headerlink" href="#id15" title="永久链接至标题"></a></h2>
+<p>​模型评测分为四步：</p>
+<ol class="arabic simple">
+<li><p>数据预处理。</p></li>
+<li><p>数据挂载。</p></li>
+<li><p>模型推理。</p></li>
+<li><p>精度计算。</p></li>
+</ol>
+<section id="data-preprocess">
+<span id="id16"></span><h3><span class="section-number">4.3.1. </span>数据预处理<a class="headerlink" href="#data-preprocess" title="永久链接至标题"></a></h3>
+<p>​ <strong>PTQ模型数据预处理</strong> 需要在x86仿真环境下运行 <code class="docutils literal notranslate"><span class="pre">hb_eval_preprocess</span></code> 工具，对数据集进行预处理。
+所谓预处理是指图片数据在送入模型之前的特定处理操作。
+比如：图片resize、crop和padding等。
+该工具集成于 <code class="docutils literal notranslate"><span class="pre">horizon_tc_ui</span></code> 工具中，安装过相应install脚本即可使用，原始数据集经过工具预处理之后，会生成模型对应的前处理二进制文件.bin文件集。
+直接运行 <code class="docutils literal notranslate"><span class="pre">hb_eval_preprocess</span> <span class="pre">--help</span></code> 可以查看工具使用规则。</p>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>关于 <code class="docutils literal notranslate"><span class="pre">hb_eval_preprocess</span></code> 工具命令行参数，可键入 <code class="docutils literal notranslate"><span class="pre">hb_eval_preprocess</span> <span class="pre">-h</span></code>， 或查看《HB Mappper工具手册》中的
+<a class="reference external" href="../j5_ai_toolchain_tool_guide/hb_mapper/hb_eval_preprocess.html">hb_eval_preprocess工具</a> 一节内容。</p>
+</div>
+<p>下面将详细介绍示例包中每一个模型对应的数据集，以及对应数据集的预处理操作。</p>
+<ul>
+<li><p>VOC数据集：该数据集主要用于ssd_mobilenetv1检测模型的评测，
+其目录结构如下，示例中主要用到 <strong>Main</strong> 文件下的val.txt文件，
+<strong>JPEGImages</strong> 中的源图片和 <strong>Annotations</strong> 中的标注数据：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.
+└── VOCdevkit                  <span class="c1"># 根目录</span>
+    └── VOC2012                <span class="c1"># 不同年份的数据集，这里只下载了2012的，还有2007等其它年份的</span>
+        ├── Annotations        <span class="c1"># 存放xml文件，与JPEGImages中的图片一一对应，解释图片的内容等等</span>
+        ├── ImageSets          <span class="c1"># 该目录下存放的都是txt文件，txt文件中每一行包含一个图片的名称，末尾会加上±1表示正负样本</span>
+        │   ├── Action
+        │   ├── Layout
+        │   ├── Main
+        │   └── Segmentation
+        ├── JPEGImages         <span class="c1"># 存放源图片</span>
+        ├── SegmentationClass  <span class="c1"># 存放的是图片，语义分割相关</span>
+        └── SegmentationObject <span class="c1"># 存放的是图片，实例分割相关</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>对数据集进行预处理：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hb_eval_preprocess -m ssd_mobilenetv1 -i VOCdevkit/VOC2012/JPEGImages -v VOCdevkit/VOC2012/ImageSets/Main/val.txt -o ./pre_ssd_mobilenetv1
+</pre></div>
+</div>
+<ul>
+<li><p>COCO数据集：该数据集用于centernet_resnet101、yolov2_darknet19、yolov3_darknet53、yolov3_vargdarknet和yolov5x检测模型的评测，
+其目录如下，示例中主要用到 <strong>annotations</strong> 文件夹下的instances_val2017.json标注文件和 <strong>images</strong> 中的图片：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.
+├── annotations    <span class="c1"># 存放标注数据</span>
+└── images         <span class="c1"># 存放源图片</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>对数据集进行预处理：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hb_eval_preprocess -m model_name -i coco/coco_val2017/images -o ./pre_model_name
+</pre></div>
+</div>
+<ul>
+<li><p>ImageNet数据集：该数据集主要用于efficientnasnet_m、efficientnasnet_s、efficientnet_lite0、
+efficientnet_lite1、efficientnet_lite2、efficientnet_lite3、efficientnet_lite4、googlenet、
+mobilenetv1、mobilenetv2、resnet18和vargconvnet分类模型的评测，
+示例中主要用到了标注文件val.txt 和 <strong>val</strong> 目录中的源图片:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.
+├── val.txt
+└── val
+</pre></div>
+</div>
+</li>
+</ul>
+<p>对数据集进行预处理：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hb_eval_preprocess -m model_name -i imagenet/val -o ./pre_model_name
+</pre></div>
+</div>
+<ul>
+<li><p>Cityscapes数据集：该数据集用于deeplabv3plus_efficientnetb0、deeplabv3plus_efficientnetm1、deeplabv3plus_efficientnetm2和fastscnn_efficientnetb0模型的评测。示例中主要用到了 <strong>./gtFine/val</strong> 中的标注文件和 <strong>./leftImg8bit/val</strong> 中的源图片。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.
+├── gtFine
+│   └── val
+│       ├── frankfurt
+│       ├── lindau
+│       └── munster
+└── leftImg8bit
+    └── val
+        ├── frankfurt
+        ├── lindau
+        └── munster
+</pre></div>
+</div>
+</li>
+</ul>
+<p>对数据集进行预处理：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hb_eval_preprocess -m mobilenet_unet -i cityscapes/leftImg8bit/val -o ./pre_mobilenet_unet
+</pre></div>
+</div>
+<p>示例中精度计算脚本的运行流程是：</p>
+<ul class="simple">
+<li><p>根据 <code class="docutils literal notranslate"><span class="pre">workflow_accurary.json</span></code> 中的 <code class="docutils literal notranslate"><span class="pre">image_list_file</span></code> 参数值，去寻找对应数据集的 <code class="docutils literal notranslate"><span class="pre">lst</span></code> 文件。</p></li>
+<li><p>根据 <code class="docutils literal notranslate"><span class="pre">lst</span></code> 文件存储的前处理文件路径信息，去加载每一个前处理文件，然后进行推理。</p></li>
+</ul>
+<p>所以，生成预处理文件之后，需要生成对应的lst文件，将每一张前处理文件的路径写入到lst文件中，而这个路径与数据集在板端的存放位置有关。
+这里我们推荐其存放位置与 <code class="docutils literal notranslate"><span class="pre">script</span></code> 文件夹同级目录，如下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="p">|</span>-- ptq
+<span class="p">|</span>   <span class="p">|</span>-- data
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- cityscapes
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin             <span class="c1"># 前处理好的二进制文件</span>
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- cityscapes.lst       <span class="c1"># lst文件：记录每一个前处理文件的路径</span>
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- coco
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- coco.lst
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- imagenet
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- imagenet.lst
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- voc
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>       -- voc.lst
+<span class="p">|</span>   <span class="p">|</span>-- model
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- ...
+<span class="p">|</span>   <span class="p">|</span>-- script
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- ...
+</pre></div>
+</div>
+<p>与之对应的lst文件，参考生成方式如下：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>find ../../../data/coco/fcos -name <span class="s2">&quot;*bin*&quot;</span> &gt; ../../../data/coco/coco.lst
+</pre></div>
+</div>
+<p>这样生成的lst文件中存储的路径为一个相对路径： <code class="docutils literal notranslate"><span class="pre">../../../data/</span></code> ，可以与 <code class="docutils literal notranslate"><span class="pre">workflow_accurary.json</span></code> 默认的配置路径吻合。
+如果需要更改前处理数据集的存放位置，则需要确保对应的 <code class="docutils literal notranslate"><span class="pre">lst</span></code> 文件可以被 <code class="docutils literal notranslate"><span class="pre">workflow_accurary.json</span></code> 读取到；其次需要确保程序根据 <code class="docutils literal notranslate"><span class="pre">lst</span></code> 中的路径信息，能读取到对应的前处理文件。</p>
+<p><strong>QAT模型数据预处理</strong> 需要在x86仿真环境下执行 <code class="docutils literal notranslate"><span class="pre">ai_benchmark_j5/j5/qat/tools/eval_preprocess</span></code> 中的前处理脚本。其中QAT光流预测模型新增FlyingChairs数据集：</p>
+<ul>
+<li><p>FlyingChairs数据集：该数据集用于pwcnet_opticalflow光流模型的评测。示例中主要用到了 <strong>FlyingChairs_release/data</strong> 中的数据和 <strong>./FlyingChairs_train_val.txt</strong> 标注文件。
+{id}_img1.ppm和{id}_img2.ppm是一个图像对，图像宽度大小是512，高度大小是384；id是从00001至22872的序号，每一图像对的标签是{id}_flow.flo。
+其中 <strong>FlyingChairs_train_val</strong> 文件是用于划分训练集和验证集，标签值为2表示验证集。</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.
+├── FlyingChairs_release
+│   └── data
+│       ├── 00001_img1.ppm
+│       ├── 00001_img2.ppm
+│       └── 00001_flow.ppm
+├── FlyingChairs_train_val.txt
+</pre></div>
+</div>
+</li>
+</ul>
+<p>下面将详细介绍示例包中每一个模型对应数据集的预处理操作。</p>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>使用前请修改脚本中的数据集路径及保存路径使脚本正常运行。</p>
+</div>
+<ul>
+<li><p>分类模型：QAT分类模型使用 <code class="docutils literal notranslate"><span class="pre">imagenet.py</span></code> 脚本对 <code class="docutils literal notranslate"><span class="pre">ImageNet</span></code> 数据集进行前处理。</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 imagenet.py --image-path<span class="o">=</span>./standard_imagenet/val/ --save-path<span class="o">=</span>./imagenet_preprocess
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image-path</span></code>：ImageNet原始数据集文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save-path</span></code>：ImageNet数据集预处理后的文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+<li><p>分割模型：QAT分割模型不需要前处理，直接输入 <code class="docutils literal notranslate"><span class="pre">Cityscapes</span></code> 验证集即可。</p></li>
+<li><p>检测模型：QAT不同检测模型使用不同预处理脚本。fcos_efficientnetb0模型使用 <code class="docutils literal notranslate"><span class="pre">fcos_process.py</span></code> 脚本对COCO数据集进行前处理；
+retinanet模型使用 <code class="docutils literal notranslate"><span class="pre">retinanet_process.py</span></code> 脚本对COCO数据集进行前处理；yolov3_mobilenetv1模型使用 <code class="docutils literal notranslate"><span class="pre">voc.py</span></code> 脚本对VOC数据集进行前处理。</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 fcos_process.py --image-path<span class="o">=</span>./mscoco/images/val2017/  --label-path<span class="o">=</span>./mscoco/images/annotations/instances_val2017.json --save-path<span class="o">=</span>./fcos_preprocess
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image-path</span></code>：COCO原始数据集文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label-path</span></code>：COCO数据集标注文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save-path</span></code>：COCO数据集预处理后的文件。</p></li>
+</ul>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 retinanet_process.py --image-path<span class="o">=</span>./mscoco/images/val2017/  --label-path<span class="o">=</span>./mscoco/images/annotations/instances_val2017.json --save-path<span class="o">=</span>./retinanet_preprocess
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image-path</span></code>：COCO原始数据集文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">label-path</span></code>：COCO数据集标注文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save-path</span></code>：COCO数据集预处理后的文件。</p></li>
+</ul>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 voc.py --image-path<span class="o">=</span>./VOCdevkit/VOC2012/JPEGImages/ --save-path<span class="o">=</span>./voc_preprocess
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">image-path</span></code>：VOC原始数据集文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save-path</span></code>：VOC数据集预处理后的文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+<li><p>光流模型：QAT pwcnet_opticalflow光流模型使用 <code class="docutils literal notranslate"><span class="pre">pwcnet_process.py</span></code> 脚本对 <code class="docutils literal notranslate"><span class="pre">FlyingChairs</span></code> 数据集进行前处理。</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 pwcnet_process.py --input_path<span class="o">=</span>./flyingchairs/FlyingChairs_release/data/  --val_file<span class="o">=</span>./flyingchairs/FlyingChairs_train_val.txt --output_path<span class="o">=</span>./pwcnet_preprocess
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">input_path</span></code>：FlyingChairs原始数据集文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">val_file</span></code>：FlyingChairs数据集标签文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">output_path</span></code>：FlyingChairs数据集预处理后的文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>生成预处理文件之后，需要生成对应的lst文件，将每一张前处理文件的路径写入到lst文件中，而这个路径与数据集在板端的存放位置有关。
+这里我们推荐其存放位置与 script 文件夹同级目录，如下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="p">|</span>-- qat
+<span class="p">|</span>   <span class="p">|</span>-- data
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- cityscapes
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin             <span class="c1"># 前处理好的二进制文件</span>
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- cityscapes.lst       <span class="c1"># lst文件：记录每一个前处理文件的路径</span>
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- coco
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- coco.lst
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- imagenet
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- imagenet.lst
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- flyingchairs
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- flyingchairs.lst
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- voc
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- xxxx.bin
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- ....
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>   -- voc.lst
+<span class="p">|</span>   <span class="p">|</span>-- model
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- ...
+<span class="p">|</span>   <span class="p">|</span>-- script
+<span class="p">|</span>   <span class="p">|</span>   <span class="p">|</span>-- ...
+</pre></div>
+</div>
+<p>生成lst文件的方式如PTQ模型相同。</p>
+</section>
+<section id="id17">
+<h3><span class="section-number">4.3.2. </span>数据挂载<a class="headerlink" href="#id17" title="永久链接至标题"></a></h3>
+<p>由于数据集相对较大，不适合直接放在开发板上，可以采用挂载的方式供开发板读取。
+服务器PC端：</p>
+<blockquote>
+<div><div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>运行此命令需要root权限。</p>
+</div>
+</div></blockquote>
+<ol class="arabic simple">
+<li><p>编辑 /etc/exports, 增加一行：
+<code class="docutils literal notranslate"><span class="pre">/nfs</span> <span class="pre">*(insecure,rw,sync,all_squash,anonuid=1000,anongid=1000,no_subtree_check)</span></code>。
+<code class="docutils literal notranslate"><span class="pre">/nfs</span></code> 表示本机挂载路径，可替换为用户指定目录</p></li>
+<li><p>执行命令 <code class="docutils literal notranslate"><span class="pre">exportfs</span> <span class="pre">-a</span> <span class="pre">-r</span></code>，使/etc/exports 生效。</p></li>
+</ol>
+<p>板端：</p>
+<ol class="arabic simple">
+<li><p>创建需要挂载的目录：<code class="docutils literal notranslate"><span class="pre">mkdir</span> <span class="pre">-p</span> <span class="pre">/mnt</span></code>。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mount</span> <span class="pre">-t</span> <span class="pre">nfs</span> <span class="pre">{PC端IP}:/nfs</span> <span class="pre">/mnt</span> <span class="pre">-o</span> <span class="pre">nolock</span></code>。</p></li>
+</ol>
+<p>完成将PC端的 <strong>/nfs</strong> 文件夹挂载至板端 <strong>/mnt</strong> 文件夹。按
+照此方式，将包含预处理数据的文件夹挂载至板端，并将 <strong>/data</strong> 目录软链接至板端 <strong>/ptq</strong> 目录下，与 <strong>/script</strong> 同级目录。</p>
+</section>
+<section id="id18">
+<h3><span class="section-number">4.3.3. </span>模型推理<a class="headerlink" href="#id18" title="永久链接至标题"></a></h3>
+<p>挂载完数据后，登录开发板，执行 <strong>yolo5x/</strong> 目录下的accuracy.sh脚本，如下图所示：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>root@j5dvb-hynix8G:/userdata/ptq/script/detection/yolo5x# sh accuracy.sh
+../../aarch64/bin/example --config_file<span class="o">=</span>workflow_accuracy.json --log_level<span class="o">=</span><span class="m">2</span>
+...
+I0419 <span class="m">03</span>:14:51.158655 <span class="m">39555</span> infer_method.cc:107<span class="o">]</span> Predict DoProcess finished.
+I0419 <span class="m">03</span>:14:51.187361 <span class="m">39556</span> ptq_fcos_post_process_method.cc:123<span class="o">]</span> PTQFcosPostProcessMethod DoProcess finished, predict result: <span class="o">[{</span><span class="s2">&quot;bbox&quot;</span>:<span class="o">[</span>-1.518860,71.691170,574.934631,638.294922<span class="o">]</span>,<span class="s2">&quot;prob&quot;</span>:0.750647,<span class="s2">&quot;label&quot;</span>:21,<span class="s2">&quot;class_name&quot;</span>:<span class="s2">&quot;</span>
+<span class="s2">I0118 14:02:43.636204 24782 ptq_fcos_post_process_method.cc:123] PTQFcosPostProcessMethod DoProcess finished, predict result: [{&quot;</span>bbox<span class="s2">&quot;:[3.432283,164.936249,157.480042,264.276825],&quot;</span>prob<span class="s2">&quot;:0.544454,&quot;</span>label<span class="s2">&quot;:62,&quot;</span>class_name<span class="s2">&quot;:&quot;</span>
+...
+</pre></div>
+</div>
+<p>板端程序会在当前目录生成eval.log文件，该文件就是预测结果文件。</p>
+</section>
+<section id="id19">
+<h3><span class="section-number">4.3.4. </span>精度计算<a class="headerlink" href="#id19" title="永久链接至标题"></a></h3>
+<p>对于 <strong>PTQ模型</strong> 其精度计算的脚本在 <strong>python_tools</strong> 目录下，包括：</p>
+<ol class="arabic simple">
+<li><p><strong>accuracy_tools</strong> 中的：</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>cls_eval.py是用来计算分类模型的精度；</p></li>
+<li><p>coco_det_eval.py是用来计算使用COCO数据集评测的检测模型的精度；</p></li>
+<li><p>parsing_eval.py是用来计算使用Cityscapes数据集评测的分割模型的精度。</p></li>
+<li><p>voc_det_eval.py是用来计算使用VOC数据集评测的检测模型的精度。</p></li>
+</ul>
+</div></blockquote>
+<p><strong>PTQ分类模型</strong></p>
+<ul>
+<li><p>使用CIFAR-10数据集和ImageNet数据集的分类模型计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 cls_eval.py --log_file<span class="o">=</span>eval.log --gt_file<span class="o">=</span>val.txt
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">log_file</span></code>：分类模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gt_file</span></code>：CIFAR-10和ImageNet数据集的标注文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>PTQ检测模型</strong></p>
+<ul>
+<li><p>使用COCO数据集的检测模型精度计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 det_eval.py --eval_result_path<span class="o">=</span>eval.log --annotation_path<span class="o">=</span>instances_val2017.json
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eval_result_path</span></code>：检测模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">annotation_path</span></code>：COCO数据集的标注文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+<li><p>使用VOC数据集的检测模型精度计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 det_eval.py --eval_result_path<span class="o">=</span>eval.log --annotation_path<span class="o">=</span>../Annotations --val_txt_path<span class="o">=</span>../val.txt
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eval_result_path</span></code>：检测模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">annotation_path</span></code>：VOC数据集的标注文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">val_txt_path</span></code>：VOC数据集中ImageSets/Main文件夹下的val.txt文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>PTQ分割模型</strong></p>
+<ul>
+<li><p>使用Cityscapes数据集的分割模型精度计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 parsing_eval.py --log_file<span class="o">=</span>eval.log --gt_path<span class="o">=</span>cityscapes/gtFine/val
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">log_file</span></code>：分割模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gt_path</span></code>：Cityscapes数据集的标注文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p>对于 <strong>QAT模型</strong> 其精度计算的脚本在 <strong>python_tools</strong> 目录下，包括：</p>
+<ol class="arabic simple">
+<li><p><strong>accuracy_tools</strong> 中的:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>cls_eval.py是用来计算分类模型的精度；</p></li>
+<li><p>retinanet_eval.py是用来计算retinanet检测模型的精度；</p></li>
+<li><p>fcos_eval.py是用来计算fcos检测模型的精度；</p></li>
+<li><p>parsing_eval.py是用来计算使用Cityscapes数据集评测的分割模型的精度；</p></li>
+<li><p>pwcnet_eval.py是用来计算使用FlyingChairs数据集评测的光流模型的精度。</p></li>
+<li><p>yolov3_eval.py是用来计算yolov3检测模型的精度；</p></li>
+</ul>
+</div></blockquote>
+<p><strong>QAT分类模型</strong></p>
+<ul>
+<li><p>使用CIFAR-10数据集和ImageNet数据集的分类模型计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 cls_eval.py --log_file<span class="o">=</span>eval.log --gt_file<span class="o">=</span>val.txt
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">log_file</span></code>：分类模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gt_file</span></code>：CIFAR-10和ImageNet数据集的标注文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>QAT检测模型</strong></p>
+<ul>
+<li><p>使用COCO数据集的检测模型精度计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 fcos_eval.py --eval_result_path<span class="o">=</span>eval.log --annotation_path<span class="o">=</span>instances_val2017.json  --image_path<span class="o">=</span>./mscoco/images/val2017/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eval_result_path</span></code>：fcos检测模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">annotation_path</span></code>：COCO数据集的标注文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">image_path</span></code>：COCO原始数据集。</p></li>
+</ul>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 retinanet_eval.py --eval_result_path<span class="o">=</span>eval.log --annotation_path<span class="o">=</span>instances_val2017.json --image_path<span class="o">=</span>./mscoco/images/val2017/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eval_result_path</span></code>：retinanet检测模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">annotation_path</span></code>：COCO数据集的标注文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">image_path</span></code>：COCO原始数据集。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+<li><p>使用VOC数据集的检测模型精度计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 det_eval.py --eval_result_path<span class="o">=</span>eval.log --annotation_path<span class="o">=</span>../Annotations --val_txt_path<span class="o">=</span>../val.txt --image_height<span class="o">=</span><span class="m">300</span>  --image_width<span class="o">=</span><span class="m">300</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">eval_result_path</span></code>：检测模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">annotation_path</span></code>：VOC数据集的标注文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">val_txt_path</span></code>：VOC数据集中ImageSets/Main文件夹下的val.txt文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">image_height</span></code>: 图像的高度。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">image_width</span></code>: 图像的宽度。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>QAT分割模型</strong></p>
+<ul>
+<li><p>使用Cityscapes数据集的分割模型精度计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 parsing_eval.py --log_file<span class="o">=</span>eval.log --gt_path<span class="o">=</span>cityscapes/gtFine/val
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">log_file</span></code>：分割模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gt_path</span></code>：Cityscapes数据集的标注文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>QAT光流模型</strong></p>
+<ul>
+<li><p>使用FlyingChairs数据集的光流模型精度计算方式如下：</p>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+
+python3 parsing_eval.py --log_file<span class="o">=</span>eval.log --gt_path<span class="o">=</span>./flyingchairs/FlyingChairs_release/data/  --val_file<span class="o">=</span>./flyingchairs/FlyingChairs_train_val.txt
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">log_file</span></code>：光流模型的预测结果文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">val_file</span></code>：FlyingChairs数据集标签文件。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">gt_path</span></code>：FlyingChairs数据集原始文件。</p></li>
+</ul>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="id20">
+<h1><span class="section-number">5. </span>模型集成<a class="headerlink" href="#id20" title="永久链接至标题"></a></h1>
+<p>后处理集成主要有2个步骤，以CenterNet模型集成为例：</p>
+<ol class="arabic simple">
+<li><p>增加后处理文件ptq_centernet_post_process_method.cc，以及头文件ptq_centernet_post_process_method.h。</p></li>
+<li><p>增加模型运行脚本及配置文件。</p></li>
+</ol>
+<section id="id21">
+<h2><span class="section-number">5.1. </span>后处理文件添加<a class="headerlink" href="#id21" title="永久链接至标题"></a></h2>
+<p>后处理代码文件可直接复用src/method目录下任意后处理文件，主要修改 <code class="docutils literal notranslate"><span class="pre">InitFromJsonString</span></code> 函数，以及 <code class="docutils literal notranslate"><span class="pre">PostProcess</span></code> 函数即可。</p>
+<p><code class="docutils literal notranslate"><span class="pre">InitFromJsonString</span></code> 函数主要是读取workflow.json中的后处理相关的参数配置，用户可自定义设置相应的输入参数。
+<code class="docutils literal notranslate"><span class="pre">PostProcess</span></code> 函数主要完成后处理的逻辑。</p>
+<p>后处理.cc文件放置于 <strong>ai_benchmark/code/src/method/</strong> 路径下，
+.h头文件放置于 <strong>ai_benchmark/code/include/method/</strong> 路径下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+---ai_benchmark
+<span class="p">|</span> +---code                                               <span class="c1"># 示例源码</span>
+<span class="p">|</span> <span class="p">|</span> +---include
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---method                                         <span class="c1"># 在此文件夹中添加头文件</span>
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---qat_fcos_post_process_method.h
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---......
+<span class="p">|</span> <span class="p">|</span> +---src
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---method                                         <span class="c1"># 在此文件夹中添加后处理.cc文件</span>
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---qat_fcos_post_process_method.cc
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---......
+</pre></div>
+</div>
+</section>
+<section id="id22">
+<h2><span class="section-number">5.2. </span>增加模型运行脚本及配置文件<a class="headerlink" href="#id22" title="永久链接至标题"></a></h2>
+<p>脚本目录结构如下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>+---ai_benchmark
+<span class="p">|</span> +---j5/ptq/script                                    <span class="c1"># 示例脚本文件夹</span>
+<span class="p">|</span> <span class="p">|</span> +---detection
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---fcos_efficientnetb0
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---accuracy.sh                                <span class="c1"># 精度测试脚本</span>
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---fps.sh                                     <span class="c1"># 性能测试脚本</span>
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---latency.sh                                 <span class="c1"># 单帧延时示例脚本</span>
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---workflow_accuracy.json                     <span class="c1"># 精度配置文件</span>
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---workflow_fps.json                          <span class="c1"># 性能配置文件</span>
+<span class="p">|</span> <span class="p">|</span> <span class="p">|</span> <span class="p">|</span> +---workflow_latency.json                      <span class="c1"># 单帧延时配置文件</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id23">
+<h1><span class="section-number">6. </span>辅助工具和常用操作<a class="headerlink" href="#id23" title="永久链接至标题"></a></h1>
+<section id="id24">
+<h2><span class="section-number">6.1. </span>日志<a class="headerlink" href="#id24" title="永久链接至标题"></a></h2>
+<p>​日志主要包括 <strong>示例日志</strong> 和 <strong>DNN日志</strong> 两部分。
+其中示例日志是指交付包示例代码中所应用的日志；
+DNN日志是指嵌入式runtime库中的日志。
+用户根据不同的需求可以设置不同的日志。</p>
+<section id="id25">
+<h3><span class="section-number">6.1.1. </span>示例日志<a class="headerlink" href="#id25" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>日志等级。示例日志主要采用glog中的vlog，主要分为四个自定义等级：</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> (SYSTEM)，该等级主要用来输出报错信息；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">1</span></code> (REPORT)，该等级在示例代码中主要用来输出性能数据；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2</span></code> (DETAIL)，该等级在示例代码中主要用来输出系统当前状态信息；</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">3</span></code> (DEBUG)，该等级在示例代码中主要用来输出调试信息。
+日志等级设置规则：假设设置了级别为 <code class="docutils literal notranslate"><span class="pre">P</span></code>，如果发生了一个级别 <code class="docutils literal notranslate"><span class="pre">Q</span></code> 比 <code class="docutils literal notranslate"><span class="pre">P</span></code> 低，
+则可以启动，否则屏蔽掉；默认DEBUG&gt;DETAIL&gt;REPORT&gt;SYSTEM。</p></li>
+</ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>日志等级设置。通过 <code class="docutils literal notranslate"><span class="pre">log_level</span></code> 参数来设置日志等级，在运行示例的时候，指定 <code class="docutils literal notranslate"><span class="pre">log_level</span></code> 参数来设置等级，
+比如指定 <code class="docutils literal notranslate"><span class="pre">log_level=0</span></code>，即输出SYSTEM日志；如果指定 <code class="docutils literal notranslate"><span class="pre">log_level=3</span></code>，
+则输出DEBUG、DETAIL、REPORT和SYSTEM日志。</p></li>
+</ol>
+</section>
+<section id="dnn">
+<h3><span class="section-number">6.1.2. </span><code class="docutils literal notranslate"><span class="pre">dnn</span></code> 日志<a class="headerlink" href="#dnn" title="永久链接至标题"></a></h3>
+<p>关于 <code class="docutils literal notranslate"><span class="pre">dnn</span></code> 日志的配置，请阅读 《bpu_sdk_api_doc》文档中的
+<a class="reference external" href="../bpu_sdk_api_doc/bpu_sdk_api_doc_cn.html#id20">配置信息</a> 一节内容。</p>
+</section>
+</section>
+<section id="id27">
+<h2><span class="section-number">6.2. </span>算子耗时<a class="headerlink" href="#id27" title="永久链接至标题"></a></h2>
+<section id="id28">
+<h3><span class="section-number">6.2.1. </span>概述<a class="headerlink" href="#id28" title="永久链接至标题"></a></h3>
+<p>​对OP性能的统计是通过设置 <code class="docutils literal notranslate"><span class="pre">HB_DNN_PROFILER_LOG_PATH</span></code> 环境变量实现的。
+对该变量的类型和取值说明如下：</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">HB_DNN_PROFILER_LOG_PATH=${path}</span></code>：表示OP节点dump的输出路径，程序正常运行完退出后，产生profiler.log文件。</p></li>
+</ul>
+</section>
+<section id="id29">
+<h3><span class="section-number">6.2.2. </span>示例<a class="headerlink" href="#id29" title="永久链接至标题"></a></h3>
+<p>以下代码块以ssd_mobilenetv1模型为例，开启8个线程同时RunModel，设置 <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">HB_DNN_PROFILER_LOG_PATH=./</span></code>，则统计输出的信息如下：</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 2</span><span class="w">  </span><span class="s">&quot;chip_latency&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="s">&quot;BPU_inference_time_cost&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 4</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2.3878000000000004</span><span class="p">,</span><span class="w"></span>
+<span class="linenos"> 5</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">3.871</span><span class="p">,</span><span class="w"></span>
+<span class="linenos"> 6</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.188</span><span class="w"></span>
+<span class="linenos"> 7</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="s">&quot;CPU_inference_time_cost&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos"> 9</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.34690000000000004</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">10</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.5260000000000001</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">11</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.19700000000000004</span><span class="w"></span>
+<span class="linenos">12</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">13</span><span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">14</span><span class="w">  </span><span class="s">&quot;model_latency&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">15</span><span class="w">    </span><span class="s">&quot;BPU_MobileNet-SSD_subgraph_0&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">16</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2.3878000000000004</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">17</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">3.871</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">18</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.188</span><span class="w"></span>
+<span class="linenos">19</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">20</span><span class="w">    </span><span class="s">&quot;Dequantize_conv11_mbox_conf_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">21</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.1157</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">22</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.139</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">23</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.074</span><span class="w"></span>
+<span class="linenos">24</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">25</span><span class="w">    </span><span class="s">&quot;Dequantize_conv11_mbox_loc_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">26</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.032100000000000004</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">27</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.044</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">28</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.017</span><span class="w"></span>
+<span class="linenos">29</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">30</span><span class="w">    </span><span class="s">&quot;Dequantize_conv13_mbox_conf_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">31</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.063</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">32</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.093</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">33</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.034</span><span class="w"></span>
+<span class="linenos">34</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">35</span><span class="w">    </span><span class="s">&quot;Dequantize_conv13_mbox_loc_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">36</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0144</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">37</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.018</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">38</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.007</span><span class="w"></span>
+<span class="linenos">39</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">40</span><span class="w">    </span><span class="s">&quot;Dequantize_conv14_2_mbox_conf_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">41</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0166</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">42</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.021</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">43</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.009</span><span class="w"></span>
+<span class="linenos">44</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">45</span><span class="w">    </span><span class="s">&quot;Dequantize_conv14_2_mbox_loc_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">46</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.006</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">47</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.008</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">48</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.002</span><span class="w"></span>
+<span class="linenos">49</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">50</span><span class="w">    </span><span class="s">&quot;Dequantize_conv15_2_mbox_conf_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">51</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.008400000000000001</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">52</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.011</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">53</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.003</span><span class="w"></span>
+<span class="linenos">54</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">55</span><span class="w">    </span><span class="s">&quot;Dequantize_conv15_2_mbox_loc_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">56</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0040999999999999995</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">57</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.006</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">58</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.001</span><span class="w"></span>
+<span class="linenos">59</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">60</span><span class="w">    </span><span class="s">&quot;Dequantize_conv16_2_mbox_conf_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">61</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0052</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">62</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.008</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">63</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.002</span><span class="w"></span>
+<span class="linenos">64</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">65</span><span class="w">    </span><span class="s">&quot;Dequantize_conv16_2_mbox_loc_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">66</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0033</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">67</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.005</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">68</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.001</span><span class="w"></span>
+<span class="linenos">69</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">70</span><span class="w">    </span><span class="s">&quot;Dequantize_conv17_2_mbox_conf_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">71</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0033</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">72</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.005</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">73</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.001</span><span class="w"></span>
+<span class="linenos">74</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">75</span><span class="w">    </span><span class="s">&quot;Dequantize_conv17_2_mbox_loc_1_HzDequantize&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">76</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0033</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">77</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.005</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">78</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+<span class="linenos">79</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">80</span><span class="w">    </span><span class="s">&quot;MobileNet-SSD_subgraph_0_output_layout_convert&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">81</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.0715</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">82</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.163</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">83</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.046</span><span class="w"></span>
+<span class="linenos">84</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">85</span><span class="w">  </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">86</span><span class="w">  </span><span class="s">&quot;task_latency&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">87</span><span class="w">    </span><span class="s">&quot;TaskPendingTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">88</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.07429999999999999</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">89</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.099</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">90</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0.018</span><span class="w"></span>
+<span class="linenos">91</span><span class="w">    </span><span class="p">},</span><span class="w"></span>
+<span class="linenos">92</span><span class="w">    </span><span class="s">&quot;TaskRunningTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="linenos">93</span><span class="w">      </span><span class="s">&quot;avg_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">3.1887</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">94</span><span class="w">      </span><span class="s">&quot;max_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">4.853</span><span class="p">,</span><span class="w"></span>
+<span class="linenos">95</span><span class="w">      </span><span class="s">&quot;min_time&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">1.58</span><span class="w"></span>
+<span class="linenos">96</span><span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">97</span><span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="linenos">98</span><span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>以上输出了 model_latency 和 task_latency。其中model_latency中输出了模型每个OP运行所需要的耗时情况，task_latency中输出了模型运行中各个task模块的耗时情况。</p>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>程序只有正常退出才会输出profiler.log文件。</p>
+</div>
+</section>
+</section>
+<section id="dump">
+<h2><span class="section-number">6.3. </span>dump工具<a class="headerlink" href="#dump" title="永久链接至标题"></a></h2>
+<p>​通过开启 <code class="docutils literal notranslate"><span class="pre">HB_DNN_DUMP_PATH</span></code> 这个环境变量可以dump出模型推理过程中每个节点的输入和输出。
+通过dump工具，可以排查模拟器和真机是否存在一致性问题：即相同模型，相同输入，真机和模拟器的输出结果是否完全相同。</p>
+</section>
+<section id="id30">
+<h2><span class="section-number">6.4. </span>常用操作<a class="headerlink" href="#id30" title="永久链接至标题"></a></h2>
+<section id="id31">
+<h3><span class="section-number">6.4.1. </span>查看开发板镜像版本<a class="headerlink" href="#id31" title="永久链接至标题"></a></h3>
+<p>​使用 <code class="docutils literal notranslate"><span class="pre">uname</span> <span class="pre">-a</span></code> 命令可以查看到系统的版本，执行命令后如下图所示，</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>root@j5dvb-hynix8G:/userdata# uname -a
+Linux j5dvb-hynix8G <span class="m">4</span>.14.74-00695-gb3d914ab7-dirty <span class="c1">#1 SMP Sun Aug 15 14:41:13 CST 2021 aarch64 GNU/Linux</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SMP</span></code> 代表该系统支持对称多处理（Symmetrical Multi-Processing）。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PREEMPT</span></code> 代表系统支持抢占式内核。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Oct</span> <span class="pre">23</span> <span class="pre">10:47:39</span> <span class="pre">CST</span> <span class="pre">2020</span></code> 代表系统镜像发布时间。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aarch64</span></code> 代表系统支持平台为aarch64平台。</p></li>
+</ul>
+</div>
+</section>
+<section id="id32">
+<h3><span class="section-number">6.4.2. </span>查看系统日志<a class="headerlink" href="#id32" title="永久链接至标题"></a></h3>
+<p>​使用 <code class="docutils literal notranslate"><span class="pre">dmesg</span></code> 命令可以查看系统日志，如下图所示：</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>root@j5dvb-hynix8G:/userdata# dmesg
+<span class="o">[</span>    <span class="m">0</span>.000000<span class="o">]</span> Booting Linux on physical CPU 0x0
+<span class="o">[</span>    <span class="m">0</span>.000000<span class="o">]</span> Linux version <span class="m">4</span>.14.74 <span class="o">(</span>jenkins@sysgbj8<span class="o">)</span> <span class="o">(</span>gcc version <span class="m">6</span>.5.0 <span class="o">(</span>Linaro GCC <span class="m">6</span>.5-2018.12<span class="o">))</span> <span class="c1">#2 SMP PREEMPT Fri Oct 23 10:47:39 CST 2020</span>
+<span class="o">[</span>    <span class="m">0</span>.000000<span class="o">]</span> Boot CPU: AArch64 Processor <span class="o">[</span>410fd034<span class="o">]</span>
+<span class="o">[</span>    <span class="m">0</span>.000000<span class="o">]</span> Machine model: Hobot J5 SOC MP DVB
+<span class="o">[</span>    <span class="m">0</span>.000000<span class="o">]</span> earlycon: hobot0 at MMIO 0x00000000a5000000 <span class="o">(</span>options <span class="s1">&#39;&#39;</span><span class="o">)</span>
+<span class="o">[</span>    <span class="m">0</span>.000000<span class="o">]</span> bootconsole <span class="o">[</span>hobot0<span class="o">]</span> enabled
+...
+</pre></div>
+</div>
+<p>在上板运行程序的时候，假如发生系统错误（比如程序被killed或者mem分配失败等），执行 <code class="docutils literal notranslate"><span class="pre">dmesg</span></code> 后可以看到系统发生错误的具体原因。</p>
+</section>
+<section id="bpu">
+<h3><span class="section-number">6.4.3. </span>查看BPU使用率<a class="headerlink" href="#bpu" title="永久链接至标题"></a></h3>
+<p>​使用 <code class="docutils literal notranslate"><span class="pre">hrut_somstatus</span></code> 命令可以查看当前开发板的BPU使用率，执行命令后如下图所示：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=====================</span><span class="mi">1</span><span class="o">=====================</span>
+<span class="n">temperature</span><span class="o">--&gt;</span>
+      <span class="n">ddr_cv_cam</span><span class="o">-</span><span class="n">thermal</span> <span class="p">:</span> <span class="mf">35.7</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">soc</span><span class="o">-</span><span class="n">thermal</span> <span class="p">:</span> <span class="mf">35.6</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">bpu0_r</span><span class="o">-</span><span class="n">thermal</span> <span class="p">:</span> <span class="mf">34.3</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">ddr0_sram</span> <span class="p">:</span> <span class="mf">35.3</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">bpu0_b_top</span> <span class="p">:</span> <span class="mf">34.1</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">bpu0_video</span> <span class="p">:</span> <span class="mf">35.1</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">ddr0_video</span> <span class="p">:</span> <span class="mf">35.2</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">peri</span>     <span class="p">:</span> <span class="mf">35.1</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">bpu1_cpu</span><span class="o">-</span><span class="n">thermal</span> <span class="p">:</span> <span class="mf">34.7</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">bpu1_sram</span> <span class="p">:</span> <span class="mf">35.3</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">bpu1_top</span> <span class="p">:</span> <span class="mf">34.4</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">bpu1_left</span> <span class="p">:</span> <span class="mf">34.4</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">bpu0_cam_cv</span> <span class="p">:</span> <span class="mf">35.2</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">ddr1_cam</span> <span class="p">:</span> <span class="mf">35.7</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">cpu</span><span class="o">-</span><span class="n">thermal</span> <span class="p">:</span> <span class="mf">35.0</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+      <span class="n">cpu_t</span><span class="o">-</span><span class="n">thermal</span> <span class="p">:</span> <span class="mf">35.0</span> <span class="p">(</span><span class="n">C</span><span class="p">)</span>
+<span class="n">cpu</span> <span class="n">frequency</span><span class="o">--&gt;</span>
+              <span class="nb">min</span>       <span class="n">cur</span>     <span class="nb">max</span>
+        <span class="n">cpu0</span><span class="p">:</span> <span class="mi">24000</span>     <span class="mi">1200000</span> <span class="mi">1200000</span>
+        <span class="n">cpu1</span><span class="p">:</span> <span class="mi">24000</span>     <span class="mi">1200000</span> <span class="mi">1200000</span>
+        <span class="n">cpu2</span><span class="p">:</span> <span class="mi">24000</span>     <span class="mi">1200000</span> <span class="mi">1200000</span>
+        <span class="n">cpu3</span><span class="p">:</span> <span class="mi">24000</span>     <span class="mi">1200000</span> <span class="mi">1200000</span>
+        <span class="n">cpu4</span><span class="p">:</span> <span class="mi">24000</span>     <span class="mi">1200000</span> <span class="mi">1200000</span>
+        <span class="n">cpu5</span><span class="p">:</span> <span class="mi">24000</span>     <span class="mi">1200000</span> <span class="mi">1200000</span>
+        <span class="n">cpu6</span><span class="p">:</span> <span class="mi">24000</span>     <span class="mi">1200000</span> <span class="mi">1200000</span>
+        <span class="n">cpu7</span><span class="p">:</span> <span class="mi">24000</span>     <span class="mi">1200000</span> <span class="mi">1200000</span>
+<span class="n">bpu</span> <span class="n">status</span> <span class="n">information</span><span class="o">----&gt;</span>
+            <span class="nb">min</span>        <span class="n">cur</span>             <span class="nb">max</span>             <span class="n">ratio</span>
+        <span class="n">bpu0</span><span class="p">:</span> <span class="mi">200000000</span> <span class="mi">1200000000</span>      <span class="mi">1200000000</span>      <span class="mi">0</span>
+        <span class="n">bpu1</span><span class="p">:</span> <span class="mi">200000000</span> <span class="mi">1200000000</span>      <span class="mi">1200000000</span>      <span class="mi">0</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="AI-Benchmark使用说明" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

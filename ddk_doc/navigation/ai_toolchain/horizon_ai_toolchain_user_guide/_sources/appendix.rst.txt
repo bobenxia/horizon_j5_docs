@@ -1,0 +1,1417 @@
+附录
+==========
+
+模型性能Benchmark
+---------------------
+
+**说明**
+
+  - 测试条件：
+
+    - 测试开发板：J5-DVB board。
+    - 测试核心数：latency单核，fps双核。
+    - 性能数据获取频率设置为：每5分钟获取一次性能参数，取平均值。
+
+  - 表头缩写：
+
+    - C = 计算量，单位为GOPs（十亿次运算/秒）。此数据通过 ``hb_perf`` 工具获得。
+    - FPS = 每秒帧率。此数据在开发板单线程运行ai_benchmark_j5示例包/script路径下各模型子文件夹的 **latency.sh** 脚本获取，不含后处理。
+    - ITC = 推理耗时。此数据在开发板单线程运行ai_benchmark_j5示例包/script路径下各模型子文件夹的 **latency.sh** 脚本获取，不含后处理。
+    - TCPP = 后处理耗时。此数据在开发板单线程运行ai_benchmark_j5示例包/script路径下各模型子文件夹的 **latency.sh** 脚本获取。
+    - RV = 单帧读取数据量。此数据通过 ``hb_perf`` 工具获得。
+    - WV = 单帧写入数据量。此数据通过 ``hb_perf`` 工具获得。
+   
+.. table::
+  :align: center
+
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **MODEL NAME**                   | **INPUT SIZE** | **C(GOPs)** | **FPS**     | **ITC(ms)** | **TCPP(ms)** | **RV(mb)** | **WV(mb)** | **Dataset** | **ACCURACY**               | **LINKS**                                                                            |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **MobileNetv1**                  | 1x224x224x3    | 1.14        | 3444.67     | 0.996       | 0.077        | 4.07       | 0.13       | ImageNet    | Top1:                      | https://github.com/shicai/MobileNet-Caffe                                            |
+  |                                  |                |             |             |             |              |            |            |             | 0.7061(FLOAT)/0.7024(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **MobileNetv2**                  | 1x224x224x3    | 0.86        | 3477.34     | 0.923       | 0.070        | 3.68       | 0.02       | ImageNet    | Top1:                      | https://github.com/shicai/MobileNet-Caffe                                            |
+  |                                  |                |             |             |             |              |            |            |             | 0.7167(FLOAT)/0.7117(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **GoogleNet**                    | 1x224x224x3    | 3.00        | 2179.51     | 1.192       | 0.071        | 6.55       | 0.10       | ImageNet    | Top1:                      | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/GoogleNet           |
+  |                                  |                |             |             |             |              |            |            |             | 0.7001(FLOAT)/0.6990(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Resnet18**                     | 1x224x224x3    | 3.65        | 1483.80     | 1.656       | 0.070        | 10.56      | 0.12       | ImageNet    | Top1:                      | https://github.com/HolmesShuan/ResNet-18-Caffemodel-on-ImageNet                      |
+  |                                  |                |             |             |             |              |            |            |             | 0.6836(FLOAT)/0.6826(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **EfficientNet-Lite0**           | 1x224x224x3    | 0.77        | 2720.59     | 1.093       | 0.070        | 5.08       | 0.02       | ImageNet    | Top1:                      | https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite      |
+  |                                  |                |             |             |             |              |            |            |             | 0.7491(FLOAT)/0.7475(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **EfficientNet-Lite1**           | 1x240x240x3    | 1.20        | 2257.96     | 1.774       | 0.071        | 5.85       | 0.02       | ImageNet    | Top1:                      | https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite      |
+  |                                  |                |             |             |             |              |            |            |             | 0.7647(FLOAT)/0.7624(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **EfficientNet-Lite2**           | 1x260x260x3    | 1.72        | 2060.29     | 1.330       | 0.071        | 6.64       | 0.02       | ImageNet    | Top1:                      | https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite      |
+  |                                  |                |             |             |             |              |            |            |             | 0.7738(FLOAT)/0.7715(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **EfficientNet-Lite3**           | 1x280x280x3    | 2.77        | 1566.11     | 1.621       | 0.071        | 9.00       | 0.02       | ImageNet    | Top1:                      | https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite      |
+  |                                  |                |             |             |             |              |            |            |             | 0.7922(FLOAT)/0.7905(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **EfficientNet-Lite4**           | 1x300x300x3    | 5.11        | 1037.61     | 2.265       | 0.071        | 13.91      | 0.02       | ImageNet    | Top1:                      | https://github.com/tensorflow/tpu/tree/master/models/official/efficientnet/lite      |
+  |                                  |                |             |             |             |              |            |            |             | 0.8070(FLOAT)/0.8052(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Vargconvnet**                  | 1x224x224x3    | 9.06        | 1495.77     | 1.622       | 0.071        | 9.14       | 0.11       | ImageNet    | Top1:                      | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/VargNet             |
+  |                                  |                |             |             |             |              |            |            |             | 0.7790(FLOAT)/0.7787(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Efficientnasnet_m**            | 1x300x300x3    | 4.53        | 1108.70     | 2.076       | 0.071        | 13.26      | 0.04       | ImageNet    | Top1:                      | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/EfficientnasNet     |
+  |                                  |                |             |             |             |              |            |            |             | 0.8009(FLOAT)/0.7925(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Efficientnasnet_s**            | 1x280x280x3    | 1.44        | 2650.49     | 1.055       | 0.071        | 5.22       | 0.004096   | ImageNet    | Top1:                      | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/EfficientnasNet     |
+  |                                  |                |             |             |             |              |            |            |             | 0.7573(FLOAT)/0.7508(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **YOLOv2_Darknet19**             | 1x608x608x3    | 62.94       | 277.444     | 7.131       | 1.670        | 46.71      | 2.01       | COCO        | [IoU=0.50:0.95]=           | https://pjreddie.com/darknet/yolo                                                    |
+  |                                  |                |             |             |             |              |            |            |             | 0.276(FLOAT)/0.271(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **YOLOv3_Darknet53**             | 1x416x416x3    | 65.90       | 202.192     | 9.811       | 9.957        | 59.87      | 6.90       | COCO        | [IoU=0.50:0.95]=           | https://github.com/ChenYingpeng/caffe-yolov3                                         |
+  |                                  |                |             |             |             |              |            |            |             | 0.333(FLOAT)/0.330(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **YOLOv5x**                      | 1x672x672x3    | 243.92      | 72.0124     | 27.069      | 5.912        | 123.07     | 43.93      | COCO        | [IoU=0.50:0.95]=           | https://github.com/ultralytics/yolov5/releases/tag/v2.0                              |
+  |                                  |                |             |             |             |              |            |            |             | 0.480(FLOAT)/0.464(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Ssd_mobilenetv1**              | 1x300x300x3    | 2.30        | 2181.49     | 1.076       | 1.109        | 5.85       | 0.20       | VOC         | mAP:                       | https://github.com/chuanqi305/MobileNet-SSD                                          |
+  |                                  |                |             |             |             |              |            |            |             | 0.7342(FLOAT)/0.7209(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Centernet_resnet101**          | 1x512x512x3    | 90.53       | 250.524     | 6.681       | 21.386       | 53.05      | 13.76      | COCO        | [IoU=0.50:0.95]=           | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Centernet           |
+  |                                  |                |             |             |             |              |            |            |             | 0.342(FLOAT)/0.331(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Fcos_efficientnetb0**          | 1x512x512x3    | 5.02        | 1637.86     | 1.503       | 0.278        | 4.64       | 2.11       | COCO        | [IoU=0.50:0.95]=           | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Fcos_Efficientnetb0 |
+  |                                  |                |             |             |             |              |            |            |             | 0.356(FLOAT)/0.354(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Yolov3_vargdarknet**           | 1x416x416x3    | 42.82       | 289.614     | 6.856       | 9.894        | 45.41      | 8.28       | COCO        | [IoU=0.50:0.95]=           | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/Yolov3_VargDarknet  |
+  |                                  |                |             |             |             |              |            |            |             | 0.335(FLOAT)/0.316(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Deeplabv3plus_efficientnetb0** | 1x1024x2048x3  | 30.78       | 196.36      | 10.216      | 0.810        | 14.32      | 9.90       | Cityscapes  | [IoU=0.50:0.95]=           | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus       |
+  |                                  |                |             |             |             |              |            |            |             | 0.7507(FLOAT)/0.7567(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Fastscnn_efficientnetb0**      | 1x1024x2048x3  | 12.50       | 331.221     | 6.325       | 0.825        | 9.25       | 6.46       | Cityscapes  | [IoU=0.50:0.95]=           | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/FastSCNN            |
+  |                                  |                |             |             |             |              |            |            |             | 0.6997(FLOAT)/0.6928(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Deeplabv3plus_efficientnetm1** | 1x1024x2048x3  | 77.05       | 130.234     | 15.461      | 0.867        | 31.10      | 22.63      | Cityscapes  | [IoU=0.50:0.95]=           | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus       |
+  |                                  |                |             |             |             |              |            |            |             | 0.7794(FLOAT)/0.7741(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **Deeplabv3plus_efficientnetm2** | 1x1024x2048x3  | 124.16      | 85.12       | 22.539      | 0.814        | 79.01      | 59.33      | Cityscapes  | [IoU=0.50:0.95]=           | https://github.com/HorizonRobotics-Platform/ModelZoo/tree/master/DeeplabV3Plus       |
+  |                                  |                |             |             |             |              |            |            |             | 0.7882(FLOAT)/0.7856(INT8) |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **fcos_efficientnetb0**          | 1x512x512x3    | 5.03        | TBD         | TBD         | TBD          | 5.17       | 2.44       | COCO        | [IoU=0.50:0.95]=           | http://cocodataset.org/                                                              |
+  |                                  |                |             |             |             |              |            |            |             | 0.357(FLOAT)/0.357(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **fcos_efficientnetb2**          | 1x768x768x3    | 22.11       | TBD         | TBD         | TBD          | 18.87      | 12.81      | COCO        | [IoU=0.50:0.95]=           | http://cocodataset.org/                                                              |
+  |                                  |                |             |             |             |              |            |            |             | 0.451(FLOAT)/0.450(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+  | **fcos_efficientnetb3**          | 1x896x896x3    | 41.51       | TBD         | TBD         | TBD          | 33.46      | 23.48      | COCO        | [IoU=0.50:0.95]=           | http://cocodataset.org/                                                              |
+  |                                  |                |             |             |             |              |            |            |             | 0.476(FLOAT)/0.477(INT8)   |                                                                                      |
+  +----------------------------------+----------------+-------------+-------------+-------------+--------------+------------+------------+-------------+----------------------------+--------------------------------------------------------------------------------------+
+
+norm_type 配置说明
+---------------------
+
+参数说明解析
+^^^^^^^^^^^^^^^^
+
+**norm_type 参数讲解**
+
+- 参数作用：此参数为在模型中添加的输入数据预处理方法。
+
+- 参数取值范围及说明：
+
+  - ``no_preprocess`` 表示不添加任何数据预处理。
+  - ``data_mean`` 表示提供减均值预处理。
+  - ``data_scale`` 表示提供乘scale系数预处理。
+  - ``data_mean_and_scale`` 表示提供先减均值再乘scale系数前处理。
+
+.. attention::
+  当输入节点多于一个时，设置的节点顺序需要与 ``input_name`` 中的顺序严格保持一致。
+
+
+**mean_value 参数讲解**
+
+- 参数作用：此参数表示指定预处理方法的图像减去的均值。
+
+- 使用说明：当 ``norm_type`` 取值为 ``data_mean_and_scale`` 或 ``data_mean`` 时需要配置该参数。
+
+- 参数说明：
+
+  - 当只有一个输入节点时，仅需要配置一个数值，表示所有通道都减去这个均值。
+  - 当有多个节点时，提供与通道数量一致的数值（这些数值以空格分隔开），表示每个通道都会减去不同的均值。
+
+.. attention::
+  1. 配置的输入节点数量必须与 ``norm_type`` 配置的节点数量一致。
+  2. 如果存在某个节点不需要 ``mean`` 处理，则为该节点配置 ``'None'``。
+
+
+**scale_value 参数讲解**
+
+- 参数作用：此参数表示指定预处理方法的数值scale系数。
+
+- 使用说明：当 ``norm_type`` 取值为 ``data_mean_and_scale`` 或 ``data_scale`` 时需要配置该参数。
+
+- 参数说明：
+
+  - 当只有一个输入节点时，仅需要配置一个数值，表示所有通道都乘以这个系数。
+  - 当有多个节点时，提供与通道数量一致的数值（这些数值以空格分隔开），表示每个通道都会乘以不同的系数。
+
+.. attention::
+  1. 配置的输入节点数量必须与 ``norm_type`` 配置的节点数量一致。
+  2. 如果存在某个节点不需要 ``scale`` 处理，则为该节点配置 ``'None'``。
+
+计算公式及示例说明
+^^^^^^^^^^^^^^^^^^^^^
+
+模型训练时的数据标准化处理计算公式
+"""""""""""""""""""""""""""""""""""""""
+
+yaml文件中的mean和scale参数与训练时的mean、std需要进行换算。
+
+预处理节点中数据标准化操作的计算方式（即HzPreprocess节点中的计算公式）为：:math:`norm\_data = ( data − mean ) * scale` 。
+
+以yolov3为例，其训练时的预处理代码为：
+
+.. code-block:: Python
+
+    def base_transform(image, size, mean, std):
+        x = cv2.resize(image, (size, size).astype(np.float32))
+        x /= 255
+        x -= mean
+        x /= std
+        return x
+
+    class BaseTransform:
+        def __init__(self, size, mean=(0.406, 0.456, 0.485), std=(0.225, 0.224, 0.229)):
+            self.size = size
+            self.mean = np.array(mean, dtype=np.float32)
+            self.std = np.array(std, dtype=np.float32)
+
+
+则计算公式为：:math:`norm\_data= (\frac{data}{255}  −𝑚𝑒𝑎𝑛) * \frac{1}{𝑠𝑡𝑑}`，
+
+改写为HzPreprocess节点的计算方式：:math:`norm\_data= (\frac{data}{255}  −𝑚𝑒𝑎𝑛) * \frac{1}{𝑠𝑡𝑑} =(data−255𝑚𝑒𝑎𝑛) * \frac{1}{255𝑠𝑡𝑑}` ，
+
+则：:math:`mean\_yaml = 255 mean、𝑠𝑐𝑎𝑙𝑒\_𝑦𝑎𝑚𝑙=  \frac{1}{255 𝑠𝑡𝑑}` 。
+
+模型推理时的计算公式
+"""""""""""""""""""""""
+
+通过对yaml配置文件中的配置参数，决定是否加入HzPreprocess节点。
+当配置mean/scale时，做模型转换时，会在输入端新增一个HzPreprocess节点，HzPreprocess节点可以理解为对输入数据做了一个conv操作。
+
+HzPreprocess内的计算公式为： :math:`(input（取值范围[-128,127]）+ 128) - mean） * scale`，其中 ``weight=scale``， ``bias=(128-mean) * scale`` 。
+
+.. attention::
+  1. 在yaml中添加mean/scale后，就不需要在前处理内添加MeanTransformer和ScaleTransformer了。
+  2. 在yaml中添加mean/scale，会将参数放入到HzPreprocess节点内，HzPreprocess节点为BPU 节点。
+
+
+transformer说明
+---------------------
+
+本章节将对各个transformer的概念及参数进行说明，并为您提供参考使用示例，方便您进行tranformer操作。
+
+在文档内容开始阅读前，以下内容请您注意：
+
+.. attention::
+  图片数据为三维数据，但地平线提供的transformer都是以四维数据的方式来进行获取和处理的，transformer只会对输入数据中的第0张图片做该操作。
+
+AddTransformer
+^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+对输入图片中的所有像素值做增加value的操作。该transformer会在输出时, 将数据格式转为float32。
+
+**参数**：
+
+- value: 对每个像素做增加的数值, 注意value的取值可以为负数, 如 -128。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 对图像数据做减去128的操作
+  ``AddTransformer(-128)``
+
+  # 对图像数据做增加127的操作
+  ``AddTransformer(127)``
+
+MeanTransformer
+^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+对输入图片中的所有像素值做减去 mean_value 的操作。
+
+**参数**：
+
+- means: 对每个像素做增加的数值, 注意value的取值可以为负数, 如 -128。
+
+- data_format: 输入的layout类型，取值范围为["CHW","HWC"], 默认 "CHW"。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 每个像素减去128.0 输入的类型为CHW
+  MeanTransformer(np.array([128.0, 128.0, 128.0])) 
+
+  # 每个像素减去不同的数值，103.94, 116.78, 123.68，输入的类型为 HWC
+  MeanTransformer(np.array([103.94, 116.78, 123.68]), data_format="HWC") 
+
+ScaleTransformer
+^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+对输入图片中的所有像素值做乘以data_scale系数的操作。
+
+**参数**：
+
+- scale_value: 需要乘以的系数，如0.0078125 或者1/128。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 将取值范围-128~127，所有的像素的调整到-1~1之间
+  ScaleTransformer(0.0078125) 
+  # 或者
+  ScaleTransformer(1/128)
+
+NormalizeTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于对输入图片进行归一化的操作。该transformer会在输出时, 将数据格式转为float32。
+
+**参数**：
+
+- std：输入的第一张图片，需要除以的数值。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 将取值范围[-128, 127] 所有的像素的调整到-1~1之间
+  NormalizeTransformer(128) 
+
+TransposeTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于做layout转换的操作。
+
+**参数**：
+
+- order: 对输入图片做layout转换后的顺序（顺序与原有的layout顺序有关）。如：HWC的顺序为0,1,2，需要转为CHW时，order为(2,0,1)。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # HWC转到CHW
+  TransposeTransformer((2, 0, 1))
+  # CHW转到HWC
+  TransposeTransformer((1, 2, 0))
+
+HWC2CHWTransformer
+^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于将NHWC转换为NCHW的操作。
+
+**参数**：不涉及。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # NHWC转到NCHW
+  HWC2CHWTransformer()
+
+CHW2HWCTransformer
+^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于将NCHW转换为NHWC的操作。
+
+**参数**：不涉及。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # NCHW转到 NHWC
+  CHW2HWCTransformer()
+
+CenterCropTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+以直接截断取值的方式从图片中心裁剪出一个正方形的图片的操作。该transformer会在输出时, 将数据格式转为float32。当data_type的值为uint8时，输出为uint8。
+
+**参数**：
+
+- crop_size: 中心裁剪的正方形的边长size。
+
+- data_type: 输出结果的类型，取值范围为["float", "uint8"]。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 以224*224的方式，做中心裁剪，默认输出类型为float32
+  CenterCropTransformer(crop_size=224) 
+
+  # 以224*224的方式，做中心裁剪，输出类型为uint8
+  CenterCropTransformer(crop_size=224, data_type="uint8")
+
+PILCenterCropTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+使用PIL的方式从图片中心裁剪出一个正方形的图片的操作。该transformer会在输出时, 将数据格式转为float32。
+
+**参数**：
+
+- size: 中心裁剪的正方形的边长size。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 以224*224的方式，使用PIL的方式做中心裁剪
+  PILCenterCropTransformer(size=224)
+
+LongSideCropTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于做长边裁剪的操作。该 transformer 会在输出时, 将数据格式转为float32。
+
+当宽度比高度的数值大时，会裁剪出一个中心以高度大小为准的正方形，如宽100，高70，裁剪之后大小为70*70。
+
+当高度比宽度的数值大时，会裁剪出一个中心以宽度大小不变，高度为差值的一半+宽度 的长方形，如宽70，高100，裁剪之后大小为 `70*（100-70）/2+70` ，即70* 85大小的长方形。
+
+**参数**：不涉及。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  LongSideCropTransformer()
+
+PadResizeTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+使用填充的方式做图像放大的操作。该 transformer 会在输出时, 将数据格式转为float32。
+
+**参数**：
+
+- target_size：目标大小，值为元组，如(240,240)。
+
+- pad_value：填充到数组中的值，默认值为127。
+
+- pad_position：填充的位置，取值范围为["boundary"， "bottom_right"]，默认值为 "boundary"。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 裁剪一个大小为512*512，填充到右下角，填充值为0
+  PadResizeTransformer((512, 512), pad_position='bottom_right', pad_value=0)
+
+  # 裁剪一个大小为608*608，填充到边框，填充值为 127
+  PadResizeTransformer(target_size=(608, 608))
+
+ResizeTransformer
+^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于调整图像大小的操作。
+
+**参数**：
+  
+- target_size：目标大小，值为元组，如(240,240)。
+
+- mode：图片处理模式，取值范围为("skimage"，"opencv")，默认值为 "skimage"。
+
+- method：插值的方法，此参数仅在mode为skimage时生效。取值范围为0-5，默认值为1，其中：
+
+  - 0代表Nearest-neighbor；
+
+  - 1代表Bi-linear(default)；
+
+  - 2代表Bi-quadratic;
+ 
+  - 3代表Bi-cubic;
+
+  - 4代表Bi-quartic;
+ 
+  - 5代表Bi-quintic。
+
+- data_type：输出的类型，取值范围为(uint8，float)，默认为float类型。当被设置为uint8时，输出类型为uint8 ，其他情况为float32。
+
+- interpolation：插值的方法，此参数仅在mode为opencv时生效。默认为空，取值范围为(opencv的插值方式)，
+  目前interpolation仅支持为空或opencv中的INTER_CUBIC两种插值方法，当interpolation为空时，默认使用INTER_LINEAR方式。
+
+  以下为opencv中支持的插值方式及说明（目前未支持的插值方式将在后续迭代中逐步支持）：
+
+  - INTER_NEAREST，最近邻插值；
+
+  - INTER_LINEAR，双线性插值，当interpolation为空时，默认使用这种方法。
+
+  - INTER_CUBIC，双三次插值4x4像素邻域内的双立方插值。
+
+  - INTER_AREA，使用像素面积关系重采样。它可能是图像抽取的首选方法，因为它可以提供无莫尔条纹的结果。但是当图像被缩放时，它类似于INTER_NEAREST方法。
+
+  - INTER_LANCZOS4，8x8邻域的Lanczos插值。
+
+  - INTER_LINEAR_EXACT，位精确双线性插值。
+
+  - INTER_NEAREST_EXACT，位精确最近邻插值。这将产生与PIL、scikit-image或Matlab中的最近邻方法相同的结果。
+
+  - INTER_MAX，插值代码的掩码。
+
+  - WARP_FILL_OUTLIERS，标志，填充所有目标图像像素。如果其中一些对应于源图像中的异常值，则将它们设置为零。
+
+  - WARP_INVERSE_MAP，标志，逆变换。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 将输入图片大小调整为224*224，采用 opencv 的方式处理图片，插值的方式为双线性，输出为float32
+  ResizeTransformer(target_size=(224, 224), mode='opencv', method=1)
+
+  # 将输入图片大小调整为256*256，采用skimage的方式处理图片，插值的方式为双线性，输出为float32
+  ResizeTransformer(target_size=(256, 256))
+
+  # 将输入图片大小调整为256*256，采用skimage的方式处理图片，插值的方式为双线性，输出为uint8
+  ResizeTransformer(target_size=(256, 256), data_type="uint8")
+
+PILResizeTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+使用PIL库做调整图像大小的操作。
+
+**参数**：
+
+- size：目标大小，值为元组，如(240,240)。
+
+- interpolation：指定插值的方式，取值范围：(Image.NEAREST，Image.BILINEAR，Image.BICUBIC，Image.LANCZOS)， 默认值为Image.BILINEAR。
+
+  - Image.NEAREST：最近邻采样；
+
+  - Image.BILINEAR：线性插值；
+ 
+  - Image.BICUBIC：三次样条插值；
+ 
+  - Image.LANCZOS：高质量下采样滤波器。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 将输入图片大小调整为256*256 插值的方式为线性插值
+  PILResizeTransformer(size=256)
+
+  # 将输入图片大小调整为256*256 插值的方式为高质量下采样滤波器
+  PILResizeTransformer(size=256, interpolation=Image.LANCZOS)
+
+ShortLongResizeTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+按照原比例对输入图片进行缩放的操作，新图片的大小与设置的参数有关。操作方式如下：
+
+1. 先以short_size的大小除以原图片的宽和高里最小值，以这个值为缩放比例系数。
+
+2. 当缩放比例系数乘以原图片的宽和高中的最大值，得到的结果大于long_size的数值时，缩放比例系数将变更为long_size除以原图片的宽和高中的最大值。
+
+3. 使用opencv中的resize方法，根据上方得到的缩放比例系数重新裁剪图片。
+
+**参数**：
+
+- short_size：预期裁剪后的短边的长度。
+
+- long_size：预期裁剪后的长边的长度。
+
+- include_im：默认值为True，设置为True时, 会在返回时除了返回处理后的图片, 还会返回原图片。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 短边长度为20，长边长度为100，返回处理后的图片及原图片
+  ShortLongResizeTransformer(short_size=20, long_size=100)
+
+PadTransformer
+^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+通过用目标大小的size值除以输入图片宽或者高里的最大值为系数，然后使用这个系数乘以原有的宽高，resize图片。
+然后根据新图片的大小，除以size_divisor后向上取整后，再乘以size_divisor，为新的宽高，生成新的图片的操作。
+
+**参数**：
+
+- size_divisor：大小除数 ，默认值为128。
+
+- target_size：目标大小，默认值为512。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # pad大小为1024*1024
+  PadTransformer(size_divisor=1024, target_size=1024)
+
+ShortSideResizeTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+根据期望的短边的长度，使用现在的长短边的比例，中心裁剪出新的图片大小的操作。
+
+**参数**：
+
+- short_size：预期的短边的长度。
+
+- data_type：输出结果的类型，取值范围为("float","uint8")，默认取值"float32", 以 float32 类型输出，设置为uint8时，输出类型将为uint8。
+
+- interpolation：指定插值的方式，取值范围为 opencv 中采用的插值方式，默认为空。
+  
+  目前interpolation仅支持为空或opencv中的INTER_CUBIC两种插值方法，当interpolation为空时，默认使用INTER_LINEAR方式。
+
+  以下为opencv中支持的插值方式及说明（目前未支持的插值方式将在后续迭代中逐步支持）：
+
+  - INTER_NEAREST，最近邻插值；
+
+  - INTER_LINEAR，双线性插值，当interpolation为空时，默认使用这种方法。
+
+  - INTER_CUBIC，双三次插值4x4像素邻域内的双立方插值。
+
+  - INTER_AREA，使用像素面积关系重采样。它可能是图像抽取的首选方法，因为它可以提供无莫尔条纹的结果。但是当图像被缩放时，它类似于INTER_NEAREST方法。
+
+  - INTER_LANCZOS4，8x8邻域的Lanczos插值。
+
+  - INTER_LINEAR_EXACT，位精确双线性插值。
+
+  - INTER_NEAREST_EXACT，位精确最近邻插值。这将产生与PIL、scikit-image或Matlab中的最近邻方法相同的结果。
+
+  - INTER_MAX，插值代码的掩码。
+
+  - WARP_FILL_OUTLIERS，标志，填充所有目标图像像素。如果其中一些对应于源图像中的异常值，则将它们设置为零。
+
+  - WARP_INVERSE_MAP，标志，逆变换。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 将短边大小调整为256，插值方式为双线性插值
+  ShortSideResizeTransformer(short_size=256)
+
+  # 将短边大小调整为256，插值方式为 8x8像素邻域内的Lanczos插值
+  ShortSideResizeTransformer(short_size=256, interpolation=Image.LANCZOS4) 
+
+PaddedCenterCropTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+使用填充的方式对图片中心进行裁剪的操作。
+
+.. attention::
+
+  仅适用于EfficientNet-lite相关实例模型。
+
+  计算方式为：
+
+  1. 计算系数，int((float( image_size ) / ( image_size + crop_pad ))。
+
+  2. 计算中心size的大小， 系数 * np.minimum( 原始图片的高度, 原始图片的宽度 ))。
+
+  3. 根据计算出来的size大小，做中心裁剪。
+
+**参数**：
+
+- image_size：图片的大小，默认值为224。
+
+- crop_pad：中心填充的大小，默认值为32。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 裁剪大小为240*240，填充值为32
+  PaddedCenterCropTransformer(image_size=240, crop_pad=32)
+
+  # 裁剪大小为224*224，填充值为32
+  PaddedCenterCropTransformer()
+
+BGR2RGBTransformer
+^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由BGR转成RGB的操作。
+
+**参数**：
+
+- data_format：数据格式，取值范围为(CHW,HWC)，默认值为CHW。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做BGR转为RGB
+  BGR2RGBTransformer() 
+
+  # layout为NHWC时，做BGR转为RGB
+  BGR2RGBTransformer(data_format="HWC")
+
+RGB2BGRTransformer
+^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由RGB转成BGR的操作。
+
+**参数**：
+
+- data_format：数据格式，取值范围为(CHW,HWC)，默认值为CHW。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做RGB转成BGR
+  RGB2BGRTransformer() 
+
+  # layout为NHWC时，做RGB转成BGR
+  RGB2BGRTransformer(data_format="HWC")
+
+RGB2GRAYTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由RGB转成GRAY的操作。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围("CHW","HWC")，默认为"CHW"。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做RGB转成GRAY
+  RGB2GRAYTransformer(data_format='CHW')
+
+  # layout为NHWC时，做RGB转成GRAY
+  RGB2GRAYTransformer(data_format='HWC')
+
+BGR2GRAYTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由 BGR 转成 GRAY 的操作。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围 ["CHW","HWC"]，默认值为"CHW"。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做BGR转成GRAY
+  BGR2GRAYTransformer(data_format='CHW')
+
+  # layout为NHWC时，做BGR转成GRAY
+  BGR2GRAYTransformer(data_format='HWC')
+
+RGB2GRAY_128Transformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+输入格式由RGB转成GRAY_128的操作。GRAY_128取值范围为(-128,127)。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW","HWC"]，默认值为"CHW"，此项为必填项。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做RGB转成GRAY_128
+  RGB2GRAY_128Transformer(data_format='CHW')
+
+  # layout为NHWC时，做RGB转成GRAY_128
+  RGB2GRAY_128Transformer(data_format='HWC')
+
+RGB2YUV444Transformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由RGB转成YUV444的操作。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW", "HWC"]，默认值为"CHW"，此项为必填项。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做BGR转成YUV444
+  BGR2YUV444Transformer(data_format='CHW')
+
+  # layout为NHWC时，做BGR转成YUV444
+  BGR2YUV444Transformer(data_format='HWC')
+
+BGR2YUV444Transformer
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由BGR转成YUV444的操作。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW","HWC"]，默认值为 "CHW"，此项为必填项。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做BGR转成YUV444
+  BGR2YUV444Transformer(data_format='CHW')
+
+  # layout为NHWC时，做BGR转成YUV444
+  BGR2YUV444Transformer(data_format='HWC')
+
+BGR2YUV444_128Transformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由BGR转成YUV444_128的操作。YUV444_128取值范围为(-128,127)。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW","HWC"]，默认值为 "CHW"，此项为必填项。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做BGR转成YUV444_128
+  BGR2YUV444_128Transformer(data_format='CHW') 
+
+  # layout为NHWC时，做BGR转成YUV444_128
+  BGR2YUV444_128Transformer(data_format='HWC')
+
+RGB2YUV444_128Transformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由RGB转成YUV444_128的操作。YUV444_128取值范围为(-128,127)。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW","HWC"]，默认值为"CHW"，此项为必填项。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW 时，做RGB转成YUV444_128
+  RGB2YUV444_128Transformer(data_format='CHW') 
+
+  # layout为NHWC时，做RGB转成 YUV444_128
+  RGB2YUV444_128Transformer(data_format='HWC')
+
+BGR2YUVBT601VIDEOTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由BGR转成YUV_BT601_Video_Range的操作。
+
+YUV_BT601_Video_Range，某些摄像头输入数据都是YUV BT601(Video Range)格式的，取值范围为16~235，该transformer就是适配这种格式的数据产生的。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW","HWC"]，默认值为"CHW"，此项为必填项。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为 NCHW时，做BGR转成YUV_BT601_Video_Range
+  BGR2YUVBT601VIDEOTransformer(data_format='CHW')
+
+  # layout为NHWC时，做BGR转成YUV_BT601_Video_Range
+  BGR2YUVBT601VIDEOTransformer(data_format='HWC')
+
+RGB2YUVBT601VIDEOTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由RGB转成YUV_BT601_Video_Range的操作。
+
+YUV_BT601_Video_Range，某些摄像头输入数据都是YUV BT601(Video Range)格式的，取值范围为16~235，该transformer就是适配这种格式的数据产生的。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW","HWC"]，默认值为"CHW"，此项为必填项。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，做RGB转成YUV_BT601_Video_Range
+  RGB2YUVBT601VIDEOTransformer(data_format='CHW')
+
+  # layout为NHWC时，做RGB转成YUV_BT601_Video_Range
+  RGB2YUVBT601VIDEOTransformer(data_format='HWC')
+
+YUVTransformer
+^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式转成YUV444的操作。
+
+**参数**：
+
+- color_sequence：颜色序列，此项为必填项。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 将BGR读入的图片转为YUV444
+  YUVTransformer(color_sequence="BGR")
+
+  # 将RGB读入的图片转为YUV444
+  YUVTransformer(color_sequence="RGB")
+
+ReduceChannelTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将C通道缩减为单通道的操作。该transformer主要是针对于C通道，如shape为1*3*224*224 改为1*1*224*224。 使用时layout一定要和data_format值对齐，避免造成删错通道。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW", "HWC"]，默认值为"CHW"。
+
+**使用举例**：
+
+.. code-block:: bash
+  
+  # 删除layout为NCHW的C通道
+  ReduceChannelTransformer()
+  # 或者
+  ReduceChannelTransformer(data_format="CHW") 
+
+  # 删除layout为NHWC的C通道
+  ReduceChannelTransformer(data_format="HWC")
+
+BGR2NV12Transformer
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由BGR转成NV12的操作。
+
+**参数**：
+
+- data_format：输入的layout类型，取值范围为["CHW","HWC"]，默认值为"CHW"。
+
+- cvt_mode：cvt模式，取值范围为(rgb_calc，opencv)，默认值为rgb_calc。
+
+  - rgb_calc，采用mergeUV的方式处理图片；
+
+  - opencv，采用opencv的方式处理图片。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，由BGR转为NV12，采用rgb_calc模式处理图片
+  BGR2NV12Transformer()
+  # 或者
+  BGR2NV12Transformer(data_format="CHW") 
+
+  # layout为NHWC时，由BGR转为NV12，采用opencv模式处理图片
+  BGR2NV12Transformer(data_format="HWC", cvt_mode="opencv")
+
+RGB2NV12Transformer
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由RGB转成NV12的操作。
+
+**参数**：
+
+- data_format：输入的 layout 类型，取值范围 ["CHW", "HWC"], 默认值为"CHW"。
+
+- cvt_mode：cvt模式，取值范围为(rgb_calc,opencv)，默认值为rgb_calc。
+
+  - rgb_calc，采用mergeUV的方式处理图片；
+
+  - opencv，采用opencv的方式处理图片。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW时，有RGB转为NV12，采用rgb_calc模式处理图片
+  RGB2NV12Transformer()
+  # 或者
+  RGB2NV12Transformer(data_format="CHW") 
+
+  # layout为NHWC时，有RGB转为NV12，采用opencv模式处理图片
+  RGB2NV12Transformer(data_format="HWC", cvt_mode="opencv")
+
+NV12ToYUV444Transformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+将输入格式由NV12转成YUV444的操作。
+
+**参数**：
+
+- target_size：目标大小，值为元组，如(240,240)。
+- yuv444_output_layout：yuv444输出的layout，取值范围为(HWC,CHW)，默认值为"HWC"。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # layout为NCHW ，大小为768*768, nv12转yuv444 
+  NV12ToYUV444Transformer(target_size=(768, 768))
+
+  # layout为NHWC ，大小为224*224, nv12转yuv444 
+  NV12ToYUV444Transformer((224, 224), yuv444_output_layout="HWC") 
+
+WarpAffineTransformer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于做图像仿射变换的操作。
+
+**参数**：
+
+- input_shape：输入的shape值。
+
+- scale：乘以的系数。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 大小为512*512，长边长度为1.0
+  WarpAffineTransformer((512, 512), 1.0)
+
+F32ToS8Transformer
+^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于做输入格式从float32转换为int8的操作。
+
+**参数**：不涉及。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 输入格式从 float32转为 int8 
+  F32ToS8Transformer()
+
+F32ToU8Transformer
+^^^^^^^^^^^^^^^^^^^^^^^
+
+**说明**：
+
+用于做输入格式从float32转换为uint8的操作。
+
+**参数**：不涉及。
+
+**使用举例**：
+
+.. code-block:: bash
+
+  # 输入格式从 float32 转为 uint8 
+  F32ToU8Transformer()
+
+
+常见故障处理
+---------------------
+
+本章节为您介绍在使用地平线J5工具链产品时，您可能遇到的一些异常故障现象。针对这些故障，我们为您提供对应故障的可能原因及通用解决建议，方便您快速定位问题及解决故障。
+
+hb_mapper checker 常见故障
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**背景信息**：模型检查命令（ ``hb_mapper checker`` ）
+
+在实际工程中，由于并非所有浮点模型均能够转为量化模型，因此在转换之前需要进行一次检查，这个check过程，会完成一遍模型转换的过程，
+但是对于比较耗时的步骤，进行了简化处理。该命令在完成模型的检查后, 会输出检查结果和OP在设备上的部署情况。
+
+**故障场景**：以下为在使用 ``hb_mapper checker`` 时常见的故障场景：
+
+1. 故障现象一：
+
+.. code-block:: bash
+  
+  ERROR The shape of model input:input is [xxx] which has dimensions of 0. 
+  Please specify input-shape parameter.
+
+故障可能原因：发生此故障的原因可能是模型输入为动态shape。
+
+解决建议：针对此故障，您可使用参数 ``--input-shape "input_name input_shape"`` 来指定输入节点的shape信息。
+
+2. 故障现象二：
+
+.. code-block:: bash
+  
+  ERROR HorizonRT not support these cpu operators: {op_type}
+
+故障可能原因：发生此故障的原因可能是使用的CPU算子为地平线不支持的CPU算子。
+
+解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容对算子进行替换；若不被支持的CPU算子为模型核心算子，请您联系地平线对此进行开发评估。
+
+3. 故障现象三：
+
+.. code-block:: bash
+
+  Unsupported op {op_type}
+
+故障可能原因：发生此故障的原因可能是使用的BPU算子为地平线不支持的BPU算子。
+
+解决建议：针对此故障，若模型整体性能可满足需要，您可以忽略该日志；若模型整体性能不能达到您的预期，您可以根据我们提供的算子支持列表中的内容对算子进行替换。
+
+4. 故障现象四：
+
+.. code-block:: bash
+
+  ERROR nodes:['{op_type}'] are specified as domain:xxx, which are not supported by official onnx. 
+  Please check whether these ops are official onnx ops or defined by yourself
+
+故障可能原因：发生此故障的原因可能是使用的自定义算子为地平线不支持的自定义算子。
+
+解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容对算子进行替换或参考 `地平线开发者论坛-自定义算子开发 <https://developer.horizon.ai/forumDetail/71036525692881018>`_ 中的内容完成自定义CPU算子注册。
+
+hb_mapper makertbin常见故障
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**背景信息**：模型编译命令（ ``hb_mapper makertbin`` ）
+
+该命令根据配置文件和模型的种类，会生成ONNX量化模型以及仿真上板情况的runtime模型。 
+
+**故障场景**：以下为在使用 ``hb_mapper makertbin`` 时常见的故障场景：
+
+1. 故障现象一：
+
+.. code-block:: bash
+
+  Layer {op_name}  
+    xxx expect data shape range:[[xxx][xxx]], but the data shape is [xxx]
+  Layer {op_name}
+    Tensor xxx expects be n dimensions, but m provided 
+
+故障可能原因：发生此故障的原因可能是，{op_name}算子超过支持限制被回退到CPU计算。
+
+解决建议：针对此故障，若CPU算子带来的性能损耗您可接受，则无需关注该信息；若性能不能达到您的要求，您可以根据我们提供的算子支持列表中的内容将该op修改至BPU可支持的范围。
+
+2. 故障现象二：
+
+.. code-block:: bash
+
+  ERROR There is an error in pass: {op_name}. Error message:xxx
+
+故障可能原因：发生此故障的原因可能是，{op_name}算子优化失败。
+
+解决建议：针对此故障，请您将模型以及.log文件收集好后提供给地平线技术人员进行分析处理。
+
+3. 故障现象三：
+
+.. code-block:: bash
+
+  Error There is an error in pass:constant_folding. 
+  Error message: Could not find an implementation for the node {op_name}
+
+故障可能原因：发生此故障的原因可能是该算子onnxruntime暂未支持。
+
+解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容对算子进行替换，如不被支持的算子为核心算子，请您联系地平线对此进行开发评估。
+
+4. 故障现象四：
+
+.. code-block:: bash
+
+  Start to parse the onnx model
+  core dump
+
+故障可能原因：发生此故障的原因可能是模型解析失败（可能是导出模型时只为一个output/input节点指定了name）。
+
+解决建议：针对此故障，建议您重新导出onnx并确认其有效性（导出onnx模型时不指定output/input name，或者依次为每个output/input节点指定名称）。
+
+5. 故障现象五：
+
+.. code-block:: bash
+
+  Start to calibrate/quantize the model
+  core dump
+
+  Start to compile the model 
+  core dump
+
+故障可能原因：发生此故障的原因可能是模型量化/编译失败。
+
+解决建议：针对此故障，请您将模型以及.log文件收集好后提供给地平线技术人员进行分析处理。
+
+6. 故障现象六：
+
+.. code-block:: bash
+
+  ERROR model conversion faild: Inferred shape and existing shape differ in dimension x: (n) vs (m)
+
+故障可能原因：发生此故障的原因可能是onnx模型的输入shape非法，或者是工具优化pass有误。
+
+解决建议：针对此故障，请您确保onnx模型的有效性，若onnx模型可正常推理，请将模型提供给地平线技术人员进行分析处理。
+
+7. 故障现象七：
+
+.. code-block:: bash
+
+  WARNING got unexpected input/output/sumin threshold on conv {op_name}! value: xxx
+
+故障可能原因：发生此故障的原因可能是数据预处理有误，或该节点weight值太小/太大。
+
+解决建议：针对此故障，请您检查数据预处理是否有误；我们建议您使用BN算子优化数据分布。
+
+8. 故障现象八：
+
+.. code-block:: bash
+
+  ERROR hbdk-cc compile hbir model failed with returncode -n
+
+故障可能原因：发生此故障的原因可能是模型编译失败。
+
+解决建议：针对此故障，请您将模型以及.log文件收集好后提供给地平线技术人员进行分析处理。
+
+9. 故障现象九：
+
+.. code-block:: bash
+
+  ERROR {op_type}  only support 4 dim input
+
+故障可能原因：发生此故障的原因可能是工具链暂不支持该op输入维度为非四维。
+
+解决建议：针对此故障，我们建议您将该op输入维度调整为四维输入。
+
+10. 故障现象十：
+
+.. code-block:: bash
+
+  ERROR {op_type} Not support this attribute/mode=xxx
+
+故障可能原因：发生此故障的原因可能是工具链暂不支持op的该属性。
+
+解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容进行替换或联系地平线对此进行开发评估。
+
+11. 故障现象十一：
+
+.. code-block:: bash
+
+  ERROR There is no node can execute on BPU in this model, 
+  please make sure the model has at least one conv node which is supported by BPU.
+
+故障可能原因：发生此故障的原因可能是模型中没有可量化的BPU节点。
+
+解决建议：针对此故障，请您确保onnx模型的有效性，且模型中至少使用了一个conv；若前述条件均已满足，请您将模型以及.log文件收集好后提供给地平线技术人员进行分析处理。
+
+12. 故障现象十二：
+
+.. code-block:: bash
+
+  ERROR The opset version of the onnx model is n, only model with opset_version 10/11 is supported 
+
+故障可能原因：发生此故障的原因可能是模型opset版本超出工具链支持限制。
+
+解决建议：针对此故障，请您重新导出模型，确保opset_version=10或者11。
+
+13. 故障现象十三：
+
+**在使用run_on_bpu后转换报错。**
+
+故障可能原因：发生此故障的原因可能是目前暂不支持将该算子run_on_bpu。
+
+解决建议：run_on_bpu暂仅支持指定模型尾部的Relu/Softmax/pooling（maxpool、avgpool等）算子以及CPU*+Transpose组合（可通过声明Transpose节点名称，将CPU*+Transpose都运行在BPU上，CPU*特指BPU支持的op），
+若满足前述条件但仍run_on_bpu失败，请您联系地平线技术人员对此进行分析处理；若不满足前述条件，可联系地平线技术人员对此进行开发评估。
+
+14. 故障现象十四：
+
+.. code-block:: bash
+
+  ERROR unsupported model: BAYES not support excute one model on 2core simultaneously now
+
+故障可能原因：发生此故障的原因是J5目前暂不支持编译双核模型。
+
+解决建议：针对此故障，建议您将yaml配置文件中的core_num设置为1。
+
+15. 故障现象十五：
+
+.. code-block:: bash
+
+  ERROR tool limits for max output num is 32
+
+故障可能原因：发生此故障的原因可能是工具链仅支持模型输出节点数量不超过32。
+
+解决建议：针对此故障，建议您将模型输出节点数量控制在32个以内。
+
+hb_model_modifier常见故障
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**背景信息**： ``hb_model_modifier`` 工具用于对指定的runtime模型中输入端的Transpose、Quantize节点和输出端的Transpose、Dequanti、Cast、Reshape、softmax节点进行删除操作， 
+并将删除节点的信息存放在BIN模型中，可以通过 hb_model_info 进行查看。  
+
+**故障场景**：以下为在使用 ``hb_model_modifier`` 时常见的故障场景：
+
+故障现象：
+
+.. code-block:: bash
+
+  ERROR Can not find value info {op_name}
+
+故障可能原因：该问题为地平线已知问题，于OE1.1.14版本进行了修复。
+
+解决建议：针对此故障，请您完整更新OE开发包或将horizon-tc-ui升级至1.7.8。
+
+hb_model_verifier常见故障
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**背景信息**： ``hb_model_verifier`` 工具是用于对指定的定点模型和runtime模型进行结果验证的工具。 
+该工具会使用指定图片，进行定点模型推理，runtime模型板端和x86端模拟器上的推理，并对其三方的结果进行两两比较，给出是否通过的结论。 
+
+**故障场景**：以下为在使用 ``hb_model_verifier`` 时常见的故障场景：
+
+1. 故障现象一：
+
+.. code-block:: bash
+
+  ERROR Arm result does not exist, program halted
+
+故障可能原因：发生此故障后，您可查看终端执行日志相关提示，一般原因为板子连接失败或板端推理失败。
+
+解决建议：针对此故障，若查看到连接失败的相关提示，请您再次确认在当前环境中是否可ping通开发板；
+若相关提示为板端推理失败，可通过在板端的 ``/userdata/model_verifier_test`` 路径下执行 ``infer.sh`` 来查看推理失败的具体原因。
+
+2. 故障现象二：
+
+.. code-block:: bash
+
+  ERROR Quanti onnx and Arm result Strict check FAILED
+
+故障可能原因：发生此故障的原因可能是模型一致性比对失败。
+
+解决建议：针对此故障，请您将模型提供给地平线技术人员进行分析处理。
+
+hb_onnxruntime常见故障
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**背景信息**： ``hb_onnxruntime`` 主要是用于onnx模型推理的类。
+
+**故障场景**：以下为在使用 ``hb_onnxruntime`` 时常见的故障场景：
+
+故障现象：
+
+.. code-block:: bash
+
+  ERROR [ONNXRuntimeError] : 2：INVALID_ARGUMENT : Unexpected input data type. 
+  Actual: (N11onnxruntime17PrimitiveDataTypexxx), expected: (N11onnxruntime17PrimitiveDataTypexxx)
+
+故障可能原因：发生此故障的原因可能是输入数据格式与模型不匹配。
+
+解决建议：针对此故障，一般来说浮点onnx模型的输入格式为float32，量化后模型输入格式为int8。可使用可视化工具查看onnx模型input节点的属性。
+
+libDNN常见故障
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**背景信息**： ``libDNN`` 主要是用于地平线模型的推理库。
+
+**故障场景**：以下为在使用 ``libDNN`` 时常见的故障场景：
+
+1. 故障现象一：
+
+.. code-block:: bash
+
+  (common.h:79): HR:ERROR: op_name:xxx invalid attr key xxx
+
+故障可能原因：发生此故障的原因可能是libDNN暂不支持该op的某个属性（后续我们将逐步把算子约束前移至模型转换阶段提醒）。
+
+解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容进行替换或联系地平线对此进行开发评估。
+
+2. 故障现象二：
+
+.. code-block:: bash
+
+  (hb_dnn_ndarray.cpp:xxx): data type of ndarray do not match specified type. NDArray dtype_: n, given：m
+
+故障可能原因：发生此故障的原因可能是libDNN暂不支持该输入类型（后续我们将逐步把算子约束前移至模型转换阶段提醒）。
+
+解决建议：针对此故障，您可以根据我们提供的算子支持列表中的内容进行替换或联系地平线对此进行开发评估。
+
+3. 故障现象三：
+
+.. code-block:: bash
+
+  (validate_util.cpp:xxx)：tensor aligned shape size is xxx , but tensor hbSysMem memSize is xxx, 
+  tensor hbSysMem memSize should >= tensor aligned shape size!
+
+故障可能原因：发生此故障的原因可能是输入数据申请内存不足。
+
+解决建议：针对此故障，由于使用hrt_model_exec model_info查看模型input节点的aligned shape，是按aligned shape*size_of(tensor type)来申请内存空间的。
+此处我们建议：若您的libDNN版本高于1.5.4b，建议直接使用hbDNNTensorProperties.alignedByteSize来申请内存空间，若您的libDNN版本低于1.5.4b版本则直接使用aligned*size来申请内存空间。
+
+4. 故障现象四：
+
+.. code-block:: bash
+
+  (bpu_model_info.cpp:xxx): HR:ERROR: hbm model input feature names must be equal to graph node input names
+
+故障可能原因：该问题为地平线已知问题，属于hb_model_modifer工具已知问题，已于OE1.1.14版本进行了修复。
+
+解决建议：针对此故障，请您完整更新OE开发包或将horizon-tc-ui升级至1.7.8版本。

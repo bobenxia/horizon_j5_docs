@@ -1,0 +1,42 @@
+PTQ浮点定点模型转换工具包
+=============================
+
+.. tip::
+
+  建议您在阅读本章内容之前先完成以下准备工作：
+
+  1. 阅读《地平线J5 AI芯片工具链用户手册》 `产品介绍 <../horizon_ai_toolchain_user_guide/product_introduction.html>`_
+     章节中PTQ浮点定点模型转换方案的相关内容和
+     `PTQ浮点定点模型转换方案 <../horizon_ai_toolchain_user_guide/ptq_solution.html>`_ 内容，
+     以了解对PTQ方案和模型转换步骤。
+  #. 根据《地平线J5 AI芯片工具链用户手册》中的环境部署章节的
+     `使用Docker环境 <../horizon_ai_toolchain_user_guide/env_prepare.html#docker>`_
+     的内容完成了Docker环境安装配置和镜像拉取。
+  #. 运行《J5 AI工具链示例文档》
+     `PTQ模型转换示例手册 <../horizon_model_convert_sample/index.html>`_
+     章节中的模型转换相关示例。
+
+本章内容主要介绍地平线PTQ浮点定点模型转换方案的模型转换工具包。
+该工具包可在开发机或Docker环境下运行。
+如果您选择在开发机中运行该工具包，则需要在J5天工开物发布物（即：horizon_j5_open_explorer）的 ``ddk/package/host``
+路径下运行 ``install.sh`` 脚本进行安装。安装完成后，运行 ``hb_mapper --help`` 命令验证工具安装是否成功。
+如果您选择在Docker容器中运行该工具，则无需以上安装步骤，根据 《地平线J5 AI芯片工具链用户手册》中环境部署章节的
+`使用Docker环境 <../horizon_ai_toolchain_user_guide/env_prepare.html#docker>`_ 
+进入Docker容器后，然后运行 ``hb_mapper --help`` 命令验证工具安装是否成功。
+
+下面几节内容为您介绍模型转换过程的细节和工具包的各工具使用方法。
+
+.. toctree::
+  :maxdepth: 2
+  :caption: 本章节目录结构：
+
+  hb_mapper/model_conversion_details
+  hb_mapper/hb_mapper
+  hb_mapper/hb_perf
+  hb_mapper/vec_diff
+  hb_mapper/model_info
+  hb_mapper/hb_pack
+  hb_mapper/hb_model_verifier
+  hb_mapper/hb_model_modifier
+  hb_mapper/hb_custom_op
+  hb_mapper/hb_eval_preprocess

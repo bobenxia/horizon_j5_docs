@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. PTQ浮点定点模型转换方案 &mdash; Horizon J5 AI Toolchain User Guide  文档</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom-style.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="3.1. 概述" href="ptq_solution/general_description.html" />
+    <link rel="prev" title="2. 环境部署" href="env_prepare.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> Horizon J5 AI Toolchain User Guide
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">本手册目录结构:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="product_introduction.html">1. 产品介绍</a></li>
+<li class="toctree-l1"><a class="reference internal" href="env_prepare.html">2. 环境部署</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. PTQ浮点定点模型转换方案</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/general_description.html">3.1. 概述</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html">3.2. 模型转换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/custom_op.html">3.3. 自定义算子开发</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application_development.html">4. runtime应用开发</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsp.html">5. DSP开发文档</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">6. 附录</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Horizon J5 AI Toolchain User Guide</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><span class="section-number">3. </span>PTQ浮点定点模型转换方案</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ptq">
+<h1><span class="section-number">3. </span>PTQ浮点定点模型转换方案<a class="headerlink" href="#ptq" title="永久链接至标题"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">备注</p>
+<p>本章内容介绍如何使用PTQ浮点定点模型转换方案完成模型训练、转换、算子开发、应用开发等关键步骤。</p>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution/general_description.html">3.1. 概述</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution/conversion.html">3.2. 模型转换</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html#id2">3.2.1. 简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html#fp-model-preparation">3.2.2. 浮点模型准备</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html#model-check">3.2.3. 验证模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#hb-mapper-checker">3.2.3.1. 使用 <code class="docutils literal notranslate"><span class="pre">hb_mapper</span> <span class="pre">checker</span></code> 工具验证模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#id5">3.2.3.2. 检查异常处理</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#check-result">3.2.3.3. 检查结果解读</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#id7">3.2.3.4. 检查结果的调优指导</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html#model-conversion">3.2.4. 转换模型</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#hb-mapper-makertbin">3.2.4.1. 使用 <code class="docutils literal notranslate"><span class="pre">hb_mapper</span> <span class="pre">makertbin</span></code> 工具转换模型</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#conversion-interpretation">3.2.4.2. 转换内部过程解读</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#prepare-calibration-data">3.2.4.3. 准备校准数据</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#id11">3.2.4.4. 转换结果解读</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#conversion-output">3.2.4.5. 转换产出物解读</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html#performance-evaluation">3.2.5. 模型性能分析与调优</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#hb-perf">3.2.5.1. 使用 <code class="docutils literal notranslate"><span class="pre">hb_perf</span></code> 工具估计性能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#id15">3.2.5.2. 开发板实测性能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#model-performance-optimization">3.2.5.3. 模型性能优化</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html#accuracy-evaluation">3.2.6. 模型精度分析与调优</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#id18">3.2.6.1. 模型精度分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#accuracy-optimization">3.2.6.2. 精度调优</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#qat">3.2.6.3. 使用QAT量化感知训练方案进一步提升模型精度</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ptq_solution/conversion.html#about-quantization">3.2.6.3.1. 关于量化</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ptq_solution/conversion.html#about-conversion">3.2.6.3.2. 关于模型转换</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ptq_solution/conversion.html#about-quantization-compile">3.2.6.3.3. 关于模型量化编译流程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ptq_solution/conversion.html#qat-quantzation-compile">3.2.6.3.4. QAT模型量化编译介绍</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html#op-restrictions">3.2.7. 算子约束</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/conversion.html#other-tools">3.2.8. 其他模型工具（可选）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#id27">3.2.8.1. 模型打包</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#id28">3.2.8.2. 模型信息查看</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/conversion.html#bin">3.2.8.3. bin模型节点修改</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ptq_solution/custom_op.html">3.3. 自定义算子开发</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/custom_op.html#id2">3.3.1. 简介</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/custom_op.html#id3">3.3.2. 含自定义算子的模型转换</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/custom_op.html#id4">3.3.2.1. 模型文件修改</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/custom_op.html#id5">3.3.2.2. 算子实现</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ptq_solution/custom_op.html#id7">3.3.3. 含自定义算子的上板运行</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/custom_op.html#c">3.3.3.1. 自定义算子C++模版</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ptq_solution/custom_op.html#id8">3.3.3.2. 自定义算子注册</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="env_prepare.html" class="btn btn-neutral float-left" title="2. 环境部署" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="ptq_solution/general_description.html" class="btn btn-neutral float-right" title="3.1. 概述" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2022, Horizon Robotics.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
